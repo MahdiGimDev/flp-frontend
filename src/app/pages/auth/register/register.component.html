@@ -1,0 +1,148 @@
+<div class="card">
+  <div class="card-header bg-transparent" style="border: none;">
+    <div class="text-muted text-center mt-2 mb-4">
+      <small>Sign up with</small>
+    </div>
+    <div class="text-center">
+      <a href="javascript:void(0)" (click)="googleAuth()" class="btn btn-neutral btn-icon">
+        <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg" /></span>
+        <span class="btn-inner--text">Google</span>
+      </a>
+    </div>
+  </div>
+  <div class="card-body px-lg-5 py-lg-5">
+    <div class="text-center text-muted mb-4">
+      <small>Or sign up with credentials</small>
+    </div>
+    <form role="form" [formGroup]="registerForm">
+      <div class="form-group">
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['username'].hasError('required') &&
+                  registerForm.controls['username'].touched
+                ">
+          * Username is required!
+        </div>
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['username'].hasError('pattern') &&
+                  registerForm.controls['username'].touched
+                ">
+          * Username Should contain only characters!
+        </div>
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['username'].hasError('minlength') &&
+                  registerForm.controls['username'].touched
+                ">
+          * Username must be at least 5 characters long
+        </div>
+        <div class="input-group input-group-alternative mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <nb-icon icon="person-outline" pack="eva"></nb-icon>
+            </span>
+          </div>
+          <input formControlName="username" class="form-control" placeholder="UserName" type="text" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['email'].hasError('required') &&
+                  registerForm.controls['email'].touched
+                ">
+          * Email is required!
+        </div>
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['email'].hasError('pattern') &&
+                  registerForm.controls['email'].touched
+                ">
+          * This email format is invalid!
+        </div>
+        <div class="input-group input-group-alternative mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <nb-icon icon="email-outline" pack="eva"></nb-icon>
+            </span>
+          </div>
+          <input formControlName="email" class="form-control" placeholder="Email" type="email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['password'].hasError('required') &&
+                  registerForm.controls['password'].touched
+                ">
+          * Password is required!
+        </div>
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['password'].hasError('minlength') &&
+                  registerForm.controls['password'].touched
+                ">
+          * Password must be at least 8 characters long
+        </div>
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <nb-icon icon="lock-outline" pack="eva"></nb-icon>
+            </span>
+          </div>
+          <input formControlName="password" class="form-control" placeholder="Password" type="password" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="error_msg" *ngIf="
+                  registerForm.controls['confirmPassword'].hasError(
+                    'required'
+                  ) && registerForm.controls['confirmPassword'].touched
+                ">
+          * Confirm Password is required!
+        </div>
+        <div class="error_msg" *ngIf="
+                  registerForm.hasError('notSame') &&
+                  registerForm.controls['confirmPassword'].touched
+                ">
+          * Password & Confirm Password should be same
+        </div>
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <nb-icon icon="lock-outline" pack="eva"></nb-icon>
+            </span>
+          </div>
+          <input formControlName="confirmPassword" class="form-control" placeholder="Confirm Password"
+            type="password" />
+        </div>
+      </div>
+      <div class="text-muted font-italic">
+        <small>password strength:
+          <ng-container *ngFor="let strength of [validatePassword(registerForm?.value?.password)]">
+            <span *ngIf="strength == 2" class="text-success font-weight-700">strong</span>
+            <span *ngIf="strength == 1" class="text-warning font-weight-700">Medium</span>
+            <span *ngIf="strength == 0" class="text-danger font-weight-700">Weak</span>
+          </ng-container>
+        </small>
+      </div>
+      <div class="row my-4">
+        <div class="col-12">
+          <div class="custom-control custom-control-alternative custom-checkbox">
+            <input class="custom-control-input" id="customCheckRegister" type="checkbox" />
+            <label class="custom-control-label" for="customCheckRegister">
+              <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="error_msg" *ngIf="registerMessage">
+          <small>{{ registerMessage }}</small>
+        </div>
+        <button (click)="register()" type="button" [disabled]="registerForm.invalid" class="btn btn-primary mt-4">
+          Create account
+        </button>
+      </div>
+      <div class="row mt-3">
+        <small class="text-muted">Already have account?
+          <a [routerLink]="['/auth/auth']">Login</a>
+        </small>
+      </div>
+    </form>
+  </div>
+</div>

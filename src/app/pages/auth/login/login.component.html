@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header" style="border: none;background: white;">
+    <div class="text-muted text-center mt-2 mb-3">
+      <small>Sign in with</small>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="text-center text-muted mb-4">
+      <div style="height: 15px;">
+        <small style="color: red;">{{ errorLogin }}</small>
+      </div>
+    </div>
+    <div class="text-center text-muted mb-4">
+      <small>Or sign in with credentials</small>
+    </div>
+    <form role="form">
+      <div class="form-group mb-3">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <nb-icon icon="phone-outline" pack="eva"></nb-icon>
+            </span>
+          </div>
+          <input [(ngModel)]="loginModel.email" class="form-control" placeholder="Email" name="email" type="email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <nb-icon icon="lock-outline" pack="eva"></nb-icon>
+            </span>
+          </div>
+          <input [(ngModel)]="loginModel.password" class="form-control" placeholder="Password" name="password"
+            type="password" />
+        </div>
+      </div>
+      <small class="text-muted">Forgot password?
+        <a [routerLink]="['/auth/forgot-password']">click here</a>
+      </small>
+      <br>
+      <small class="text-muted">You don't have account?
+        <a [routerLink]="['/auth/register']">Create new account</a>
+      </small>
+      <div class="text-center">
+        <button (click)="onLogin()" type="button" class="btn btn-primary my-4">
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
