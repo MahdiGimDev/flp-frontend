@@ -1,9 +1,10 @@
 <nb-card>
-    <nb-card-header>
-        User List
-    </nb-card-header>
-    <nb-card-body>
-        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
-        </ng2-smart-table>
-    </nb-card-body>
+  <nb-card-header>
+    User List : {{role | uppercase}}
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="onEditConfirm($event)"
+      (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
 </nb-card>

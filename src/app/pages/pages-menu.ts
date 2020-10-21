@@ -21,21 +21,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: "layout-outline",
     children: [
       {
-        title: "List",
-        link: "/pages/users",
+        title: "All",
+        link: "/pages/users/all",
       },
       {
-        title: "Infinite List",
-        link: "/pages/layout/infinite-list",
+        title: "RH",
+        link: "/pages/users/rh",
       },
       {
-        title: "Accordion",
-        link: "/pages/layout/accordion",
+        title: "Employee",
+        link: "/pages/users/employee",
       },
       {
-        title: "Tabs",
-        pathMatch: "prefix",
-        link: "/pages/layout/tabs",
+        title: "Provider",
+        link: "/pages/users/provider",
       },
     ],
   },

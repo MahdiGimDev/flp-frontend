@@ -1,0 +1,151 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row"></div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="card shadow">
+    <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
+      <p class="text-white">Loading...</p>
+    </ngx-spinner>
+    <div class="card-header">
+      User Details
+    </div>
+    <div class="card-body">
+      <div class="bd-example">
+        <div class="row">
+          <div class="col">
+            <div class="text-center p-4">
+              <div class="update-message card p-2" *ngIf="updateSuccessMsg">
+                <p class="success-msg">
+                  {{ updateSuccessMsg }}
+                </p>
+                <button (click)="hideSuccessMsg()" class="btn btn-message">
+                  &times;
+                </button>
+              </div>
+              <div class="update-message card p-2" *ngIf="updateErrorMsg">
+                <p class="error-msg">
+                  {{ updateErrorMsg }}
+                </p>
+                <button (click)="hideErrorMsg()" class="btn btn-message">
+                  &times;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="user">
+          <div class="row">
+            <div class="col-md-5 col-sm-4 col-lg-4">
+              <div style="text-align: center;">
+                <div style="margin-bottom: 20px; height: 150px;">
+                  <img
+                    class="profile-img"
+                    src="{{
+                      user.image ||
+                        'https://www.clipartmax.com/png/full/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png'
+                    }}"
+                    alt=""
+                  />
+                </div>
+                <a class="btn btn-block btn-light" (click)="toggleEdit()" target="_self">
+                  {{ editable ? 'Cancel Edit' : 'Edit' }}
+                </a>
+                <a *ngIf="!user.activated" (click)="enabledUser(user.id, true)" class="btn btn-block btn-light" target="_self">
+                  Enable User
+                </a>
+                <a *ngIf="user.activated" (click)="enabledUser(user.id, false)" class="btn btn-block btn-light" target="_self">
+                  Disable User</a
+                >
+                <a class="btn btn-block btn-light"> Reset Password</a>
+                <a class="btn btn-block btn-light"> Send Password Reset</a>
+              </div>
+            </div>
+            <div class="col-md-7 col-sm-8 col-lg-8">
+              <div style="margin-top: 30px;">
+                <h3>
+                  Username
+                </h3>
+                <ng-container *ngIf="!editable">
+                  <span>
+                    {{ user.username }}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="editable">
+                  <input name="username" [(ngModel)]="user.username" type="text" class="form-control" placeholder="Username" />
+                </ng-container>
+              </div>
+              <div style="margin-top: 15px;">
+                <h3>
+                  Role X
+                </h3>
+                <span>
+                  {{ user.role }}
+                </span>
+              </div>
+              <div style="margin-top: 15px;">
+                <dt>Email</dt>
+                <dd>
+                  <ng-container *ngIf="!editable">
+                    {{ user.email }}
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <input name="email" [(ngModel)]="user.email" type="text" class="form-control" placeholder="email" />
+                  </ng-container>
+                </dd>
+
+                <dt>Activated</dt>
+                <dd>{{ user.activated }}</dd>
+
+                <dt>Verified</dt>
+                <dd>{{ user.verified }}</dd>
+
+                <dt>Date Creation</dt>
+                <dd>{{ user.createdAt | date: 'MM-dd-yyyy' }}</dd>
+              </div>
+              <div *ngIf="editable">
+                <button class="btn btn-success">Save</button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <div *ngIf="!user">
+          <p class="text-center">
+            User not found
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mt-3">
+    <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
+      <p class="text-white">Loading...</p>
+    </ngx-spinner>
+    <div class="card-header">
+      Subscription
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf="subscription">
+        <dt>Type</dt>
+        <dd>{{ subscription.type }}</dd>
+        <dt>Started At</dt>
+        <dd>{{ subscription.startAt | date: 'dd-MM-yyyy' }}</dd>
+        <dt>Expired At</dt>
+        <dd>{{ subscription.expireAt | date: 'dd-MM-yyyy' }}</dd>
+        <dt>Api Key</dt>
+        <dd>{{ subscription.apiKey?.key ? subscription.apiKey?.key : 'N/A' }}</dd>
+      </ng-container>
+      <div *ngIf="!subscription">
+        <p class="text-center">
+          User Not Subscribed
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
