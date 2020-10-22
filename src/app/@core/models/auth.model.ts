@@ -10,7 +10,10 @@ export interface JwtPayload {
 
 export interface RegisterModel {
   username: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  role: string;
   password: string;
   confirmPassword: string;
 }

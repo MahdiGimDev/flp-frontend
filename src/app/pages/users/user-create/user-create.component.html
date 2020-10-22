@@ -1,0 +1,87 @@
+<nb-card>
+    <nb-card-header>
+        User Create
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageUser" style="color: red;">
+            {{ errorMessageUser }}
+        </span>
+        <span *ngIf="successMessageUser" style="color: green;">
+            {{ successMessageUser }}
+        </span>
+        <form (submit)="createUser()" [formGroup]=" userForm" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">First Name</label>
+                <div class="col-md-9">
+                    <input formControlName="firstName" type="text" name="text-input" class="form-control"
+                        placeholder="First Name">
+                    <div style="color: red" *ngIf="firstName.hasError('required') && firstName.touched">
+                        * First Name is required!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Last Name</label>
+                <div class="col-md-9">
+                    <input formControlName="lastName" type="text" name="text-input" class="form-control"
+                        placeholder="Last Name">
+                    <div style="color: red" *ngIf="lastName.hasError('required') && lastName.touched">
+                        * Last Name is required!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
+                <div class="col-md-9">
+                    <input formControlName="email" type="email" id="email-input" class="form-control"
+                        placeholder="Enter Email">
+                    <div style="color: red" *ngIf="email.hasError('required') && email.touched">
+                        * Email is required!</div>
+                    <div style="color: red" *ngIf="email.hasError('pattern') && email.touched">
+                        * This email format is invalid!</div>
+                    <span class="help-block">Please enter your email</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="password-input">Password</label>
+                <div class="col-md-9">
+                    <input formControlName="password" type="password" class="form-control" placeholder="Password">
+                    <div style="color: red" *ngIf="password.hasError('required') && password.touched">
+                        * Password is required!</div>
+                    <span class="help-block">Please enter a complex password</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="password-input">Confirm Password</label>
+                <div class="col-md-9">
+                    <input formControlName="confirmPassword" type="password" class="form-control"
+                        placeholder="confirmPassword">
+                    <div style="color: red" *ngIf="confirmPassword.touched">
+                        <div *ngIf="confirmPassword.hasError('required')">
+                            * Confirm Password is required!
+                        </div>
+                        <div *ngIf="confirmPassword.hasError('mustMatch')">
+                            * Password must Match!
+                        </div>
+                    </div>
+                    <span class="help-block">Please repeat your password</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Role</label>
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentRole==0" value="0">Please select</option>
+                        <option [selected]="currentRole==1" value="1">Employee</option>
+                        <option [selected]="currentRole==2" value="2">RH</option>
+                        <option [selected]="currentRole==3" value="3">Provider</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
+                Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </form>
+    </nb-card-body>
+</nb-card>
