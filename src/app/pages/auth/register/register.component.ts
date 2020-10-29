@@ -17,6 +17,10 @@ export class RegisterComponent implements OnInit {
     password: '',
     confirmPassword: '',
     email: '',
+    firstName:'',
+    lastName:'',
+    role:''
+
   };
   registerForm: FormGroup;
 

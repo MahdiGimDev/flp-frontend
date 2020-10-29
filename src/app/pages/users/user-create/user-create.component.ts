@@ -76,6 +76,12 @@ export class UserCreateComponent implements OnInit {
     if (this.currentRole == 3) {
       role = "PROVIDER";
     }
+    if (this.currentRole == 4) {
+      role = "OPERATIONEL";
+    }
+    if (this.currentRole == 5) {
+      role = "COMMERCIAL";
+    }
     this.user = {
       email: this.userForm.get("email").value,
       firstName: this.userForm.get("firstName").value,

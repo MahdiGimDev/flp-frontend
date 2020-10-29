@@ -9,6 +9,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
+
+
 @NgModule({
   imports: [
     PagesRoutingModule,
@@ -20,9 +22,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     NbCardModule,
     Ng2SmartTableModule
   ],
-  declarations: [
-    PagesComponent,
-  ],
+  declarations: [ PagesComponent],
 })
 export class PagesModule {
 }

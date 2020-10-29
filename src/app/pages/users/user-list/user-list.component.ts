@@ -12,7 +12,7 @@ import { UsersService } from "../../../@core/services/users.service";
 })
 export class UserListComponent implements OnInit {
   role = "all";
-  roles = ["provider", "rh", "admin", "employee"];
+  roles = ["provider", "rh", "admin", "employee","operationel","commercial"];
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -43,7 +43,7 @@ export class UserListComponent implements OnInit {
         type: "string",
       },
       username: {
-        title: "Username",
+        title: "Competences",
         type: "string",
       },
       email: {
@@ -61,6 +61,8 @@ export class UserListComponent implements OnInit {
               { value: "EMPLOYEE", title: "Employee" },
               { value: "RH", title: "RH" },
               { value: "PROVIDER", title: "Provider" },
+              { value: "OPERATIONEL", title: "Operationel" },
+              { value: "COMMERCIAL", title: "Commercial" },
             ],
           },
         },

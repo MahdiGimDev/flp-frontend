@@ -1,4 +1,6 @@
 import { NbMenuItem } from "@nebular/theme";
+import { icon } from 'leaflet';
+import { title } from 'process';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -40,8 +42,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "Provider",
         link: "/pages/users/provider",
       },
+      {
+        title: "Operationel",
+        link: "/pages/users/Operationel",
+      },
+      {
+        title: "Commercial",
+        link: "/pages/users/Commercial",
+      },
     ],
   },
+
+ {
+  title: "Mission management",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "Add new mission",
+      link: "/pages/missions/new",
+    },
+    {
+      title: " All mission",
+      link: "/pages/missions/allmissions",
+    },
+  ],
+},
+
   {
     title: "FEATURES",
     group: true,

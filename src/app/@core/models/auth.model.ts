@@ -18,6 +18,50 @@ export interface RegisterModel {
   confirmPassword: string;
 }
 
+
+export interface missionModel {
+
+
+id:number;
+ 
+  titre : string;
+
+
+  profil : string;
+
+  
+  type  : string;
+
+ 
+  skills : string;
+
+ 
+  technologies : string;
+
+  
+  niveauEx : string;
+
+
+  
+  dateDebut : string;
+
+  
+  durée : string;
+
+  
+  emplacement : string;
+
+  
+
+  description : string;
+
+  
+  statusMission : string;
+
+
+}
+
+
 export class ResetPasswordModel {
   email: string;
   token: string;
