@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { missionModel } from 'app/@core/models/auth.model';
-import { MissionsService } from 'app/@core/services/missions.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { missionModel } from "app/@core/models/auth.model";
+import { MissionsService } from "app/@core/services/missions.service";
+import { LocalDataSource } from "ng2-smart-table";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'ngx-mission-list',
-  templateUrl: './mission-list.component.html',
-  styleUrls: ['./mission-list.component.scss']
+  selector: "ngx-mission-list",
+  templateUrl: "./mission-list.component.html",
+  styleUrls: ["./mission-list.component.scss"],
 })
 export class MissionListComponent implements OnInit {
- type = "all";
+  type = "all";
   types = ["formation", "audit", "consulting", "autre"];
-
-
 
   settings = {
     add: {
@@ -37,12 +35,8 @@ export class MissionListComponent implements OnInit {
         title: "ID",
         type: "number",
       },
-      titre: {
+      title: {
         title: "title",
-        type: "string",
-      },
-      profil: {
-        title: "profil",
         type: "string",
       },
       type: {
@@ -60,18 +54,11 @@ export class MissionListComponent implements OnInit {
           },
         },
       },
-      skills: {
-        title: "skills",
-        type: "string",
-      },
-     technologies: {
+      technologies: {
         title: "technologies",
         type: "string",
       },
-
-
-
-      niveauEx: {
+      level: {
         title: "level Experience",
         type: "html",
         editor: {
@@ -81,38 +68,30 @@ export class MissionListComponent implements OnInit {
               { value: "JUNIOR", title: "Junior" },
               { value: "SENIOR", title: "Senior" },
               { value: "EXPERT", title: "Expert" },
-           
             ],
           },
         },
       },
-
-    dateDebut: {
-        title: "date debut",
+      startDate: {
+        title: "Start Date",
         type: "string",
       },
-
-     durée: {
-        title: "durée",
+      period: {
+        title: "period",
         type: "string",
       },
-
-      emplacement: {
-        title: "location",
+      address: {
+        title: "Address",
         type: "string",
       },
-
-     description: {
+      description: {
         title: "description",
         type: "string",
       },
-
-
       status: {
         title: "status",
         type: "string",
       },
-
     },
   };
 
@@ -139,11 +118,13 @@ export class MissionListComponent implements OnInit {
     this.source.load(data);
     this.spinner.show();
     try {
-      if (this.type  == "all") {
+      if (this.type == "all") {
         data = await this.missionService.getAllMissions().toPromise();
         this.source.load(data);
       } else {
-        data = await this.missionService.getMissionsByType(this.type).toPromise();
+        data = await this.missionService
+          .getMissionsByType(this.type)
+          .toPromise();
         this.source.load(data);
       }
     } catch (error) {
@@ -154,7 +135,6 @@ export class MissionListComponent implements OnInit {
 
   async onDeleteConfirm(event) {
     const mission: missionModel = event.data;
-    console.log({ mission });
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         await this.missionService.deleteMission(mission.id).toPromise();

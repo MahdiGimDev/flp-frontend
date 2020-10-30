@@ -1,4 +1,3 @@
-
 <nb-card>
     <nb-card-header>
         Mission Create
@@ -11,43 +10,16 @@
             {{ successMessageMission }}
         </span>
         <form (submit)="createMission()" [formGroup]=" missionForm" class="form-horizontal">
-           
-           
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">id</label>
+                <label class="col-md-3 col-form-label" for="text-input">Title</label>
                 <div class="col-md-9">
-                    <input formControlName="Titre" type="text" name="text-input" class="form-control"
+                    <input formControlName="title" type="text" name="text-input" class="form-control"
                         placeholder="Mission Title ">
-                    <div style="color: red" *ngIf="id.hasError('required') && id.touched">
-                        * id is required!
+                    <div style="color: red" *ngIf="title.hasError('required') && title.touched">
+                        * Title is required!
                     </div>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">title</label>
-                <div class="col-md-9">
-                    <input formControlName="Titre" type="text" name="text-input" class="form-control"
-                        placeholder="Mission Title ">
-                    <div style="color: red" *ngIf="titre.hasError('required') && titre.touched">
-                        * Mission Title is required!
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Desired profil</label>
-                <div class="col-md-9">
-                    <input formControlName="profile" type="text" name="text-input" class="form-control"
-                        placeholder=" Desired profile">
-                    <div style="color: red" *ngIf="profil.hasError('required') && profil.touched">
-                        * profil is required!
-                    </div>
-                </div>
-            </div>
-         
-        
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
                 <div class="col-md-9">
@@ -57,121 +29,91 @@
                         <option [selected]="currentType==2" value="2">audit</option>
                         <option [selected]="currentType==3" value="3">consulting</option>
                         <option [selected]="currentType==4" value="4">autre</option>
-                      
                     </select>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     skills</label>
                 <div class="col-md-9">
-                    <input formControlName="Skills" type="text" name="text-input" class="form-control"
+                    <input formControlName="skills" type="text" name="text-input" class="form-control"
                         placeholder=" skills desired">
                     <div style="color: red" *ngIf="skills.hasError('required') && skills.touched">
                         * skills is required!
                     </div>
                 </div>
             </div>
-       
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     technologies</label>
                 <div class="col-md-9">
                     <input formControlName="technologies" type="text" name="text-input" class="form-control"
-                        placeholder=" technologies">
+                        placeholder="technologies">
                     <div style="color: red" *ngIf="technologies.hasError('required') && technologies.touched">
                         * technologies is required!
                     </div>
                 </div>
             </div>
-
-          
-            
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">experience level</label>
                 <div class="col-md-9">
-                    <select (change)="onChangeLevel($event.target.value)" id="select1" name="select1" class="form-control">
+                    <select (change)="onChangeLevel($event.target.value)" id="select1" name="select1"
+                        class="form-control">
                         <option [selected]="currentLevel==0" value="0">experience level</option>
                         <option [selected]="currentLevel==1" value="1">junior</option>
                         <option [selected]="currentLevel==2" value="2">senior</option>
                         <option [selected]="currentLevel==3" value="3">expert</option>
-                      
                     </select>
                 </div>
             </div>
 
-
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    dateDebut</label>
+                    Start Date</label>
                 <div class="col-md-9">
-                    <input formControlName=" dateDebut" type="text" name="text-input" class="form-control"
-                        placeholder=" date debut">
-                    <div style="color: red" *ngIf=" dateDebut.hasError('required') &&  dateDebut.touched">
-                        *  dateDebut is required!
+                    <input class="form-control" formControlName="startDate" nbInput placeholder="Form Picker"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf=" startDate.hasError('required') &&  startDate.touched">
+                        * Start Date is required!
                     </div>
                 </div>
             </div>
-
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    durée</label>
+                    Period</label>
                 <div class="col-md-9">
-                    <input formControlName=" duree" type="text" name="text-input" class="form-control"
-                        placeholder=" duree">
-                    <div style="color: red" *ngIf=" duree.hasError('required') &&  duree.touched">
-                        *  durée is required!
+                    <input formControlName="period" type="number" name="text-input" class="form-control"
+                        placeholder="Period">
+                    <div style="color: red" *ngIf=" period.hasError('required') &&  period.touched">
+                        * Period is required!
                     </div>
                 </div>
             </div>
-
-
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    location</label>
+                    Address</label>
                 <div class="col-md-9">
-                    <input formControlName=" durée" type="text" name="text-input" class="form-control"
+                    <input formControlName="address" type="text" name="text-input" class="form-control"
                         placeholder=" emplacement">
-                    <div style="color: red" *ngIf=" emplacement.hasError('required') &&  emplacement.touched">
-                        *  location is required!
+                    <div style="color: red" *ngIf=" address.hasError('required') &&  address.touched">
+                        * Address is required!
                     </div>
                 </div>
             </div>
-
-
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     description</label>
                 <div class="col-md-9">
-                    <input formControlName=" durée" type="text" name="text-input" class="form-control"
-                        placeholder="  description">
+                    <input formControlName="description" type="text" name="text-input" class="form-control"
+                        placeholder="description">
                     <div style="color: red" *ngIf="  description.hasError('required') &&  description.touched">
-                        *  description is required!
+                        * description is required!
                     </div>
                 </div>
             </div>
-
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    status</label>
-                <div class="col-md-9">
-                    <input formControlName=" durée" type="text" name="text-input" class="form-control"
-                        placeholder=" mission status">
-                    <div style="color: red" *ngIf="  status.hasError('required') &&  status.touched">
-                        *  status is required!
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
-                valider</button>
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                Add</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
         </form>
     </nb-card-body>

@@ -63,7 +63,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     {
       title: " All mission",
-      link: "/pages/missions/allmissions",
+      link: "/pages/missions/all",
     },
   ],
 },

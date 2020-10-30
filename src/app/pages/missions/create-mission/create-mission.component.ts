@@ -1,59 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { missionModel, RegisterModel } from 'app/@core/models/auth.model';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import {
+  MissionCreateModel,
+  missionModel,
+  RegisterModel,
+} from "app/@core/models/auth.model";
+import { MissionsService } from "../../../@core/services/missions.service";
 
 @Component({
-  selector: 'ngx-create-mission',
-  templateUrl: './create-mission.component.html',
-  styleUrls: ['./create-mission.component.scss']
+  selector: "ngx-create-mission",
+  templateUrl: "./create-mission.component.html",
+  styleUrls: ["./create-mission.component.scss"],
 })
-export class CreateMissionComponent  {
-
-
-
-  mission: missionModel;
+export class CreateMissionComponent {
+  mission: MissionCreateModel = {
+    id: 0,
+    address: "",
+    description: "",
+    period: "0",
+    title: "",
+    status: "",
+    technologies: "",
+    type: "",
+    skills: "",
+    startDate: "",
+    level: "",
+  };
   missionForm: FormGroup;
   currentLevel = 1;
   currentType = 1;
   errorMessageMission = "";
   successMessageMission = "";
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder,
-    
-    ) { 
-
-      this.createForm();
-
-
-   
- 
-
+    private missionService: MissionsService,
+    private fb: FormBuilder
+  ) {
+    this.createForm();
   }
-
 
   createForm() {
-    this.missionForm = this.fb.group(
-      {
-        title: ["", Validators.required],
-       profil: ["", Validators.required],
-        
-      },
-     
-    );
+    this.missionForm = this.fb.group({
+      title: ["", Validators.required],
+      skills: ["", Validators.required],
+      technologies: ["", Validators.required],
+      startDate: ["", Validators.required],
+      period: ["", Validators.required],
+      address: ["", Validators.required],
+      description: ["", Validators.required],
+      status: ["", Validators.required],
+    });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   onChange(value) {
     this.currentType = value;
   }
-
 
   onChangeLevel(value) {
     this.currentLevel = value;
@@ -64,70 +69,71 @@ export class CreateMissionComponent  {
       this.errorMessageMission = "Invalid form";
       return false;
     }
-
-
-
     if (this.currentLevel === 0) {
       this.errorMessageMission = "Invalid level";
       return false;
     }
+    if (this.currentType === 0) {
+      this.errorMessageMission = "Invalid Type";
+      return false;
+    }
     this.errorMessageMission = "";
     this.successMessageMission = "";
-    let  niveauEx: any;
-    if (this.currentLevel == 1) {
-      niveauEx = "Junior";
-    }
+    let level: any;
+
     if (this.currentLevel == 2) {
-      niveauEx = "Senior";
-    }
-    if (this.currentLevel == 3) {
-      niveauEx = "Expert";
+      level = "SENIOR";
+    } else if (this.currentLevel == 3) {
+      level = "EXPERT";
+    } else {
+      level = "JUNIOR";
     }
     let type: any;
     if (this.currentType == 1) {
-      type = "Formation";
+      type = "FORMATION";
+    } else if (this.currentType == 2) {
+      type = "AUDIT";
+    } else if (this.currentType == 3) {
+      type = "CONSULTING";
+    } else {
+      type = "OTHER";
     }
-    if (this.currentType == 2) {
-      type = "Audit";
-    }
-    if (this.currentType == 3) {
-      type = "Consulting";
-    }
-
-    if (this.currentType == 4) {
-      type = "Autre";
-    }
+    const d = new Date(this.missionForm.get("startDate").value);
+    const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
     this.mission = {
-      id: this.missionForm.get("id").value,
-      titre: this.missionForm.get("title").value,
-      profil: this.missionForm.get(" profil").value,
+      id: 0,
+      title: this.missionForm.get("title").value,
       type,
       skills: this.missionForm.get("skills").value,
       technologies: this.missionForm.get("technologies").value,
-      niveauEx,
-      dateDebut: this.missionForm.get("date debut").value,
-      durée: this.missionForm.get("durée").value,
-      emplacement: this.missionForm.get("emplacement").value,
+      startDate: date,
+      period: this.missionForm.get("period").value,
+      address: this.missionForm.get("address").value,
       description: this.missionForm.get("description").value,
-      statusMission: this.missionForm.get("status ").value
-    
+      status: this.missionForm.get("status").value,
+      level,
     };
-
-     
-    console.log({ mission: this.mission });
+    try {
+      const data: any = await this.missionService
+        .createMission(this.mission)
+        .toPromise();
+      if (data.id) {
+        this.router.navigate(["/pages/missions/all"]);
+        this.successMessageMission = "Created successfully";
+      } else {
+        this.errorMessageMission = data?.message?.message;
+      }
+    } catch (error) {
+      this.errorMessageMission = "Error on creating";
+    }
   }
-
-
 
   get id() {
     return this.missionForm.get("id");
   }
 
-  get titre() {
-    return this.missionForm.get("titre");
-  }
-  get profil() {
-    return this.missionForm.get("profile");
+  get title() {
+    return this.missionForm.get("title");
   }
   get type() {
     return this.missionForm.get("mission type");
@@ -142,15 +148,15 @@ export class CreateMissionComponent  {
     return this.missionForm.get("experience level");
   }
 
-  get dateDebut() {
-    return this.missionForm.get("date debut");
+  get startDate() {
+    return this.missionForm.get("startDate");
   }
 
-  get duree() {
-    return this.missionForm.get("duree");
+  get period() {
+    return this.missionForm.get("period");
   }
-  get emplacement() {
-    return this.missionForm.get("emplacement");
+  get address() {
+    return this.missionForm.get("address");
   }
   get description() {
     return this.missionForm.get("description");
@@ -159,18 +165,4 @@ export class CreateMissionComponent  {
   get status() {
     return this.missionForm.get("status");
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
