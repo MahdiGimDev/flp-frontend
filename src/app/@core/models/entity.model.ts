@@ -7,10 +7,12 @@ export interface BaseEntityModel {
 export interface UserModel extends BaseEntityModel {
   email: string;
   image: string;
-  role?: 'ADMIN' | 'Rh' | 'Provider' | 'Employee' | 'Commercial' | 'Operationel';
+  role?: 'ADMIN' | 'Rh' | 'Provider' | 'Employee' | 'Commercial' | 'Operational';
   username: string;
   firstName: string;
   lastName: string;
+  salaire:number;
+  dateBirth: string;
   activated?: boolean;
   verified?: boolean;
   subscription?: SubscriptionModel;

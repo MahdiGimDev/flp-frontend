@@ -1,0 +1,41 @@
+<nb-card>
+    <nb-card-header>
+       Create new skills
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageSkills" style="color: red;">
+            {{ errorMessageSkills }}
+        </span>
+        <span *ngIf="successMessageSkills" style="color: green;">
+            {{ successMessageSkills }}
+        </span>
+        <form (submit)="createSkills()" [formGroup]=" skillsForm" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Label</label>
+                <div class="col-md-9">
+                    <input formControlName="label" type="text" name
+                    ="text-input" class="form-control"
+                        placeholder="Label ">
+                    <div style="color: red" *ngIf="label.hasError('required') && label.touched">
+                        * Label is required!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Description</label>
+                <div class="col-md-9">
+                    <input formControlName="description" type="text" name="text-input" class="form-control"
+                        placeholder="description ">
+                    <div style="color: red" *ngIf="description.hasError('required') && description.touched">
+                        * description is required!
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                create skills</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </form>
+    </nb-card-body>
+</nb-card>

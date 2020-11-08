@@ -19,7 +19,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
-    title: "Users",
+    title: "Management Users ",
     icon: "layout-outline",
     children: [
       {
@@ -43,8 +43,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/pages/users/provider",
       },
       {
-        title: "Operationel",
-        link: "/pages/users/Operationel",
+        title: "Operational",
+        link: "/pages/users/Operational",
       },
       {
         title: "Commercial",
@@ -53,8 +53,23 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
 
+  {
+    title: "Users Role Management",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Add new mission",
+        link: "/pages/missions/new",
+      },
+      {
+        title: " All mission",
+        link: "/pages/missions/all",
+      },
+    ],
+  },
+
  {
-  title: "Mission management",
+  title: "Management of missions",
   icon: "layout-outline",
   children: [
     {
@@ -67,6 +82,41 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
   ],
 },
+
+{
+  title: "Management skills",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "Add new skills",
+      link: "/pages/skills/new",
+    },
+    {
+      title: " All skills",
+      link: "/pages/skills/all",
+    },
+  ],
+},
+
+
+{
+  title: "management of job offers",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "Add new mission",
+      link: "/pages/missions/new",
+    },
+    {
+      title: " All mission",
+      link: "/pages/missions/all",
+    },
+    
+  ],
+},
+
+
+
 
   {
     title: "FEATURES",

@@ -30,20 +30,25 @@ export class MissionListComponent implements OnInit {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
+
+    display: {
+      editButtonContent: '<i class="nb-trash"></i>',
+  
+    },
     columns: {
       id: {
         title: "ID",
         type: "number",
       },
       title: {
-        title: "title",
+        title: "Title",
         type: "string",
       },
       type: {
-        title: "type",
+        title: "Type",
         type: "html",
         editor: {
-          type: "list",
+          type: "List",
           config: {
             list: [
               { value: "FORMATION", title: "Junior" },
@@ -55,7 +60,7 @@ export class MissionListComponent implements OnInit {
         },
       },
       technologies: {
-        title: "technologies",
+        title: "Technologies",
         type: "string",
       },
       level: {
@@ -127,7 +132,9 @@ export class MissionListComponent implements OnInit {
           .toPromise();
         this.source.load(data);
       }
-    } catch (error) {
+    } 
+    catch (error) {
+
       console.log({ error });
     }
     this.spinner.hide();
@@ -157,4 +164,24 @@ export class MissionListComponent implements OnInit {
       event.confirm.reject();
     }
   }
+
+
+//methode to load mission in detail mission by id
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

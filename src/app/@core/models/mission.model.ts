@@ -6,30 +6,18 @@ export interface missionModel {
   id:number;
  
   titre : string;
-
-
-  profil : string;
-
-  
   type?: 'FORMATION' | 'AUDIT' | 'CONSULTING' | 'AUTRE';
 
- 
-  skills :  string;  
-
- 
   technologies : string;
 
-  
   niveauEx?: 'JUNIOR' | 'SENIOR' | 'EXPERT' ;
-
-
-  
   dateDebut : string;
 
-  
   durée : string;
-
   
+ //skills :  string;  
+ period : number;
+
   emplacement : string;
 
   

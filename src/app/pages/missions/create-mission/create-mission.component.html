@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        Mission Create
+        Create Mission
     </nb-card-header>
     <nb-card-body>
         <span *ngIf="errorMessageMission" style="color: red;">
@@ -25,24 +25,14 @@
                 <div class="col-md-9">
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
                         <option [selected]="currentType==0" value="0">selected please</option>
-                        <option [selected]="currentType==1" value="1">formation</option>
-                        <option [selected]="currentType==2" value="2">audit</option>
-                        <option [selected]="currentType==3" value="3">consulting</option>
-                        <option [selected]="currentType==4" value="4">autre</option>
+                        <option [selected]="currentType==1" value="1">FORMATION</option>
+                        <option [selected]="currentType==2" value="2">AUDIT</option>
+                        <option [selected]="currentType==3" value="3">CONSULTING</option>
+                        <option [selected]="currentType==4" value="4">AUTRE</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    skills</label>
-                <div class="col-md-9">
-                    <input formControlName="skills" type="text" name="text-input" class="form-control"
-                        placeholder=" skills desired">
-                    <div style="color: red" *ngIf="skills.hasError('required') && skills.touched">
-                        * skills is required!
-                    </div>
-                </div>
-            </div>
+      
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     technologies</label>
@@ -60,9 +50,9 @@
                     <select (change)="onChangeLevel($event.target.value)" id="select1" name="select1"
                         class="form-control">
                         <option [selected]="currentLevel==0" value="0">experience level</option>
-                        <option [selected]="currentLevel==1" value="1">junior</option>
-                        <option [selected]="currentLevel==2" value="2">senior</option>
-                        <option [selected]="currentLevel==3" value="3">expert</option>
+                        <option [selected]="currentLevel==1" value="1">JUNIOR</option>
+                        <option [selected]="currentLevel==2" value="2">SENIOR</option>
+                        <option [selected]="currentLevel==3" value="3">EXPERT</option>
                     </select>
                 </div>
             </div>
@@ -79,6 +69,8 @@
                     </div>
                 </div>
             </div>
+
+            
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Period</label>
@@ -102,18 +94,17 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    description</label>
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Description</label>
                 <div class="col-md-9">
-                    <input formControlName="description" type="text" name="text-input" class="form-control"
-                        placeholder="description">
+                    <textarea   rows="10"   type="textarea" name="textarea" placeholder="Description of mission"></textarea>
                     <div style="color: red" *ngIf="  description.hasError('required') &&  description.touched">
                         * description is required!
                     </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
-                Add</button>
+                create mission</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
         </form>
     </nb-card-body>

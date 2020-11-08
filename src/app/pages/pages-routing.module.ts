@@ -41,6 +41,16 @@ const routes: Routes = [
       },
 
 
+      {
+        path: "skills",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./skills/skills.module").then((mod) => mod.SkillsModule),
+          },
+        ],
+      },
 
       {
         path: "iot-dashboard",

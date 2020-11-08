@@ -31,6 +31,82 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Role</label>
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentRole==0" value="0">Please select</option>
+                        <option [selected]="currentRole==1" value="1">Employee</option>
+                        <option [selected]="currentRole==2" value="2">RH</option>
+                        <option [selected]="currentRole==3" value="3">Provider</option>
+                        <option [selected]="currentRole==4" value="4">Operational</option>
+                        <option [selected]="currentRole==5" value="5">Commercial</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Formation</label>
+                <div class="col-md-9">
+                    <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentFormation==0" value="0">select formation</option>
+                        <option [selected]="currentFormation==1" value="1">Bac</option>
+                        <option [selected]="currentFormation==2" value="2">Bac+1</option>
+                        <option [selected]="currentFormation==3" value="3">Bac+2</option>
+                        <option [selected]="currentFormation==4" value="4">Bac+3</option>
+                        <option [selected]="currentFormation==5" value="5">Bac+4</option>
+                        <option [selected]="currentFormation==6" value="6">Bac+5</option>
+                        <option [selected]="currentFormation==7" value="7">doctorant(e)</option>
+                        <option [selected]="currentFormation==8" value="8">plus</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                   years of experience</label>
+                <div class="col-md-9">
+                    <input formControlName="salaire" type="number" name="text-input" class="form-control"
+                        placeholder="years experience">
+                    <div style="color: red" *ngIf=" salaire.hasError('required') &&  salaire.touched">
+                        * Salaire is required!
+                    </div>
+                </div>
+            </div>     
+            <div *ngIf="currentRole!=3&&currentRole!=0" class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Salary</label>
+                <div class="col-md-9">
+                    <input formControlName="salaire" type="number" name="text-input" class="form-control"
+                        placeholder="dinar salary">
+                    <div style="color: red" *ngIf=" salaire.hasError('required') &&  salaire.touched">
+                        * Salaire is required!
+                    </div>
+                </div>
+            </div>       
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Date of birth </label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="dateBirth" nbInput placeholder="Date of birth"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf="dateBirth.hasError('required') && dateBirth.touched">
+                        * Date birth is required!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Adress</label>
+                <div class="col-md-9">
+                    <input formControlName="adress" type="text" name="text-input" class="form-control"
+                        placeholder="Adress">
+                    <div style="color: red" *ngIf="adress.hasError('required') && adress.touched">
+                        * Adresse is required!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
                 <div class="col-md-9">
                     <input formControlName="email" type="email" id="email-input" class="form-control"
@@ -42,6 +118,19 @@
                     <span class="help-block">Please enter your email</span>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Phone Number</label>
+                <div class="col-md-9">
+                    <input formControlName="adress" type="text" name="text-input" class="form-control"
+                        placeholder="phone Number">
+                    <div style="color: red" *ngIf="phoneNumber.hasError('required') && phoneNumber.touched">
+                        * phone number is required!
+                    </div>
+                </div>
+            </div>
+
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="password-input">Password</label>
                 <div class="col-md-9">
@@ -68,19 +157,27 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Role</label>
-                <div class="col-md-9">
-                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
-                        <option [selected]="currentRole==0" value="0">Please select</option>
-                        <option [selected]="currentRole==1" value="1">Employee</option>
-                        <option [selected]="currentRole==2" value="2">RH</option>
-                        <option [selected]="currentRole==3" value="3">Provider</option>
-                        <option [selected]="currentRole==4" value="4">Operationel</option>
-                        <option [selected]="currentRole==5" value="5">Commercial</option>
-                    </select>
+            <div>
+                <h3>Select multiple skills</h3>
+                <div class="example-block">
+                    <div class="example-block__item">
+                        <ngx-select [multiple]="true" [items]="items" [disabled]="ngxDisabled" [(ngModel)]="ngxValue"
+                            [autoClearSearch]="true" placeholder="No skills selected" name="test"
+                            (selectionChanges)="doSelectOptions($event)">
+                        </ngx-select>
+                        <p></p>
+                        <div class="alert alert-secondary">
+                            <pre>{{ngxValue | json}}</pre>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" (click)="ngxDisabled = !ngxDisabled">
+                                {{ngxDisabled ? 'Enable' : 'Disable'}}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 Submit</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>

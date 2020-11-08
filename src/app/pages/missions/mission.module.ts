@@ -7,6 +7,7 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CreateMissionComponent } from "./create-mission/create-mission.component";
 
+
 import { MissionListComponent } from "./mission-list/mission-list.component";
 
 const routes: Routes = [

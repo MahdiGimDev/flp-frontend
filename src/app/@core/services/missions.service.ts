@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { missionModel } from "../models/mission.model";
 import { MissionCreateModel } from "../models/auth.model";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -22,6 +23,11 @@ export class MissionsService {
   getMissionsByType(type: string) {
     return this.http.get(this.baseUrl + "/get/" + type.toUpperCase());
   }
+
+  getMissionsById(id: number) {
+    return this.http.get(this.baseUrl + "/get/" + id);
+  }
+
   getMissions(page = 1, limit = 10) {
     const params: HttpParams = new HttpParams()
       .set("page", `${page}`)
@@ -30,6 +36,10 @@ export class MissionsService {
   }
   getMissionByid(id: number) {
     return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
+  getMissionByIDD(id):Observable <missionModel>   {
+    return this.http.get<missionModel>(this.baseUrl+id);
   }
 
   updateMission(model: missionModel) {

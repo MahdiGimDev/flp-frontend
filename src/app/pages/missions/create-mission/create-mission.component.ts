@@ -18,12 +18,11 @@ export class CreateMissionComponent {
     id: 0,
     address: "",
     description: "",
-    period: "0",
+    period: 0,
     title: "",
     status: "",
     technologies: "",
     type: "",
-    skills: "",
     startDate: "",
     level: "",
   };
@@ -45,10 +44,11 @@ export class CreateMissionComponent {
   createForm() {
     this.missionForm = this.fb.group({
       title: ["", Validators.required],
-      skills: ["", Validators.required],
+      type: ["", Validators.required],
       technologies: ["", Validators.required],
+      level: ["", Validators.required],
       startDate: ["", Validators.required],
-      period: ["", Validators.required],
+      period: [" ", Validators.required],
       address: ["", Validators.required],
       description: ["", Validators.required],
       status: ["", Validators.required],
@@ -65,8 +65,8 @@ export class CreateMissionComponent {
   }
 
   async createMission() {
-    if (!this.missionForm.valid) {
-      this.errorMessageMission = "Invalid form";
+    if (this.mission.status == 'VALID') {
+      this.errorMessageMission = "valid form";
       return false;
     }
     if (this.currentLevel === 0) {
@@ -104,7 +104,7 @@ export class CreateMissionComponent {
       id: 0,
       title: this.missionForm.get("title").value,
       type,
-      skills: this.missionForm.get("skills").value,
+      
       technologies: this.missionForm.get("technologies").value,
       startDate: date,
       period: this.missionForm.get("period").value,
@@ -126,6 +126,7 @@ export class CreateMissionComponent {
     } catch (error) {
       this.errorMessageMission = "Error on creating";
     }
+    console.log({ mission: this.mission });
   }
 
   get id() {
@@ -138,9 +139,9 @@ export class CreateMissionComponent {
   get type() {
     return this.missionForm.get("mission type");
   }
-  get skills() {
+ /* get skills() {
     return this.missionForm.get("skills");
-  }
+  }*/
   get technologies() {
     return this.missionForm.get("technologies");
   }

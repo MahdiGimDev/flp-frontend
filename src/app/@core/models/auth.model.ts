@@ -3,6 +3,8 @@ export interface JwtPayload {
   email: string;
   firstName: string;
   lastName: string;
+  salaire:number;
+  dateBirth:string;
   role: string;
   image: string;
   id: number;
@@ -12,8 +14,14 @@ export interface RegisterModel {
   username: string;
   firstName: string;
   lastName: string;
+  salaire:number;
+  dateBirth:string;
   email: string;
   role: string;
+  formation:string;
+  yearsExperience:number;
+  adress:string;
+  phoneNumber:string;
   password: string;
   confirmPassword: string;
 }
@@ -21,23 +29,41 @@ export interface RegisterModel {
 export interface MissionCreateModel {
   id?: number;
   title: string;
-  skills: string;
-  technologies: string;
   type: string;
+  technologies: string;
+  level: string;
   startDate: string;
-  period: string;
+  period: number;
   address: string;
   description: string;
   status: string;
-  level: string;
+  
 }
+
+
+export interface SkillsCreateModel {
+
+id?:number;
+label:string;
+description:string;
+
+}
+
+
+
+export interface skillsModel {
+  id:number;
+  label:string;
+  description:string;
+}
+
 
 export interface missionModel {
   id: number;
   titre: string;
   profil: string;
   type: string;
-  skills: string;
+ // skills: string;
   technologies: string;
   niveauEx: string;
   dateDebut: string;

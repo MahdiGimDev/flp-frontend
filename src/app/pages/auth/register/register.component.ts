@@ -17,9 +17,15 @@ export class RegisterComponent implements OnInit {
     password: '',
     confirmPassword: '',
     email: '',
+    salaire: 1,
+    dateBirth:'',
     firstName:'',
     lastName:'',
-    role:''
+    role:'',
+    formation:'',
+    yearsExperience:0,
+    adress:'',
+    phoneNumber:''
 
   };
   registerForm: FormGroup;
