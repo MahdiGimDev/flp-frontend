@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { missionModel } from "../models/mission.model";
 import { MissionCreateModel } from "../models/auth.model";
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -34,14 +34,12 @@ export class MissionsService {
       .set("limit", `${limit}`);
     return this.http.get(this.baseUrl, { params });
   }
-  getMissionByid(id: number) {
+  getMissionById(id: number) {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
-
-  getMissionByIDD(id):Observable <missionModel>   {
-    return this.http.get<missionModel>(this.baseUrl+id);
+  assignUserToMission(id: number, idUser: number) {
+    return this.http.patch(`${this.baseUrl}/assign/${id}/${idUser}`, {});
   }
-
   updateMission(model: missionModel) {
     return this.http.patch(`${this.baseUrl}/update`, model);
   }

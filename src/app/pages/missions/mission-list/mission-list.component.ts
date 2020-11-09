@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { missionModel } from "app/@core/models/auth.model";
 import { MissionsService } from "app/@core/services/missions.service";
 import { LocalDataSource } from "ng2-smart-table";
@@ -33,7 +33,6 @@ export class MissionListComponent implements OnInit {
 
     display: {
       editButtonContent: '<i class="nb-trash"></i>',
-  
     },
     columns: {
       id: {
@@ -59,38 +58,12 @@ export class MissionListComponent implements OnInit {
           },
         },
       },
-      technologies: {
-        title: "Technologies",
-        type: "string",
-      },
-      level: {
-        title: "level Experience",
-        type: "html",
-        editor: {
-          type: "list",
-          config: {
-            list: [
-              { value: "JUNIOR", title: "Junior" },
-              { value: "SENIOR", title: "Senior" },
-              { value: "EXPERT", title: "Expert" },
-            ],
-          },
-        },
-      },
       startDate: {
         title: "Start Date",
         type: "string",
       },
       period: {
         title: "period",
-        type: "string",
-      },
-      address: {
-        title: "Address",
-        type: "string",
-      },
-      description: {
-        title: "description",
         type: "string",
       },
       status: {
@@ -105,6 +78,7 @@ export class MissionListComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
+    private router: Router,
     private missionService: MissionsService
   ) {}
 
@@ -112,7 +86,6 @@ export class MissionListComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       const type = `${params.type}`.toLowerCase();
       this.type = this.types.includes(type) ? type : "all";
-      console.log({ type });
       this.loadMissions();
     });
     this.loadMissions();
@@ -132,13 +105,18 @@ export class MissionListComponent implements OnInit {
           .toPromise();
         this.source.load(data);
       }
-    } 
-    catch (error) {
-
+    } catch (error) {
       console.log({ error });
     }
     this.spinner.hide();
   }
+
+  onClickRow(event) {
+    const missionID = event?.data?.id;
+    this.router.navigate(["/pages/missions/detail", missionID]);
+  }
+
+
 
   async onDeleteConfirm(event) {
     const mission: missionModel = event.data;
@@ -165,23 +143,5 @@ export class MissionListComponent implements OnInit {
     }
   }
 
-
-//methode to load mission in detail mission by id
-
-
-
-
-
+  //methode to load mission in detail mission by id
 }
-
-
-
-
-
-
-
-
-
-
-
-

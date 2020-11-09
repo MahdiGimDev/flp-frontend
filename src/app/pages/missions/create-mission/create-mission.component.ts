@@ -5,8 +5,11 @@ import {
   MissionCreateModel,
   missionModel,
   RegisterModel,
+  skillsModel,
 } from "app/@core/models/auth.model";
+import { INgxSelectOption } from "ngx-select-ex";
 import { MissionsService } from "../../../@core/services/missions.service";
+import { SkillsService } from "../../../@core/services/skills.service";
 
 @Component({
   selector: "ngx-create-mission",
@@ -14,6 +17,7 @@ import { MissionsService } from "../../../@core/services/missions.service";
   styleUrls: ["./create-mission.component.scss"],
 })
 export class CreateMissionComponent {
+  skills: Array<skillsModel> = [];
   mission: MissionCreateModel = {
     id: 0,
     address: "",
@@ -25,21 +29,30 @@ export class CreateMissionComponent {
     type: "",
     startDate: "",
     level: "",
+    skills: [],
+    skillsIds: [],
   };
   missionForm: FormGroup;
   currentLevel = 1;
   currentType = 1;
   errorMessageMission = "";
   successMessageMission = "";
-
+  selectedSkills = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private missionService: MissionsService,
+    private skillsService: SkillsService,
     private fb: FormBuilder
   ) {
     this.createForm();
   }
+  public doSelectOptions = (options: INgxSelectOption[]) => {
+    this.selectedSkills = [];
+    options.map((option) => {
+      this.selectedSkills.push(option.data?.id);
+    });
+  };
 
   createForm() {
     this.missionForm = this.fb.group({
@@ -55,7 +68,10 @@ export class CreateMissionComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadSkills();
+  }
+
   onChange(value) {
     this.currentType = value;
   }
@@ -63,9 +79,18 @@ export class CreateMissionComponent {
   onChangeLevel(value) {
     this.currentLevel = value;
   }
+  async loadSkills() {
+    let data: any = [];
+    try {
+      data = await this.skillsService.getAllSkills().toPromise();
+      this.skills = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
 
   async createMission() {
-    if (this.mission.status == 'VALID') {
+    if (this.mission.status == "VALID") {
       this.errorMessageMission = "valid form";
       return false;
     }
@@ -104,7 +129,7 @@ export class CreateMissionComponent {
       id: 0,
       title: this.missionForm.get("title").value,
       type,
-      
+      skillsIds: this.selectedSkills,
       technologies: this.missionForm.get("technologies").value,
       startDate: date,
       period: this.missionForm.get("period").value,
@@ -139,7 +164,7 @@ export class CreateMissionComponent {
   get type() {
     return this.missionForm.get("mission type");
   }
- /* get skills() {
+  /* get skills() {
     return this.missionForm.get("skills");
   }*/
   get technologies() {

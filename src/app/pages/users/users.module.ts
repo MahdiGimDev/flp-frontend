@@ -40,7 +40,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     NbDatepickerModule,
     NgxSpinnerModule,
-
   ],
 })
 export class UsersModule { }

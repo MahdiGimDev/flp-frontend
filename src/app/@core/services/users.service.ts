@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { UserUpdateDto } from "../models/response.model";
 import { UserModel } from "../models/entity.model";
 
 @Injectable({
@@ -16,6 +15,9 @@ export class UsersService {
   }
   getUsersByRole(role: string) {
     return this.http.get(this.baseUrl + "/get/" + role.toUpperCase());
+  }
+  getUsersBySkills(skills: string) {
+    return this.http.get(`${this.baseUrl}/skills?skill=${skills}`);
   }
   getUsers(page = 1, limit = 10) {
     const params: HttpParams = new HttpParams()

@@ -12,7 +12,7 @@ import { UsersService } from "../../../@core/services/users.service";
 })
 export class UserListComponent implements OnInit {
   role = "all";
-  roles = ["provider", "rh", "admin", "employee","operational","commercial"];
+  roles = ["provider", "rh", "admin", "employee", "operational", "commercial"];
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',

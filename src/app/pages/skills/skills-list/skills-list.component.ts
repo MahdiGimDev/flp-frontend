@@ -1,23 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { skillsModel } from 'app/@core/models/auth.model';
-import { SkillsService } from 'app/@core/services/skills.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { LocalDataSource } from "ng2-smart-table";
+import { NgxSpinnerService } from "ngx-spinner";
+import { skillsModel } from "../../../@core/models/auth.model";
+import { SkillsService } from "../../../@core/services/skills.service";
 
 @Component({
-  selector: 'ngx-skills-list',
-  templateUrl: './skills-list.component.html',
-  styleUrls: ['./skills-list.component.scss']
+  selector: "ngx-skills-list",
+  templateUrl: "./skills-list.component.html",
+  styleUrls: ["./skills-list.component.scss"],
 })
 export class SkillsListComponent implements OnInit {
-
-
-
-
-
-
   settings = {
+    actions: {
+      add: false,
+    },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -38,7 +35,7 @@ export class SkillsListComponent implements OnInit {
         title: "ID",
         type: "number",
       },
-      title: {
+      label: {
         title: "label",
         type: "string",
       },
@@ -46,11 +43,10 @@ export class SkillsListComponent implements OnInit {
         title: "description",
         type: "textarea",
       },
-    }
-  }
+    },
+  };
 
   source: LocalDataSource = new LocalDataSource();
-
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -58,32 +54,25 @@ export class SkillsListComponent implements OnInit {
     private skillsService: SkillsService
   ) {}
 
-
-  async  ngOnInit()  {
+  async ngOnInit() {
     this.route.params.subscribe(async (params) => {
       this.loadSkills();
     });
     this.loadSkills();
- }
-
-
+  }
 
   async loadSkills() {
     let data: any = [];
     this.source.load(data);
     this.spinner.show();
     try {
-    
-        data = await this.skillsService.getAllSkills().toPromise();
-        this.source.load(data);
-   
-    
+      data = await this.skillsService.getAllSkills().toPromise();
+      this.source.load(data);
     } catch (error) {
       console.log({ error });
     }
     this.spinner.hide();
   }
-
 
   async onDeleteConfirm(event) {
     const mission: skillsModel = event.data;
@@ -109,12 +98,4 @@ export class SkillsListComponent implements OnInit {
       event.confirm.reject();
     }
   }
-
-
-
-
-
-
-
 }
-

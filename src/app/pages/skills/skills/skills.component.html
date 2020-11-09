@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-       Create new skills
+        Create new skills
     </nb-card-header>
     <nb-card-body>
         <span *ngIf="errorMessageSkills" style="color: red;">
@@ -13,15 +13,13 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Label</label>
                 <div class="col-md-9">
-                    <input formControlName="label" type="text" name
-                    ="text-input" class="form-control"
+                    <input formControlName="label" type="text" name="text-input" class="form-control"
                         placeholder="Label ">
                     <div style="color: red" *ngIf="label.hasError('required') && label.touched">
                         * Label is required!
                     </div>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Description</label>
                 <div class="col-md-9">

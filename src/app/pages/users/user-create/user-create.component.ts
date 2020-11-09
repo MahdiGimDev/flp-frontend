@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { INgxSelectOption } from 'ngx-select-ex';
+import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
-import { RegisterModel } from "../../../@core/models/auth.model";
+import { RegisterModel, skillsModel } from "../../../@core/models/auth.model";
 import { UserModel } from "../../../@core/models/entity.model";
 import { MustMatch } from "../../../@core/services/helpers";
+import { SkillsService } from "../../../@core/services/skills.service";
 import { UsersService } from "../../../@core/services/users.service";
 
 @Component({
@@ -17,31 +18,38 @@ export class UserCreateComponent implements OnInit {
   user: RegisterModel;
   userForm: FormGroup;
   currentRole = 0;
-  currentFormation =0;
+  currentFormation = 0;
   errorMessageUser = "";
   successMessageUser = "";
-  public items: string[] = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin', 'Düsseldorf',
-    'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg', 'Hamburg', 'Hannover',
-    'Helsinki', 'Leeds', 'Leipzig', 'Lisbon', 'Łódź', 'London', 'Kraków', 'Madrid',
-    'Málaga', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Naples', 'Palermo',
-    'Paris', 'Poznań', 'Prague', 'Riga', 'Rome', 'Rotterdam', 'Seville', 'Sheffield',
-    'Sofia', 'Stockholm', 'Stuttgart', 'The Hague', 'Turin', 'Valencia', 'Vienna',
-    'Vilnius', 'Warsaw', 'Wrocław', 'Zagreb', 'Zaragoza'];
+  selectedSkills = [];
 
-  public ngxValue: any = [];
   public ngxDisabled = false;
+  skills: Array<skillsModel> = [];
 
-  public doSelectOptions = (options: INgxSelectOption[]) => console.log('MultipleDemoComponent.doSelectOptions', options);
+  public doSelectOptions = (options: INgxSelectOption[]) => {
+    this.selectedSkills = [];
+    options.map((option) => {
+      this.selectedSkills.push(option.data?.id);
+    });
+  };
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
+    private skillsService: SkillsService,
     private userService: UsersService
   ) {
     this.createForm();
+  }
+  async loadSkills() {
+    let data: any = [];
+    try {
+      data = await this.skillsService.getAllSkills().toPromise();
+      this.skills = data;
+    } catch (error) {
+      console.log({ error });
+    }
   }
   createForm() {
     this.userForm = this.fb.group(
@@ -53,7 +61,7 @@ export class UserCreateComponent implements OnInit {
         yearsExperience: [""],
         adress: [""],
         phoneNumber: [""],
-       
+
         email: [
           null,
           Validators.compose([
@@ -71,7 +79,9 @@ export class UserCreateComponent implements OnInit {
       }
     );
   }
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadSkills();
+  }
 
   onChange(value) {
     this.currentRole = value;
@@ -81,7 +91,7 @@ export class UserCreateComponent implements OnInit {
     this.currentFormation = value;
   }
   async createUser() {
-    if (this.userForm.status !== 'VALID') {
+    if (this.userForm.status !== "VALID") {
       this.errorMessageUser = "Invalid form";
       return false;
     }
@@ -110,31 +120,30 @@ export class UserCreateComponent implements OnInit {
     }
 
     if (this.currentFormation == 1) {
-      role = "BAC";
+      formation = "BAC";
     }
     if (this.currentFormation == 2) {
-      role = "BAC+1";
+      formation = "BAC+1";
     }
     if (this.currentFormation == 3) {
-      role = "BAC+2";
+      formation = "BAC+2";
     }
     if (this.currentFormation == 4) {
-      role = "BAC+3";
+      formation = "BAC+3";
     }
     if (this.currentFormation == 5) {
-      role = "BAC+4";
+      formation = "BAC+4";
     }
     if (this.currentFormation == 6) {
-      role = "BAC+5";
+      formation = "BAC+5";
     }
     if (this.currentFormation == 7) {
-      role = "DOCTORANT";
+      formation = "DOCTORANT";
     }
-    if (this.currentFormation ==8 ) {
-      role = "PLUS";
+    if (this.currentFormation == 8) {
+      formation = "PLUS";
     }
 
-    
     const d = new Date(this.userForm.get("dateBirth").value);
     if (d.getTime() > new Date().getTime()) {
       this.errorMessageUser = "Date Invalide";
@@ -147,7 +156,8 @@ export class UserCreateComponent implements OnInit {
       lastName: this.userForm.get("lastName").value,
       salaire: this.userForm.get("salaire").value,
       dateBirth: date,
-      yearsExperience:this.userForm.get("yearsExperience").value,
+      skillsIds: this.selectedSkills,
+      yearsExperience: this.userForm.get("yearsExperience").value,
       phoneNumber: this.userForm.get("phoneNumber").value,
       adress: this.userForm.get("adress").value,
       formation,
@@ -171,8 +181,6 @@ export class UserCreateComponent implements OnInit {
     );
     console.log({ user: this.user });
   }
-
-
 
   get email() {
     return this.userForm.get("email");

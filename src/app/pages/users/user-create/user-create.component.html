@@ -46,7 +46,8 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Formation</label>
                 <div class="col-md-9">
-                    <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1" class="form-control">
+                    <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1"
+                        class="form-control">
                         <option [selected]="currentFormation==0" value="0">select formation</option>
                         <option [selected]="currentFormation==1" value="1">Bac</option>
                         <option [selected]="currentFormation==2" value="2">Bac+1</option>
@@ -61,7 +62,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                   years of experience</label>
+                    years of experience</label>
                 <div class="col-md-9">
                     <input formControlName="salaire" type="number" name="text-input" class="form-control"
                         placeholder="years experience">
@@ -69,7 +70,7 @@
                         * Salaire is required!
                     </div>
                 </div>
-            </div>     
+            </div>
             <div *ngIf="currentRole!=3&&currentRole!=0" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Salary</label>
@@ -80,7 +81,7 @@
                         * Salaire is required!
                     </div>
                 </div>
-            </div>       
+            </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Date of birth </label>
@@ -157,24 +158,13 @@
                 </div>
             </div>
 
-            <div>
-                <h3>Select multiple skills</h3>
-                <div class="example-block">
-                    <div class="example-block__item">
-                        <ngx-select [multiple]="true" [items]="items" [disabled]="ngxDisabled" [(ngModel)]="ngxValue"
-                            [autoClearSearch]="true" placeholder="No skills selected" name="test"
-                            (selectionChanges)="doSelectOptions($event)">
-                        </ngx-select>
-                        <p></p>
-                        <div class="alert alert-secondary">
-                            <pre>{{ngxValue | json}}</pre>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" (click)="ngxDisabled = !ngxDisabled">
-                                {{ngxDisabled ? 'Enable' : 'Disable'}}
-                            </button>
-                        </div>
-                    </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    technologies</label>
+                <div class="col-md-9">
+                    <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
+                        placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)">
+                    </ngx-select>
                 </div>
             </div>
 
