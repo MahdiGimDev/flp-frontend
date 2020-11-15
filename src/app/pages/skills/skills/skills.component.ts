@@ -49,7 +49,6 @@ export class SkillsCreateComponent {
       label: this.skillsForm.get("label").value,
       description: this.skillsForm.get("description").value,
     };
-    console.log({ skill: this.skills });
     try {
       const data: any = await this.skillsService
         .createSkills(this.skills)
@@ -61,7 +60,11 @@ export class SkillsCreateComponent {
         this.errorMessageSkills = data?.message?.message;
       }
     } catch (error) {
-      this.errorMessageSkills = "Error on creating";
+      if (error.error) {
+        this.errorMessageSkills = error.error.message;
+      } else {
+        this.errorMessageSkills = "Error on creating";
+      }
     }
     console.log({ skills: this.skills });
   }

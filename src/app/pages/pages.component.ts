@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../@core/auth/auth.service";
 
-import { MENU_ITEMS_CLIENT } from "./pages-menu";
+import { MENU_ITEMS_ADMIN, MENU_ITEMS_CLIENT } from "./pages-menu";
 
 @Component({
   selector: "ngx-pages",
@@ -18,6 +18,8 @@ export class PagesComponent {
 
   constructor(private authService: AuthService) {
     const user = authService.getTokenData();
-    console.log({ user });
+    if (user.role == "RH" || user.role == "ADMIN") {
+      this.menu = MENU_ITEMS_ADMIN;
+    }
   }
 }

@@ -206,7 +206,7 @@ export class MissionDetailComponent implements OnInit {
   testVar: any;
   async viewProfile(user: UserModel) {
     this.dialogService.open(UserProfileComponent, {
-      context: { user, admin: true },
+      context: { user, admin: this.currentUser.role == "ADMIN" ||  this.currentUser.role == "RH"},
     });
   }
   async onCustomAction(event) {
