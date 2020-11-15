@@ -36,13 +36,17 @@ export interface MissionCreateModel {
   technologies: string;
   level: string;
   startDate: string;
+  endDate: string;
   period: number;
+  clientId?: number;
   address: string;
   description: string;
-  status: string;
+  status?: string;
   skillsIds?: Array<number>;
   skills?: Array<skillsModel>;
+  suggestion?: Array<UserModel>;
   user?: UserModel;
+  client?: UserModel;
 }
 
 export interface SkillsCreateModel {

@@ -26,21 +26,18 @@ const routes: Routes = [
           },
         ],
       },
-
-
-
       {
         path: "missions",
         children: [
           {
             path: "",
             loadChildren: () =>
-              import("./missions/mission.module").then((mod) => mod.MissionsModule),
+              import("./missions/mission.module").then(
+                (mod) => mod.MissionsModule
+              ),
           },
         ],
       },
-
-
       {
         path: "skills",
         children: [

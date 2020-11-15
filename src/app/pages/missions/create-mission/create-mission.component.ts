@@ -7,9 +7,12 @@ import {
   RegisterModel,
   skillsModel,
 } from "app/@core/models/auth.model";
+import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
+import { UserModel } from "../../../@core/models/entity.model";
 import { MissionsService } from "../../../@core/services/missions.service";
 import { SkillsService } from "../../../@core/services/skills.service";
+import { UsersService } from "../../../@core/services/users.service";
 
 @Component({
   selector: "ngx-create-mission",
@@ -18,16 +21,18 @@ import { SkillsService } from "../../../@core/services/skills.service";
 })
 export class CreateMissionComponent {
   skills: Array<skillsModel> = [];
+  selectedUser: UserModel = null;
   mission: MissionCreateModel = {
     id: 0,
+    clientId: 0,
     address: "",
     description: "",
     period: 0,
     title: "",
-    status: "",
     technologies: "",
     type: "",
     startDate: "",
+    endDate: "",
     level: "",
     skills: [],
     skillsIds: [],
@@ -38,8 +43,79 @@ export class CreateMissionComponent {
   errorMessageMission = "";
   successMessageMission = "";
   selectedSkills = [];
+  settings = {
+    actions: {
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
+    },
+    columns: {
+      id: {
+        title: "ID",
+        type: "number",
+      },
+      firstName: {
+        title: "First Name",
+        type: "string",
+      },
+      lastName: {
+        title: "Last Name",
+        type: "string",
+      },
+      username: {
+        title: "username",
+        type: "string",
+      },
+      salaire: {
+        title: "salaire",
+        type: "number",
+      },
+      dateBirth: {
+        title: "Date of birth",
+        type: "Date",
+      },
+      email: {
+        title: "E-mail",
+        type: "string",
+      },
+      role: {
+        title: "Role",
+        type: "html",
+        editor: {
+          type: "list",
+          config: {
+            list: [
+              { value: "ADMIN", title: "Admin" },
+              { value: "EMPLOYEE", title: "Employee" },
+              { value: "RH", title: "RH" },
+              { value: "PROVIDER", title: "Provider" },
+              { value: "OPERATIONAL", title: "Operational" },
+              { value: "COMMERCIAL", title: "Commercial" },
+            ],
+          },
+        },
+      },
+    },
+  };
+  userSource: LocalDataSource = new LocalDataSource();
+
   constructor(
-    private route: ActivatedRoute,
+    private userService: UsersService,
     private router: Router,
     private missionService: MissionsService,
     private skillsService: SkillsService,
@@ -57,23 +133,41 @@ export class CreateMissionComponent {
   createForm() {
     this.missionForm = this.fb.group({
       title: ["", Validators.required],
-      type: ["", Validators.required],
       technologies: ["", Validators.required],
-      level: ["", Validators.required],
       startDate: ["", Validators.required],
-      period: [" ", Validators.required],
+      endDate: ["", Validators.required],
+      period: ["", Validators.required],
       address: ["", Validators.required],
       description: ["", Validators.required],
-      status: ["", Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.loadSkills();
+    this.loadUsers();
+  }
+
+  async loadUsers() {
+    let users: any = [];
+    try {
+      let skills = "";
+      this.mission.skills.map((skill) => {
+        skills += skill.label + ",";
+      });
+      users = await this.userService.getUsersByRole("client").toPromise();
+      this.userSource.load(users);
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   onChange(value) {
     this.currentType = value;
+  }
+
+  onSelectUser(event) {
+    this.selectedUser = event?.data;
+    console.log({ user: this.selectedUser });
   }
 
   onChangeLevel(value) {
@@ -90,8 +184,10 @@ export class CreateMissionComponent {
   }
 
   async createMission() {
-    if (this.mission.status == "VALID") {
-      this.errorMessageMission = "valid form";
+    this.errorMessageMission = "";
+    console.log({ form: this.missionForm });
+    if (this.missionForm.status == "INVALID") {
+      this.errorMessageMission = "Fill Required Fields";
       return false;
     }
     if (this.currentLevel === 0) {
@@ -124,18 +220,36 @@ export class CreateMissionComponent {
       type = "OTHER";
     }
     const d = new Date(this.missionForm.get("startDate").value);
+    const d1 = new Date(this.missionForm.get("endDate").value);
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
+    const date1 = d1.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
+    const diff = d1.getTime() - d.getTime();
+    const days = diff / (1000 * 3600 * 24);
+    const period = +this.missionForm.get("period").value;
+    if (diff <= 0) {
+      this.errorMessageMission = "End Date Should Be After Start Date";
+      return false;
+    }
+    if (days < period) {
+      this.errorMessageMission = "Period Should be Between Start and End Dates";
+      return false;
+    }
+    if (!this.selectedUser) {
+      this.errorMessageMission = "Client is required";
+      return false;
+    }
     this.mission = {
       id: 0,
       title: this.missionForm.get("title").value,
       type,
+      clientId: this.selectedUser.id,
       skillsIds: this.selectedSkills,
       technologies: this.missionForm.get("technologies").value,
       startDate: date,
-      period: this.missionForm.get("period").value,
+      endDate: date1,
+      period,
       address: this.missionForm.get("address").value,
       description: this.missionForm.get("description").value,
-      status: this.missionForm.get("status").value,
       level,
     };
     try {
@@ -149,7 +263,11 @@ export class CreateMissionComponent {
         this.errorMessageMission = data?.message?.message;
       }
     } catch (error) {
-      this.errorMessageMission = "Error on creating";
+      if (error.error) {
+        this.errorMessageMission = error.error.message;
+      } else {
+        this.errorMessageMission = "Error on creating";
+      }
     }
     console.log({ mission: this.mission });
   }
@@ -176,6 +294,10 @@ export class CreateMissionComponent {
 
   get startDate() {
     return this.missionForm.get("startDate");
+  }
+
+  get endDate() {
+    return this.missionForm.get("endDate");
   }
 
   get period() {

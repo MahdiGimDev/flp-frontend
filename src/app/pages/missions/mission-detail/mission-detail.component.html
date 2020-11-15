@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        Create Mission
+        Mission Details
     </nb-card-header>
     <nb-card-body>
         <span *ngIf="errorMessageMission" style="color: red;">
@@ -72,7 +72,9 @@
                     <span class="mr-2"> {{mission.status}}</span>
                     <span>
                         <ng-container *ngIf="mission.user">
-                            {{mission.user.email}}
+                            {{mission.user.email}} <button (click)="viewProfile(mission.user)"
+                                class="btn btn-info btn-sm mx-2">View Profile</button>
+
                         </ng-container>
                         <ng-container *ngIf="!mission.user">
                             Not Assigned
@@ -89,22 +91,53 @@
                     </ng-container>
                 </div>
             </div>
+            <div class="form-group row" *ngIf="mission.status=='APPROVED'">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Confirm</label>
+                <div class="col-md-9">
+                    <button (click)="onConfirm()" class="btn btn-success btn-sm">Confirm Mission</button>
+                </div>
+            </div>
         </div>
     </nb-card-body>
 </nb-card>
 <nb-card>
     <nb-card-header>
-        User List
+        Invited Employees
     </nb-card-header>
     <nb-card-body>
-        <ng-container *ngIf="selectedUser">
-            <div>
-                <dt> {{selectedUser.firstName}} {{selectedUser.lastName}} </dt>
-                <dd> {{selectedUser.email}} </dd>
-                <button (click)="onAssign()" class="btn btn-primary btn-sm">Assign Mission</button>
-            </div>
+        <ng-container *ngIf="!mission?.suggestion?.length">
+            No Invited Employees
         </ng-container>
-        <ng2-smart-table (userRowSelect)="onSelectUser($event)" [settings]="settings" [source]="userSource">
-        </ng2-smart-table>
+        <div *ngFor="let user of mission?.suggestion">
+            <div>
+                <span>{{user.firstName}} {{user.lastName}}</span>
+                <ng-container *ngIf="mission.status == 'APPROVED'">
+                    <span *ngIf="user.id == mission.user?.id" class="mx-2 btn btn-sm btn-success">Approved</span>
+                    <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Declined</span>
+                </ng-container>
+                <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2">View Profile</button>
+                <ng-container *ngIf="mission.status == 'FINDING' || mission.status == 'PENDING' ">
+                    <button *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'" (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Remove
+                        Invitation</button>
+                    <button *ngIf="currentUser.role == 'CLIENT'" (click)="onAcceptInvitation(user)" class="btn btn-success btn-sm">Accept Invitation</button>
+                </ng-container>
+            </div>
+            <hr>
+        </div>
     </nb-card-body>
 </nb-card>
+<ng-container *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'">
+    <nb-card *ngIf="mission.status == 'FINDING' || mission.status == 'PENDING' ">
+        <nb-card-header>
+            Suggest Employee
+        </nb-card-header>
+        <nb-card-body>
+            <ng-container *ngIf="errorLogin">
+                <small style="color: red;">{{ errorLogin }}</small>
+            </ng-container>
+            <ng2-smart-table (custom)="onCustomAction($event)" [settings]="settings" [source]="userSource">
+            </ng2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</ng-container>
