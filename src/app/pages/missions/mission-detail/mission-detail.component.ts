@@ -1,16 +1,20 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { NbDialogService } from "@nebular/theme";
 import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
+import { AuthService } from "../../../@core/auth/auth.service";
 import {
   skillsModel,
   MissionCreateModel,
+  JwtPayload,
 } from "../../../@core/models/auth.model";
 import { UserModel } from "../../../@core/models/entity.model";
 import { MissionsService } from "../../../@core/services/missions.service";
 import { SkillsService } from "../../../@core/services/skills.service";
 import { UsersService } from "../../../@core/services/users.service";
+import { UserProfileComponent } from "../../../shared/components/user-profile/user-profile.component";
 
 @Component({
   selector: "ngx-mission-detail",
@@ -20,13 +24,22 @@ import { UsersService } from "../../../@core/services/users.service";
 export class MissionDetailComponent implements OnInit {
   skills: Array<skillsModel> = [];
   users: Array<UserModel> = [];
-  selectedUser: UserModel = null;
   userSource: LocalDataSource = new LocalDataSource();
   settings = {
     actions: {
       add: false,
-      edit: false,
       delete: false,
+      edit: false,
+      custom: [
+        {
+          name: "view",
+          title: '<span class="btn btn-sm btn-info">View</span>',
+        },
+        {
+          name: "invite",
+          title: '<span class="btn btn-sm btn-success">Invite</span>',
+        },
+      ],
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -101,9 +114,11 @@ export class MissionDetailComponent implements OnInit {
     technologies: "",
     type: "",
     startDate: "",
+    endDate: "",
     level: "",
     skills: [],
     skillsIds: [],
+    suggestion: [],
   };
   currentLevel = 1;
   currentType = 1;
@@ -112,11 +127,11 @@ export class MissionDetailComponent implements OnInit {
   selectedSkills = [];
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private dialogService: NbDialogService,
     private missionService: MissionsService,
     private userService: UsersService,
-    private skillsService: SkillsService,
-    private fb: FormBuilder
+    private authService: AuthService,
+    private skillsService: SkillsService
   ) {}
   public doSelectOptions = (options: INgxSelectOption[]) => {
     this.selectedSkills = [];
@@ -124,14 +139,18 @@ export class MissionDetailComponent implements OnInit {
       this.selectedSkills.push(option.data?.id);
     });
   };
-
+  errorLogin = "";
+  currentUser: JwtPayload;
   ngOnInit(): void {
+    this.currentUser = this.authService.getTokenData();
     this.route.params.subscribe(async (params) => {
       const id = params.id;
       await this.loadMission(id);
-      this.loadUsers();
+      if (this.currentUser.role == "RH" || this.currentUser.role == "ADMIN") {
+        this.loadUsers();
+        this.loadSkills();
+      }
     });
-    this.loadSkills();
   }
 
   onChange(value) {
@@ -143,6 +162,9 @@ export class MissionDetailComponent implements OnInit {
   }
 
   async loadUsers() {
+    if (this.mission.status != "FINDING" && this.mission.status != "PENDING") {
+      return;
+    }
     let users: any = [];
     try {
       let skills = "";
@@ -150,8 +172,10 @@ export class MissionDetailComponent implements OnInit {
         skills += skill.label + ",";
       });
       users = await this.userService.getUsersBySkills(skills).toPromise();
-      this.users = users;
-      this.userSource.load(users);
+      this.users = users.filter(
+        (u) => !this.mission.suggestion.find((user) => user.id === u.id)
+      );
+      this.userSource.load(this.users);
     } catch (error) {
       console.log({ error });
     }
@@ -160,7 +184,6 @@ export class MissionDetailComponent implements OnInit {
     let data: any = [];
     try {
       data = await this.missionService.getMissionById(id).toPromise();
-      console.log({ data });
       this.mission = data;
     } catch (error) {
       console.log({ error });
@@ -177,18 +200,90 @@ export class MissionDetailComponent implements OnInit {
   }
 
   onSelectUser(event) {
-    this.selectedUser = event?.data;
-    console.log({ user: this.selectedUser });
+    // this.selectedUser = event?.data;
+    // console.log({ user: this.selectedUser });
   }
-
-  async onAssign() {
+  testVar: any;
+  async viewProfile(user: UserModel) {
+    this.dialogService.open(UserProfileComponent, {
+      context: { user, admin: this.currentUser.role == "ADMIN" ||  this.currentUser.role == "RH"},
+    });
+  }
+  async onCustomAction(event) {
+    const user: UserModel = event.data;
+    if (event.action === "invite") {
+      this.onInvite(user);
+    } else if (event.action === "view") {
+      this.viewProfile(user);
+    }
+  }
+  async onRemoveInvite(user: UserModel) {
+    this.errorLogin = "";
     let data: any = [];
     try {
       data = await this.missionService
-        .assignUserToMission(this.mission.id, this.selectedUser.id)
+        .removeInvitationToMission(this.mission.id, user.id)
         .toPromise();
-      this.loadMission(this.mission.id);
+      await this.loadMission(this.mission.id);
+      this.loadUsers();
     } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  async onAcceptInvitation(user: UserModel) {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService
+        .assignUserToMission(this.mission.id, user.id)
+        .toPromise();
+      await this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  async onConfirm() {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService
+        .confirmMission(this.mission.id)
+        .toPromise();
+      await this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  async onInvite(user: UserModel) {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService
+        .inviteUserToMission(this.mission.id, user.id)
+        .toPromise();
+      await this.loadMission(this.mission.id);
+      this.loadUsers();
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
       console.log({ error });
     }
   }

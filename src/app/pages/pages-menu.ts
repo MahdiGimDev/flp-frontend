@@ -1,8 +1,8 @@
 import { NbMenuItem } from "@nebular/theme";
-import { icon } from 'leaflet';
-import { title } from 'process';
+import { icon } from "leaflet";
+import { title } from "process";
 
-export const MENU_ITEMS: NbMenuItem[] = [
+export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
   {
     title: "E-commerce",
     icon: "shopping-cart-outline",
@@ -68,124 +68,50 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
 
- {
-  title: "Management of missions",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "Add new mission",
-      link: "/pages/missions/new",
-    },
-    {
-      title: " All mission",
-      link: "/pages/missions/all",
-    },
-  ],
-},
+  {
+    title: "Management of missions",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Add new mission",
+        link: "/pages/missions/new",
+      },
+      {
+        title: " All mission",
+        link: "/pages/missions/all",
+      },
+    ],
+  },
 
-{
-  title: "Management skills",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "Add new skills",
-      link: "/pages/skills/new",
-    },
-    {
-      title: " All skills",
-      link: "/pages/skills/all",
-    },
-  ],
-},
+  {
+    title: "Management skills",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Add new skills",
+        link: "/pages/skills/new",
+      },
+      {
+        title: " All skills",
+        link: "/pages/skills/all",
+      },
+    ],
+  },
 
-
-{
-  title: "Gestion des offres emploi",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "ajout d'offre d'emploi",
-      link: "/pages/jobs/new",
-    },
-    {
-      title: " list offres d'emploi",
-      link: "/pages/jobs/all",
-    },
-    
-
-
-  
-  ],
-},
-
-
-{
-  title: "management candidatures",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "Add new mission",
-      link: "/pages/missions/new",
-    },
-    {
-      title: " All mission",
-      link: "/pages/missions/all",
-    },
-    
-  ],
-},
-
-
-{
-  title: "management of Qcm",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "Add qcm",
-      link: "/pages/missions/new",
-    },
-    {
-      title: " All qcm",
-      link: "/pages/missions/all",
-    },
-    
-  ],
-},
-
-
-{
-  title: "management contrats",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "Add new mission",
-      link: "/pages/missions/new",
-    },
-    {
-      title: " All mission",
-      link: "/pages/missions/all",
-    },
-    
-  ],
-},
-
-{
-  title: "Gestion Bande de commande",
-  icon: "layout-outline",
-  children: [
-    {
-      title: "add bande commande",
-      link: "/pages/missions/new",
-    },
-    {
-      title: " All bande commande",
-      link: "/pages/missions/all",
-    },
-    
-  ],
-},
-
-
+  {
+    title: "management of job offers",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Add new mission",
+        link: "/pages/missions/new",
+      },
+      {
+        title: " All mission",
+        link: "/pages/missions/all",
+      },
+    ],
+  },
 
   {
     title: "FEATURES",
@@ -416,6 +342,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: "Reset Password",
         link: "/auth/reset-password",
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_CLIENT: NbMenuItem[] = [
+  {
+    title: "Management of missions",
+    icon: "layout-outline",
+    children: [
+      {
+        title: " My mission",
+        link: "/pages/missions/all",
       },
     ],
   },

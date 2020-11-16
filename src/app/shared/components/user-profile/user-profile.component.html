@@ -1,0 +1,31 @@
+<div class="well profile">
+    <div class="col-sm-12 row">
+        <div class="col-8">
+            <h5>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
+            <p><strong>About: </strong> {{user.role}} </p>
+            <p><strong>Experience: </strong> {{user.nbrExperience}} Year(s) </p>
+            <ng-container *ngIf="admin">
+                <p><strong>Email: </strong> {{user.email}} </p>
+                <p><strong>Created: </strong> {{user.createdAt | date}} </p>
+                <p><strong>Salary: </strong> {{user.salaire}} </p>
+                <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>
+            </ng-container>
+            <p><strong>Skills: </strong>
+                <ng-container *ngFor="let skill of user.skills">
+                    <span class="tags">{{skill.label}}</span>
+                </ng-container>
+            </p>
+        </div>
+        <div class="col-4 text-center">
+            <figure>
+                <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="" class="img-circle img-responsive">
+            </figure>
+        </div>
+    </div>
+    <div class="col-xs-12 divider text-center row px-3">
+        <h5>Resume</h5>
+        <div class="col-12 emphasis text-left">
+            <p [innerHTML]="user.formation"> </p>
+        </div>
+    </div>
+</div>

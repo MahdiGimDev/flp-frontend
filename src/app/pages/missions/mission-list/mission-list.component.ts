@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { missionModel } from "app/@core/models/auth.model";
+import { JwtPayload, missionModel } from "app/@core/models/auth.model";
 import { MissionsService } from "app/@core/services/missions.service";
 import { LocalDataSource } from "ng2-smart-table";
 import { NgxSpinnerService } from "ngx-spinner";
+import { AuthService } from "../../../@core/auth/auth.service";
 
 @Component({
   selector: "ngx-mission-list",
@@ -11,14 +12,12 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ["./mission-list.component.scss"],
 })
 export class MissionListComponent implements OnInit {
-  type = "all";
   types = ["formation", "audit", "consulting", "autre"];
-
   settings = {
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
+    actions:{
+      add:false,
+      edit:false,
+      delete:false,
     },
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
@@ -76,20 +75,17 @@ export class MissionListComponent implements OnInit {
   };
 
   source: LocalDataSource = new LocalDataSource();
-
+  currentUser: JwtPayload;
   constructor(
     private spinner: NgxSpinnerService,
-    private route: ActivatedRoute,
+    private authService: AuthService,
     private router: Router,
     private missionService: MissionsService
-  ) {}
+  ) {
+    this.currentUser = this.authService.getTokenData();
+  }
 
   async ngOnInit() {
-    this.route.params.subscribe(async (params) => {
-      const type = `${params.type}`.toLowerCase();
-      this.type = this.types.includes(type) ? type : "all";
-      this.loadMissions();
-    });
     this.loadMissions();
   }
 
@@ -98,15 +94,17 @@ export class MissionListComponent implements OnInit {
     this.source.load(data);
     this.spinner.show();
     try {
-      if (this.type == "all") {
-        data = await this.missionService.getAllMissions().toPromise();
-        this.source.load(data);
-      } else {
+      if (this.currentUser.role == "CLIENT") {
         data = await this.missionService
-          .getMissionsByType(this.type)
+          .getAllClientMissions(this.currentUser.id)
           .toPromise();
-        this.source.load(data);
+      } else if (
+        this.currentUser.role == "RH" ||
+        this.currentUser.role == "ADMIN"
+      ) {
+        data = await this.missionService.getAllMissions().toPromise();
       }
+      this.source.load(data);
     } catch (error) {
       console.log({ error });
     }
@@ -117,8 +115,6 @@ export class MissionListComponent implements OnInit {
     const missionID = event?.data?.id;
     this.router.navigate(["/pages/missions/detail", missionID]);
   }
-
-
 
   async onDeleteConfirm(event) {
     const mission: missionModel = event.data;

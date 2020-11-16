@@ -39,9 +39,8 @@ export class SkillsCreateComponent {
   }
 
   async createSkills() {
-    if(this.skillsForm.status=='INVALID')
-    {
-      this.errorMessageSkills = "Ivalid form";
+    if (this.skills.label !== "") {
+      this.errorMessageSkills = "valid form";
       return false;
     }
     this.errorMessageSkills = "";
@@ -50,21 +49,22 @@ export class SkillsCreateComponent {
       label: this.skillsForm.get("label").value,
       description: this.skillsForm.get("description").value,
     };
-    console.log({ skill: this.skills });
     try {
       const data: any = await this.skillsService
         .createSkills(this.skills)
         .toPromise();
-      if (data.label!==""){
-      this.errorMessageSkills = "veuillez saisir label" ;
-      
+      if (data.id) {
         this.router.navigate(["/pages/skills/all"]);
         this.successMessageSkills = "Created successfully";
       } else {
         this.errorMessageSkills = data?.message?.message;
       }
     } catch (error) {
-      this.errorMessageSkills = "Error on creating please verify";
+      if (error.error) {
+        this.errorMessageSkills = error.error.message;
+      } else {
+        this.errorMessageSkills = "Error on creating";
+      }
     }
     console.log({ skills: this.skills });
   }
