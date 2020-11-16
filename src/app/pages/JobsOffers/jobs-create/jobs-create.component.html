@@ -1,0 +1,173 @@
+<nb-card>
+    <nb-card-header>
+        Creation d'offre d'emploi
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageJob" style="color: red;">
+            {{ errorMessageJob}}
+        </span>
+        <span *ngIf="successMessageJob" style="color: green;">
+            {{ successMessageJob }}
+        </span>
+        <form (submit)="createJob()" [formGroup]=" jobForm" class="form-horizontal">
+
+           <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Title</label>
+                <div class="col-md-9">
+                    <input formControlName="title" type="text" name="text-input" class="form-control"
+                        placeholder="offre d'emploie titre ">
+                    <div style="color: red" *ngIf="title.hasError('required') && title.touched">
+                        * Title is required!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Profil</label>
+                <div class="col-md-9">
+                    <input formControlName="profil" type="text" name="text-input" class="form-control"
+                        placeholder="profil ">
+                    <div style="color: red" *ngIf="profil.hasError('required') && profil.touched">
+                        * profil obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">poste</label>
+                <div class="col-md-9">
+                    <input formControlName="poste" type="text" name="text-input" class="form-control"
+                        placeholder="poste offre d'emploi ">
+                    <div style="color: red" *ngIf="poste.hasError('required') && poste.touched">
+                        * poste obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+          
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">specialite</label>
+                <div class="col-md-9">
+                    <input formControlName="specialite" type="text" name="text-input" class="form-control"
+                        placeholder="specialite de l'offre">
+                    <div style="color: red" *ngIf="specialite.hasError('required') && specialite.touched">
+                        * specialite is required!
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Skills</label>
+                <div class="col-md-9">
+                    <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
+                        placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)"> 
+                    </ngx-select>
+                </div>
+            </div>
+
+          
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Start Date</label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="startDate" nbInput placeholder="Form Picker"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf=" startDate.hasError('required') && startDate.touched">
+                        * Start Date is required!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Formation</label>
+                <div class="col-md-9">
+                    <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1"
+                        class="form-control">
+                        <option [selected]="currentFormation==0" value="0">select formation</option>
+                        <option [selected]="currentFormation==1" value="1">Bac</option>
+                        <option [selected]="currentFormation==2" value="2">Bac+2</option>
+                        <option [selected]="currentFormation==4" value="3">Bac+3</option>
+                        <option [selected]="currentFormation==5" value="4">Bac+4</option>
+                        <option [selected]="currentFormation==6" value="5">Bac+5</option>
+                        <option [selected]="currentFormation==7" value="6">doctorant(e)</option>
+                        <option [selected]="currentFormation==8" value="7">plus</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    addresse</label>
+                <div class="col-md-9">
+                    <input formControlName="addresse" type="text" name="text-input" class="form-control"
+                        placeholder=" emplacement de l'entreprise">
+                    <div style="color: red" *ngIf=" addresse.hasError('required') && addresse.touched">
+                        * Address is required!
+                    </div>
+                </div>
+            </div>
+            
+             <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">type du contrat </label>
+                <div class="col-md-9">
+                    <select (change)="onChangeContrat($event.target.value)" id="select1" name="select1"
+                        class="form-control">
+                        <option [selected]="currentContrat==0" value="0">type contrat</option>
+                        <option [selected]="currentContrat==1" value="1">CDI</option>
+                        <option [selected]="currentContrat==2" value="2">CDD</option>
+                        <option [selected]="currentContrat==3" value="3">SVP</option>
+                        <option [selected]="currentContrat==4" value="4">STAGE</option>
+                        <option [selected]="currentContrat==5" value="5">AUTRE</option>
+                    </select>
+                </div>
+            </div>
+            
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">experience level</label>
+                <div class="col-md-9">
+                    <select (change)="onChangeLevel($event.target.value)" id="select1" name="select1"
+                        class="form-control">
+                        <option [selected]="currentLevel==0" value="0">experience level</option>
+                        <option [selected]="currentLevel==1" value="1">JUNIOR</option>
+                        <option [selected]="currentLevel==2" value="2">SENIOR</option>
+                        <option [selected]="currentLevel==3" value="3">EXPERT</option>
+                    </select>
+                </div>
+            </div>
+
+            
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Description</label>
+                <div class="col-md-9">
+                    <textarea formControlName="description" type="text" name="text-input" class="form-control"
+                        placeholder="description "></textarea>
+                    <div style="color: red" *ngIf="description.hasError('required') && description.touched">
+                        * description is required!
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                ajouter</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </form>
+    </nb-card-body>
+</nb-card>

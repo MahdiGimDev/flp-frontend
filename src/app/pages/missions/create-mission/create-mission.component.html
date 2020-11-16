@@ -35,24 +35,25 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    technologies</label>
+                    Speciality</label>
                 <div class="col-md-9">
                     <input formControlName="technologies" type="text" name="text-input" class="form-control"
-                        placeholder="technologies">
+                        placeholder="Example :  Web development">
                     <div style="color: red" *ngIf="technologies.hasError('required') && technologies.touched">
-                        * technologies is required!
+                        * specialty is required!
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    technologies</label>
+                    Skills</label>
                 <div class="col-md-9">
                     <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
                         placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)">
                     </ngx-select>
                 </div>
             </div>
+            
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">experience level</label>
                 <div class="col-md-9">
@@ -82,12 +83,12 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Period</label>
+                   Duration/Number of days</label>
                 <div class="col-md-9">
                     <input formControlName="period" type="number" name="text-input" class="form-control"
-                        placeholder="Period">
+                        placeholder="Duration/Number of days">
                     <div style="color: red" *ngIf=" period.hasError('required') &&  period.touched">
-                        * Period is required!
+                        * Duration is required!
                     </div>
                 </div>
             </div>
@@ -102,16 +103,25 @@
                     </div>
                 </div>
             </div>
+            
+
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="textarea">
-                    Description</label>
+                <label class="col-md-3 col-form-label" for="text-input">Description</label>
                 <div class="col-md-9">
-                    <textarea rows="10" type="textarea" name="textarea" placeholder="Description of mission"></textarea>
-                    <div style="color: red" *ngIf="  description.hasError('required') &&  description.touched">
+                    <textarea formControlName="description" type="text" name="text-input" class="form-control"
+                        placeholder="description "></textarea>
+                    <div style="color: red" *ngIf="description.hasError('required') && description.touched">
                         * description is required!
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 create mission</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>

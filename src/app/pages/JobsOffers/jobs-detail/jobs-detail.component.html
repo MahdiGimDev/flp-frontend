@@ -1,0 +1,96 @@
+<nb-card>
+    <nb-card-header>
+        détail de l'offre d'emploi
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageJob" style="color: red;">
+            {{ errorMessageJob }}
+        </span>
+        <span *ngIf="successMessageJob" style="color: green;">
+            {{ successMessageJob }}
+        </span>
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Title</label>
+                <div class="col-md-9">
+                    {{job.title}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">poste</label>
+                <div class="col-mpd-9">
+                    {{job.poste}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                   Specialité</label>
+                <div class="col-md-9">
+                    {{job.profil}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">poste</label>
+                <div class="col-mpd-9">
+                    {{job.specialite}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Formation</label>
+                <div class="col-md-9">
+                    {{job.formation}}
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">experience level</label>
+                <div class="col-md-9">
+                    {{job.level}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">contrat</label>
+                <div class="col-md-9">
+                    {{job.contrat}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Start Date</label>
+                <div class="col-md-9">
+                    {{job.startDate | date : 'dd-MM-yyyy'}}
+                </div>
+            </div>
+          
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Addresse</label>
+                <div class="col-md-9">
+                    {{job.addresse}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Description</label>
+                <div class="col-md-9">
+                    {{job.description}}
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Skills</label>
+                <div class="col-md-9">
+                    <ng-container *ngFor="let skill of job.skills">
+                        <span class="m-1 btn btn-sm btn-primary"> {{skill.label}} </span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

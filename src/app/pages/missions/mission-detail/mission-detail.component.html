@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-header>
-        Create Mission
-    </nb-card-header>
+      détail mission
+</nb-card-header>
     <nb-card-body>
         <span *ngIf="errorMessageMission" style="color: red;">
             {{ errorMessageMission }}
@@ -18,14 +18,14 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
-                <div class="col-md-9">
+                <div class="col-mpd-9">
                     {{mission.type}}
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    technologies</label>
+                   Specialité</label>
                 <div class="col-md-9">
                     {{mission.technologies}}
                 </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Period</label>
+                   Nombre de jours</label>
                 <div class="col-md-9">
                     {{mission.period}}
                 </div>
@@ -99,7 +99,8 @@
     <nb-card-body>
         <ng-container *ngIf="selectedUser">
             <div>
-                <dt> {{selectedUser.firstName}} {{selectedUser.lastName}} </dt>
+                <dt> {{selectedUser.firstName}} 
+                    {{selectedUser.lastName}} </dt>
                 <dd> {{selectedUser.email}} </dd>
                 <button (click)="onAssign()" class="btn btn-primary btn-sm">Assign Mission</button>
             </div>

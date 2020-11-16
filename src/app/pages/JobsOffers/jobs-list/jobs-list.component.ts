@@ -1,18 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { missionModel } from "app/@core/models/auth.model";
-import { MissionsService } from "app/@core/services/missions.service";
-import { LocalDataSource } from "ng2-smart-table";
-import { NgxSpinnerService } from "ngx-spinner";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JobModel } from 'app/@core/models/auth.model';
+import { JobService } from 'app/@core/services/job.service';
+import { LocalDataSource } from 'ng2-smart-table';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: "ngx-mission-list",
-  templateUrl: "./mission-list.component.html",
-  styleUrls: ["./mission-list.component.scss"],
+  selector: 'ngx-jobs-list',
+  templateUrl: './jobs-list.component.html',
+  styleUrls: ['./jobs-list.component.scss']
 })
-export class MissionListComponent implements OnInit {
-  type = "all";
-  types = ["formation", "audit", "consulting", "autre"];
+export class JobsListComponent implements OnInit {
+
+ 
+
 
   settings = {
     add: {
@@ -40,32 +41,28 @@ export class MissionListComponent implements OnInit {
         type: "number",
       },
       title: {
-        title: "Titre Mission",
+        title: "Titre ",
         type: "string",
       },
-      type: {
-        title: "Type",
-        type: "html",
-        editor: {
-          type: "selected",
-          config: {
-            selected: [
-              { value: "FORMATION", title: "Junior" },
-              { value: "AUDIT", title: "Audit" },
-              { value: "CONSULTING", title: "Consulting" },
-              { value: "AUTRE", title: "AUTRE" },
-            ],
-          },
-        },
+    
+      poste: {
+        title: "Poste ",
+        type: "string",
       },
+
       startDate: {
         title: "Date Debut",
         type: "string",
       },
-      period: {
-        title: "Nombre de jours",
+
+      formation: {
+        title: "Formation ",
         type: "string",
       },
+
+
+      
+     
       status: {
         title: "Status",
         type: "string",
@@ -81,50 +78,51 @@ export class MissionListComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
-    private missionService: MissionsService
+    private jobService: JobService
   ) {}
 
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
-      const type = `${params.type}`.toLowerCase();
-      this.type = this.types.includes(type) ? type : "all";
-      this.loadMissions();
+     // const type = `${params.type}`.toLowerCase();
+     // this.type = this.types.includes(type) ? type : "all";
+      this.loadJobs();
     });
-    this.loadMissions();
+    this.loadJobs();
   }
+ 
 
-  async loadMissions() {
+  async loadJobs() {
     let data: any = [];
     this.source.load(data);
     this.spinner.show();
     try {
-      if (this.type == "all") {
-        data = await this.missionService.getAllMissions().toPromise();
+      
+        data = await this.jobService.getAllJobs().toPromise();
         this.source.load(data);
-      } else {
-        data = await this.missionService
-          .getMissionsByType(this.type)
-          .toPromise();
-        this.source.load(data);
-      }
-    } catch (error) {
+      } 
+        
+     catch (error) {
       console.log({ error });
     }
     this.spinner.hide();
   }
 
   onClickRow(event) {
-    const missionID = event?.data?.id;
-    this.router.navigate(["/pages/missions/detail", missionID]);
+    const jobID = event?.data?.id;
+    this.router.navigate(["/pages/jobs/detail", jobID]);
   }
 
 
 
+
+
+
+
   async onDeleteConfirm(event) {
-    const mission: missionModel = event.data;
+    const job: JobModel = event.data;
     if (window.confirm("Are you sure you want to delete?")) {
       try {
-        await this.missionService.deleteMission(mission.id).toPromise();
+        await this.jobService.deleteJob(job.id).toPromise();
         event.confirm.resolve();
       } catch (error) {
         console.log({ error });
@@ -135,8 +133,8 @@ export class MissionListComponent implements OnInit {
     }
   }
   onEditConfirm(event) {
-    const mission: missionModel = event.data;
-    console.log({ mission });
+    const job: JobModel = event.data;
+    console.log({ job });
     if (window.confirm("Are you sure you want to Edit?")) {
       //call to remote api, remember that you have to await this
       event.confirm.resolve(event.newData);
@@ -145,5 +143,5 @@ export class MissionListComponent implements OnInit {
     }
   }
 
-  //methode to load mission in detail mission by id
+
 }

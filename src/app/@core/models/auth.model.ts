@@ -29,6 +29,43 @@ export interface RegisterModel {
   skillsIds?: Array<number>;
 }
 
+export interface JobCreateModel {
+  id: number;
+  title: string;
+  profil: string;
+  poste: string;
+  formation: string;
+  specialite: string;
+  level:string;
+  startDate: string;
+  contrat:string;
+  addresse: string;
+  description:string;
+  status: string;
+  skillsIds?: Array<number>;
+  skills?: Array<skillsModel>;
+ 
+  
+
+}
+
+
+
+export interface JobModel {
+
+  id: number;
+  titre: string;
+  profil: string;
+  poste: string;
+  formation: string;
+  specialite: string;
+  niveauEx: string;
+  startDate: string;
+  adresse: string;
+  description: string;
+  status: string;
+}
+
 export interface MissionCreateModel {
   id?: number;
   title: string;
@@ -62,7 +99,7 @@ export interface missionModel {
   titre: string;
   profil: string;
   type: string;
-  // skills: string;
+
   technologies: string;
   niveauEx: string;
   dateDebut: string;

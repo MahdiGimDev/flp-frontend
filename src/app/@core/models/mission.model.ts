@@ -15,7 +15,7 @@ export interface missionModel {
 
   durée : string;
   
- //skills :  string;  
+
  period : number;
 
   emplacement : string;

@@ -100,7 +100,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
 
 {
-  title: "management of job offers",
+  title: "Gestion des offres emploi",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "ajout d'offre d'emploi",
+      link: "/pages/jobs/new",
+    },
+    {
+      title: " list offres d'emploi",
+      link: "/pages/jobs/all",
+    },
+    
+
+
+  
+  ],
+},
+
+
+{
+  title: "management candidatures",
   icon: "layout-outline",
   children: [
     {
@@ -115,6 +135,55 @@ export const MENU_ITEMS: NbMenuItem[] = [
   ],
 },
 
+
+{
+  title: "management of Qcm",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "Add qcm",
+      link: "/pages/missions/new",
+    },
+    {
+      title: " All qcm",
+      link: "/pages/missions/all",
+    },
+    
+  ],
+},
+
+
+{
+  title: "management contrats",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "Add new mission",
+      link: "/pages/missions/new",
+    },
+    {
+      title: " All mission",
+      link: "/pages/missions/all",
+    },
+    
+  ],
+},
+
+{
+  title: "Gestion Bande de commande",
+  icon: "layout-outline",
+  children: [
+    {
+      title: "add bande commande",
+      link: "/pages/missions/new",
+    },
+    {
+      title: " All bande commande",
+      link: "/pages/missions/all",
+    },
+    
+  ],
+},
 
 
 

@@ -8,8 +8,7 @@ import { ECommerceModule } from './e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { SkillsCreateComponent } from './skills/skills/skills.component';
-import { SkillsListComponent } from './skills/skills-list/skills-list.component';
+
 
 
 

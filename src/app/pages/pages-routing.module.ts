@@ -5,7 +5,7 @@ import { PagesComponent } from "./pages.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ECommerceComponent } from "./e-commerce/e-commerce.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
-import { UserListComponent } from "./users/user-list/user-list.component";
+
 
 const routes: Routes = [
   {
@@ -51,6 +51,18 @@ const routes: Routes = [
           },
         ],
       },
+
+      {
+        path: "jobs",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./JobsOffers/job.module").then((mod) => mod.JobsModule),
+          },
+        ],
+      },
+
 
       {
         path: "iot-dashboard",

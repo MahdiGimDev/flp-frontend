@@ -18,7 +18,7 @@ export class UserCreateComponent implements OnInit {
   user: RegisterModel;
   userForm: FormGroup;
   currentRole = 0;
-  currentFormation = 0;
+  currentFormation = 1;
   errorMessageUser = "";
   successMessageUser = "";
   selectedSkills = [];
@@ -58,6 +58,7 @@ export class UserCreateComponent implements OnInit {
         lastName: ["", Validators.required],
         dateBirth: ["", Validators.required],
         salaire: [""],
+ 
         yearsExperience: [""],
         adress: [""],
         phoneNumber: [""],
@@ -68,7 +69,9 @@ export class UserCreateComponent implements OnInit {
             Validators.required,
             Validators.minLength(5),
             Validators.maxLength(50),
-            Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+            Validators.pattern(/^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+
+            // Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
           ]),
         ],
         password: ["", Validators.required],
@@ -122,25 +125,23 @@ export class UserCreateComponent implements OnInit {
     if (this.currentFormation == 1) {
       formation = "BAC";
     }
+  
     if (this.currentFormation == 2) {
-      formation = "BAC+1";
-    }
-    if (this.currentFormation == 3) {
       formation = "BAC+2";
     }
-    if (this.currentFormation == 4) {
+    if (this.currentFormation == 3) {
       formation = "BAC+3";
     }
-    if (this.currentFormation == 5) {
+    if (this.currentFormation == 4) {
       formation = "BAC+4";
     }
-    if (this.currentFormation == 6) {
+    if (this.currentFormation == 5) {
       formation = "BAC+5";
     }
-    if (this.currentFormation == 7) {
+    if (this.currentFormation == 6) {
       formation = "DOCTORANT";
     }
-    if (this.currentFormation == 8) {
+    if (this.currentFormation == 7) {
       formation = "PLUS";
     }
 
@@ -199,7 +200,7 @@ export class UserCreateComponent implements OnInit {
   }
 
   get formation() {
-    return this.userForm.get("adress");
+    return this.userForm.get("formation");
   }
   get phoneNumber() {
     return this.userForm.get("phoneNumber");

@@ -63,7 +63,7 @@ export class CreateMissionComponent {
       startDate: ["", Validators.required],
       period: [" ", Validators.required],
       address: ["", Validators.required],
-      description: ["", Validators.required],
+      description: [""],
       status: ["", Validators.required],
     });
   }
@@ -90,10 +90,12 @@ export class CreateMissionComponent {
   }
 
   async createMission() {
-    if (this.mission.status == "VALID") {
+  /*  if (this.missionForm.status == "VALID") {
       this.errorMessageMission = "valid form";
+     } else {
+       (this.errorMessageMission="invalid form , please verify you put information")
       return false;
-    }
+    }*/
     if (this.currentLevel === 0) {
       this.errorMessageMission = "Invalid level";
       return false;
@@ -127,7 +129,7 @@ export class CreateMissionComponent {
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
     this.mission = {
       id: 0,
-      title: this.missionForm.get("title").value,
+      title: this.missionForm.get("title").value, 
       type,
       skillsIds: this.selectedSkills,
       technologies: this.missionForm.get("technologies").value,
