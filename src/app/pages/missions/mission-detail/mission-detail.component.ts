@@ -1,10 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { NbRoleProvider } from '@nebular/security';
 import { NbDialogService } from "@nebular/theme";
 import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
+
+
+
+
 import {
   skillsModel,
   MissionCreateModel,
@@ -22,6 +27,11 @@ import { UserProfileComponent } from "../../../shared/components/user-profile/us
   styleUrls: ["./mission-detail.component.scss"],
 })
 export class MissionDetailComponent implements OnInit {
+
+
+
+
+
   skills: Array<skillsModel> = [];
   users: Array<UserModel> = [];
   userSource: LocalDataSource = new LocalDataSource();
@@ -37,7 +47,7 @@ export class MissionDetailComponent implements OnInit {
         },
         {
           name: "invite",
-          title: '<span class="btn btn-sm btn-success">Invite</span>',
+          title: '<span class="btn btn-sm btn-success">Envoyer</span>',
         },
       ],
     },
@@ -172,10 +182,18 @@ export class MissionDetailComponent implements OnInit {
         skills += skill.label + ",";
       });
       users = await this.userService.getUsersBySkills(skills).toPromise();
+    
       this.users = users.filter(
+
         (u) => !this.mission.suggestion.find((user) => user.id === u.id)
       );
+      this.users = users.filter (
+        (c)=> c.role != "CLIENT"
+      )
+
       this.userSource.load(this.users);
+
+      
     } catch (error) {
       console.log({ error });
     }
@@ -287,4 +305,18 @@ export class MissionDetailComponent implements OnInit {
       console.log({ error });
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

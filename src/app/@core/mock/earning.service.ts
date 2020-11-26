@@ -6,8 +6,8 @@ import { LiveUpdateChart, PieChart, EarningData } from '../data/earning';
 export class EarningService extends EarningData {
 
   private currentDate: Date = new Date();
-  private currentValue = Math.random() * 1000;
-  private ONE_DAY = 24 * 3600 * 1000;
+  currentValue = Math.random() * 1000;
+  ONE_DAY = 24 * 3600 * 1000;
 
   private pieChartData = [
     {

@@ -21,7 +21,7 @@ export class RoomsComponent implements OnDestroy {
 
   @HostBinding('class.expanded')
   private expanded: boolean;
-  private selected: number;
+  selected: number;
 
   isDarkTheme: boolean;
 

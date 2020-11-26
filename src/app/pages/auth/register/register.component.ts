@@ -11,21 +11,24 @@ import { RegisterModel } from '../../../@core/models/auth.model';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  registerMessage = '';
+  registerMessage = 'user ajouté avec succés';
   user: RegisterModel = {
     username: '',
     password: '',
     confirmPassword: '',
     email: '',
-    salaire: 1,
+    salaire:1,
+    tjmd:0,
+    tjme:0,
+    yearsExperience:0,
     dateBirth:'',
     firstName:'',
     lastName:'',
     role:'',
     formation:'',
-    yearsExperience:0,
     adress:'',
-    phoneNumber:''
+    phonenumber:'',
+    cv:''
 
   };
   registerForm: FormGroup;

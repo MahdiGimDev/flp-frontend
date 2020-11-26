@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 export class RoomSelectorComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
-  private hideGrid: boolean;
+  hideGrid: boolean;
 
   @Output() select: EventEmitter<number> = new EventEmitter();
 

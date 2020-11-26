@@ -58,18 +58,18 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     icon: "layout-outline",
     children: [
       {
-        title: "Add new mission",
+        title: "ajout d'un role",
         link: "/pages/missions/new",
       },
       {
-        title: " All mission",
+        title: "la liste des roles",
         link: "/pages/missions/all",
       },
     ],
   },
 
   {
-    title: "Management of missions",
+    title: "Gestion des offres missions",
     icon: "layout-outline",
     children: [
       {
@@ -83,35 +83,53 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     ],
   },
 
+
+
   {
-    title: "Management skills",
+    title: "Gestion d'offres d'emploi",
     icon: "layout-outline",
     children: [
       {
-        title: "Add new skills",
+        title: "ajout offre d'emploi",
+        link: "/pages/jobs/new",
+      },
+      {
+        title: " list d'offres d'emploi",
+        link: "/pages/jobs/all",
+      },
+    ],
+  },
+
+
+  {
+    title: "gestion des competences",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "ajout d'une competence",
         link: "/pages/skills/new",
       },
       {
-        title: " All skills",
+        title: "Liste des competences",
+        link: "/pages/skills/all",
+      },
+    ],
+  },
+  {
+    title: "gestion questionnaires",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "quiz",
+        link: "/pages/quiz/new",
+      },
+      {
+        title: "Liste quiz",
         link: "/pages/skills/all",
       },
     ],
   },
 
-  {
-    title: "management of job offers",
-    icon: "layout-outline",
-    children: [
-      {
-        title: "Add new mission",
-        link: "/pages/missions/new",
-      },
-      {
-        title: " All mission",
-        link: "/pages/missions/all",
-      },
-    ],
-  },
 
   {
     title: "FEATURES",
@@ -300,16 +318,16 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     ],
   },
   {
-    title: "Tables & Data",
+    title: " & Data",
     icon: "grid-outline",
     children: [
       {
         title: "Smart Table",
-        link: "/pages/tables/smart-table",
+        link: "/pages//smart-table",
       },
       {
         title: "Tree Grid",
-        link: "/pages/tables/tree-grid",
+        link: "/pages//tree-grid",
       },
     ],
   },

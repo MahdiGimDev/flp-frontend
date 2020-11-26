@@ -7,7 +7,7 @@ import { TrafficList, TrafficListData } from '../data/traffic-list';
 export class TrafficListService extends TrafficListData {
 
   private getRandom = (roundTo: number) => Math.round(Math.random() * roundTo);
-  private data = {};
+  data = {};
 
   constructor(private period: PeriodsService) {
     super();

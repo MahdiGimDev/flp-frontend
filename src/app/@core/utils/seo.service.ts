@@ -9,9 +9,9 @@ import { Subject } from 'rxjs';
 export class SeoService implements OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
-  private readonly dom: Document;
-  private readonly isBrowser: boolean;
-  private linkCanonical: HTMLLinkElement;
+  readonly dom: Document;
+  readonly isBrowser: boolean;
+  linkCanonical: HTMLLinkElement;
 
   constructor(
     private router: Router,

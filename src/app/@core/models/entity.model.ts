@@ -15,11 +15,16 @@ export interface UserModel extends BaseEntityModel {
     | "Provider"
     | "Employee"
     | "Commercial"
-    | "Operational";
+    | "Operational"
+    | "Client";
   username: string;
   firstName: string;
   lastName: string;
   salaire: number;
+  tjme:number;
+  tjmd:number;
+  yearsExperience:number;
+  phonenumber:string;
   dateBirth: string;
   activated?: boolean;
   verified?: boolean;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Countries } from 'app/@core/data/consts';
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
 import { RegisterModel, skillsModel } from "../../../@core/models/auth.model";
@@ -22,6 +23,7 @@ export class UserCreateComponent implements OnInit {
   errorMessageUser = "";
   successMessageUser = "";
   selectedSkills = [];
+  phones=Countries ;
 
   public ngxDisabled = false;
   skills: Array<skillsModel> = [];
@@ -57,12 +59,13 @@ export class UserCreateComponent implements OnInit {
         firstName: ["", Validators.required],
         lastName: ["", Validators.required],
         dateBirth: ["", Validators.required],
-        salaire: [""],
- 
+        salaire: [0],
+        tjme: [""],
+        tjmd: [""],   
         yearsExperience: [""],
         adress: [""],
-        phoneNumber: [""],
-
+        phonenumber: ["",Validators.required],
+        cv: [""],
         email: [
           null,
           Validators.compose([
@@ -94,6 +97,7 @@ export class UserCreateComponent implements OnInit {
     this.currentFormation = value;
   }
   async createUser() {
+    console.log({ userform: this.userForm });
     if (this.userForm.status !== "VALID") {
       this.errorMessageUser = "Invalid form";
       return false;
@@ -122,8 +126,16 @@ export class UserCreateComponent implements OnInit {
       role = "COMMERCIAL";
     }
 
+    if (this.currentRole == 6) {
+      role = "CLIENT";
+    }
     if (this.currentFormation == 1) {
       formation = "BAC";
+    }
+
+    if (this.currentFormation == 0) {
+      this.errorMessageUser = "veuillez choisir un niveau de formation";
+      return false;
     }
   
     if (this.currentFormation == 2) {
@@ -155,11 +167,14 @@ export class UserCreateComponent implements OnInit {
       email: this.userForm.get("email").value,
       firstName: this.userForm.get("firstName").value,
       lastName: this.userForm.get("lastName").value,
-      salaire: this.userForm.get("salaire").value,
+      cv: this.userForm.value.cv,
+      tjme: this.userForm.value.tjme,
+      tjmd: this.userForm.value.tjmd,
+      salaire: this.userForm.value.salaire,
       dateBirth: date,
       skillsIds: this.selectedSkills,
-      yearsExperience: this.userForm.get("yearsExperience").value,
-      phoneNumber: this.userForm.get("phoneNumber").value,
+      yearsExperience: this.userForm.value.yearsExperience,
+      phonenumber: this.userForm.get("phonenumber").value,
       adress: this.userForm.get("adress").value,
       formation,
       role,
@@ -191,6 +206,14 @@ export class UserCreateComponent implements OnInit {
     return this.userForm.get("salaire");
   }
 
+  get tjmd() {
+    return this.userForm.get("tjmd");
+  }
+
+  get tjme() {
+    return this.userForm.get("tjme");
+  }
+
   get yearsExperience() {
     return this.userForm.get("yearsExperience");
   }
@@ -202,8 +225,8 @@ export class UserCreateComponent implements OnInit {
   get formation() {
     return this.userForm.get("formation");
   }
-  get phoneNumber() {
-    return this.userForm.get("phoneNumber");
+  get phonenumber() {
+    return this.userForm.get("phonenumber");
   }
   get dateBirth() {
     return this.userForm.get("dateBirth");
@@ -212,6 +235,11 @@ export class UserCreateComponent implements OnInit {
   get firstName() {
     return this.userForm.get("firstName");
   }
+
+  get cv() {
+    return this.userForm.get("cv");
+  }
+
   get lastName() {
     return this.userForm.get("lastName");
   }

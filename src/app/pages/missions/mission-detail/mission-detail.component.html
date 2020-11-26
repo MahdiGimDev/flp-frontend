@@ -77,7 +77,7 @@
 
                         </ng-container>
                         <ng-container *ngIf="!mission.user">
-                            Not Assigned
+                            non affecté
                         </ng-container>
                     </span>
                 </div>
@@ -91,7 +91,7 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="form-group row" *ngIf="mission.status=='APPROVED'">
+            <div class="form-group row" *ngIf="mission.status=='APPROVED' && currentUser.role=='RH'">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Confirm</label>
                 <div class="col-md-9">
@@ -113,7 +113,7 @@
             <div>
                 <span>{{user.firstName}} {{user.lastName}}</span>
                 <ng-container *ngIf="mission.status == 'APPROVED'">
-                    <span *ngIf="user.id == mission.user?.id" class="mx-2 btn btn-sm btn-success">Approved</span>
+                    <span *ngIf="user.id ==  mission.user?.id" class="mx-2 btn btn-sm btn-success">Approved</span>
                     <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Declined</span>
                 </ng-container>
                 <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2">View Profile</button>

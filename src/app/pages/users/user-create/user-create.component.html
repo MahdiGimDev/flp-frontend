@@ -9,7 +9,7 @@
         <span *ngIf="successMessageUser" style="color: green;">
             {{ successMessageUser }}
         </span>
-        <form (submit)="createUser()" [formGroup]=" userForm" class="form-horizontal">
+        <form (submit)="createUser()" [formGroup]="userForm" class="form-horizontal">
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">First Name</label>
                 <div class="col-md-9">
@@ -40,6 +40,7 @@
                         <option [selected]="currentRole==3" value="3">Provider</option>
                         <option [selected]="currentRole==4" value="4">Operational</option>
                         <option [selected]="currentRole==5" value="5">Commercial</option>
+                        <option [selected]="currentRole==6" value="6">CLIENT</option>
                     </select>
                 </div>
             </div>
@@ -51,11 +52,11 @@
                         <option [selected]="currentFormation==0" value="0">select formation</option>
                         <option [selected]="currentFormation==1" value="1">Bac</option>
                         <option [selected]="currentFormation==2" value="2">Bac+2</option>
-                        <option [selected]="currentFormation==4" value="3">Bac+3</option>
-                        <option [selected]="currentFormation==5" value="4">Bac+4</option>
-                        <option [selected]="currentFormation==6" value="5">Bac+5</option>
-                        <option [selected]="currentFormation==7" value="6">doctorant(e)</option>
-                        <option [selected]="currentFormation==8" value="7">plus</option>
+                        <option [selected]="currentFormation==3" value="3">Bac+3</option>
+                        <option [selected]="currentFormation==4" value="4">Bac+4</option>
+                        <option [selected]="currentFormation==5" value="5">Bac+5</option>
+                        <option [selected]="currentFormation==6" value="6">doctorant(e)</option>
+                        <option [selected]="currentFormation==7" value="7">autre</option>
                     </select>
                 </div>
             </div>
@@ -63,24 +64,50 @@
                 <label class="col-md-3 col-form-label" for="text-input">
                     years of experience</label>
                 <div class="col-md-9">
-                    <input formControlName="salaire" type="number" name="text-input" class="form-control"
+                    <input formControlName="yearsExperience" type="number" name="text-input" class="form-control"
                         placeholder="years experience">
-                    <div style="color: red" *ngIf=" salaire.hasError('required') &&  salaire.touched">
-                        * Salaire is required!
+                    <div style="color: red" *ngIf=" yearsExperience.hasError('required') &&  yearsExperience.touched">
+                        * years experience 
                     </div>
                 </div>
             </div>
-            <div *ngIf="currentRole!=3&&currentRole!=0" class="form-group row">
+            
+            <div *ngIf="currentRole!=3" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Salary</label>
+                    Salaire</label>
                 <div class="col-md-9">
                     <input formControlName="salaire" type="number" name="text-input" class="form-control"
                         placeholder="dinar salary">
                     <div style="color: red" *ngIf=" salaire.hasError('required') &&  salaire.touched">
-                        * Salaire is required!
+                        * Salaire dont forget!
                     </div>
                 </div>
             </div>
+
+            <div *ngIf="currentRole==3" class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                   TJM en Presenciel</label>
+                <div class="col-md-9">
+                    <input formControlName="tjme" type="number" name="text-input" class="form-control"
+                        placeholder="Tarif Jour homme en Presenciel">
+                    <div style="color: red" *ngIf=" tjme.hasError('required') &&  tjme.touched">
+                        * TJM is required!
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="currentRole==3" class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                   TJM en Distanciel</label>
+                <div class="col-md-9">
+                    <input formControlName="tjmd" type="number" name="text-input" class="form-control"
+                        placeholder="Tarif Jour homme en Distanciel">
+                    <div style="color: red" *ngIf=" tjmd.hasError('required') &&  tjmd.touched">
+                        * TJM is required!
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Date of birth </label>
@@ -106,6 +133,8 @@
             </div>
 
 
+        
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
                 <div class="col-md-9">
@@ -122,9 +151,9 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Phone Number</label>
                 <div class="col-md-9">
-                    <input formControlName="adress" type="text" name="text-input" class="form-control"
+                    <input formControlName="phonenumber" type="text" name="text-input" class="form-control"
                         placeholder="phone Number">
-                    <div style="color: red" *ngIf="phoneNumber.hasError('required') && phoneNumber.touched">
+                    <div style="color: red" *ngIf="phonenumber.hasError('required') && phonenumber.touched">
                         * phone number is required!
                     </div>
                 </div>
@@ -160,7 +189,7 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    technologies</label>
+                    Competences</label>
                 <div class="col-md-9">
                     <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
                         placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)">

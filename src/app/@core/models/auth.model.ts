@@ -17,13 +17,16 @@ export interface RegisterModel {
   firstName: string;
   lastName: string;
   salaire: number;
+  tjmd: number;
+  tjme: number;
   dateBirth: string;
   email: string;
+  cv: string;
   role: string;
   formation: string;
   yearsExperience: number;
   adress: string;
-  phoneNumber: string;
+  phonenumber: string;
   password: string;
   confirmPassword: string;
   skillsIds?: Array<number>;

@@ -85,7 +85,7 @@ export class TemperatureDraggerComponent implements AfterViewInit, OnChanges {
   };
 
   private isMouseDown = false;
-  private init = false;
+  init = false;
 
   constructor(
     private location: Location,

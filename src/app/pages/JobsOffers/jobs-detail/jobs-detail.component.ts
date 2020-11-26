@@ -62,7 +62,6 @@ export class JobsDetailComponent implements OnInit {
       this.selectedSkills.push(option.data?.id);
     });
   };
-
   ngOnInit(): void {
     this.route.params.subscribe(async (params) => {
       const id = params.id;
@@ -71,8 +70,6 @@ export class JobsDetailComponent implements OnInit {
     });
     this.loadSkills();
   }
-
-
   async loadSkills() {
     let data: any = [];
     try {
@@ -82,17 +79,9 @@ export class JobsDetailComponent implements OnInit {
       console.log({ error });
     }
   }
-
-
   onChangeLevel(value) {
     this.currentLevel = value;
   }
-
-
-
-
-
-
   async loadJob(id) {
     let data: any = [];
     try {

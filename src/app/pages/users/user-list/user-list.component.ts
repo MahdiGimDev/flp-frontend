@@ -12,7 +12,7 @@ import { UsersService } from "../../../@core/services/users.service";
 })
 export class UserListComponent implements OnInit {
   role = "all";
-  roles = ["provider", "rh", "admin", "employee", "operational", "commercial"];
+  roles = ["provider", "rh", "admin", "employee", "operational", "commercial","client"];
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -42,18 +42,20 @@ export class UserListComponent implements OnInit {
         title: "Last Name",
         type: "string",
       },
-      username: {
-        title: "username",
-        type: "string",
-      },
-      salaire: {
-        title: "salaire",
+      yearsExperience: {
+        title: "years Experience",
         type: "number",
       },
+      phonenumber: {
+        title: "phone Number",
+        type: "string",
+      },
+     
       dateBirth: {
         title: "Date of birth",
         type: "Date",
       },
+
       email: {
         title: "E-mail",
         type: "string",
@@ -77,6 +79,79 @@ export class UserListComponent implements OnInit {
       },
     },
   };
+
+
+  roleP = "provider";
+  rolesP = ["provider"];
+  settingsP = {
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
+    },
+    columns: {
+      id: {
+        title: "ID",
+        type: "number",
+      },
+      firstName: {
+        title: "First Name",
+        type: "string",
+      },
+      lastName: {
+        title: "Last Name",
+        type: "string",
+      },
+      yearsExperience: {
+        title: "years Experience",
+        type: "number",
+      },
+      phonenumber: {
+        title: "phone Number",
+        type: "string",
+      },
+      tjme: {
+        title: "tjme",
+        type: "number",
+      },
+      tjmd: {
+        title: "tjmd",
+        type: "number",
+      },
+     
+      dateBirth: {
+        title: "Date of birth",
+        type: "Date",
+      },
+
+      email: {
+        title: "E-mail",
+        type: "string",
+      },
+      role: {
+        title: "Role",
+        type: "html",
+        editor: {
+          type: "list",
+          config: {
+            list: [
+         { value: "PROVIDER", title: "Provider" },
+            ],
+          },
+        },
+      },
+    },
+  };
   source: LocalDataSource = new LocalDataSource();
 
   constructor(
@@ -88,8 +163,11 @@ export class UserListComponent implements OnInit {
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
       const role = `${params.role}`.toLowerCase();
+      const rolep = `${params.role}`.toLowerCase();
       this.role = this.roles.includes(role) ? role : "all";
+      this.roleP = this.rolesP.includes(rolep) ? rolep : "provider";
       console.log({ role });
+      console.log({ rolep });
       this.loadUsers();
     });
     this.loadUsers();
@@ -103,7 +181,10 @@ export class UserListComponent implements OnInit {
       if (this.role == "all") {
         data = await this.userService.getAllUsers().toPromise();
         this.source.load(data);
-      } else {
+
+
+
+      }else {
         data = await this.userService.getUsersByRole(this.role).toPromise();
         this.source.load(data);
       }

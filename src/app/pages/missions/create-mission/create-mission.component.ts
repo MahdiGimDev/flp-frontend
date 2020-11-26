@@ -106,6 +106,7 @@ export class CreateMissionComponent {
               { value: "PROVIDER", title: "Provider" },
               { value: "OPERATIONAL", title: "Operational" },
               { value: "COMMERCIAL", title: "Commercial" },
+              { value: "CLIENT", title: "Client" },
             ],
           },
         },
@@ -256,6 +257,7 @@ export class CreateMissionComponent {
       const data: any = await this.missionService
         .createMission(this.mission)
         .toPromise();
+        if (window.confirm('mission ajoutée avec succés'))
       if (data.id) {
         this.router.navigate(["/pages/missions/all"]);
         this.successMessageMission = "Created successfully";
@@ -313,4 +315,13 @@ export class CreateMissionComponent {
   get status() {
     return this.missionForm.get("status");
   }
+
+  uploadFile($event) {
+    console.log($event.target.files[0]); // outputs the first file
+}
+
+async uploader(){
+
+}
+
 }

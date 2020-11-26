@@ -35,15 +35,16 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    technologies</label>
+                   speciality</label>
                 <div class="col-md-9">
                     <input formControlName="technologies" type="text" name="text-input" class="form-control"
                         placeholder="technologies">
                     <div style="color: red" *ngIf="technologies.hasError('required')">
-                        * technologies is required!
+                        * speciality is required!
                     </div>
                 </div>
             </div>
+            
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     technologies</label>
@@ -148,6 +149,12 @@
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 create mission</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+            <input 
+    hidden 
+    type="file" 
+    #uploader
+    (change)="uploadFile($event)"/>
+<button (click)="uploader.click()">Telecharger cv</button>
         </form>
     </nb-card-body>
 </nb-card>
