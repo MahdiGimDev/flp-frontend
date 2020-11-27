@@ -20,8 +20,8 @@ export class UsersService {
   getUsersByRoleProvider(role: string) {
     return this.http.get(this.baseUrl + "/get/" + role.toUpperCase());
   }
-  getUsersBySkills(skills: string) {
-    return this.http.get(`${this.baseUrl}/skills?skill=${skills}`);
+  getUsersBySkills(skills: string, missionId) {
+    return this.http.get(`${this.baseUrl}/skills/${missionId}?skill=${skills}`);
   }
   getUsers(page = 1, limit = 10) {
     const params: HttpParams = new HttpParams()

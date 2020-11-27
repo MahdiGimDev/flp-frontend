@@ -46,6 +46,13 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
+                    End Date</label>
+                <div class="col-md-9">
+                    {{mission.endDate | date : 'dd-MM-yyyy'}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
                     Period</label>
                 <div class="col-md-9">
                     {{mission.period}}
@@ -65,23 +72,7 @@
                     {{mission.description}}
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="textarea">
-                    Status</label>
-                <div class="col-md-9">
-                    <span class="mr-2"> {{mission.status}}</span>
-                    <span>
-                        <ng-container *ngIf="mission.user">
-                            {{mission.user.email}} <button (click)="viewProfile(mission.user)"
-                                class="btn btn-info btn-sm mx-2">View Profile</button>
 
-                        </ng-container>
-                        <ng-container *ngIf="!mission.user">
-                            non affecté
-                        </ng-container>
-                    </span>
-                </div>
-            </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Skills</label>
@@ -91,17 +82,42 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="form-group row" *ngIf="mission.status=='APPROVED' && currentUser.role=='RH'">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Confirm</label>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Status</label>
                 <div class="col-md-9">
-                    <button (click)="onConfirm()" class="btn btn-success btn-sm">Confirm Mission</button>
+                    <span class="mr-2"> {{mission.status}}</span>
+                    <span>
+                        <ng-container *ngIf="mission.user">
+                            {{mission.user.email}} <button (click)="viewProfile(mission.user)"
+                                class="btn btn-info btn-sm mx-2">View Profile</button>
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="currentUser.role=='RH'">
+                <ng-container>
+                    <div class="d-flex flex-wrap justify-content-start">
+                        <button *ngIf="mission.status=='OPTION' " (click)="onBlock()"
+                            class="btn btn-dark btn-sm mx-3">Block Mission</button>
+                        <button *ngIf="mission.status=='BLOCKED' " (click)="onConfirm()"
+                            class="btn btn-success btn-sm mx-3">Confirm Mission</button>
+                        <button *ngIf="mission.status=='BLOCKED' " (click)="onCancel()"
+                            class="btn btn-danger btn-sm mx-3">Cancel Mission</button>
+                        <button *ngIf="mission.status!='CONFIRMED' && mission.status!='AVAILABLE' "
+                            (click)="onAvailable()" class="btn btn-info btn-sm mx-3">Available</button>
+                    </div>
+                </ng-container>
+            </div>
+            <div *ngIf="currentUser.role == 'EMPLOYEE' || currentUser.role == 'PROVIDER'">
+                <div class="d-flex flex-wrap justify-content-start" *ngIf="mission.status == 'AVAILABLE'">
+                    <button (click)=" onAcceptInvitation()" class="btn btn-success btn-sm">Accept Invitation</button>
                 </div>
             </div>
         </div>
     </nb-card-body>
 </nb-card>
-<nb-card>
+<nb-card *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'">
     <nb-card-header>
         Invited Employees
     </nb-card-header>
@@ -117,10 +133,9 @@
                     <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Declined</span>
                 </ng-container>
                 <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2">View Profile</button>
-                <ng-container *ngIf="mission.status == 'FINDING' || mission.status == 'PENDING' ">
-                    <button *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'" (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Remove
+                <ng-container *ngIf="mission.status == 'AVAILABLE'">
+                    <button (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Remove
                         Invitation</button>
-                    <button *ngIf="currentUser.role == 'CLIENT'" (click)="onAcceptInvitation(user)" class="btn btn-success btn-sm">Accept Invitation</button>
                 </ng-container>
             </div>
             <hr>
@@ -128,7 +143,7 @@
     </nb-card-body>
 </nb-card>
 <ng-container *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'">
-    <nb-card *ngIf="mission.status == 'FINDING' || mission.status == 'PENDING' ">
+    <nb-card *ngIf="mission.status == 'AVAILABLE'">
         <nb-card-header>
             Suggest Employee
         </nb-card-header>

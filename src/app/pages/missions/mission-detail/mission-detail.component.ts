@@ -1,14 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NbRoleProvider } from '@nebular/security';
+import { NbRoleProvider } from "@nebular/security";
 import { NbDialogService } from "@nebular/theme";
 import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
-
-
-
 
 import {
   skillsModel,
@@ -27,11 +24,6 @@ import { UserProfileComponent } from "../../../shared/components/user-profile/us
   styleUrls: ["./mission-detail.component.scss"],
 })
 export class MissionDetailComponent implements OnInit {
-
-
-
-
-
   skills: Array<skillsModel> = [];
   users: Array<UserModel> = [];
   userSource: LocalDataSource = new LocalDataSource();
@@ -172,7 +164,7 @@ export class MissionDetailComponent implements OnInit {
   }
 
   async loadUsers() {
-    if (this.mission.status != "FINDING" && this.mission.status != "PENDING") {
+    if (this.mission.status != "AVAILABLE") {
       return;
     }
     let users: any = [];
@@ -181,19 +173,14 @@ export class MissionDetailComponent implements OnInit {
       this.mission.skills.map((skill) => {
         skills += skill.label + ",";
       });
-      users = await this.userService.getUsersBySkills(skills).toPromise();
-    
-      this.users = users.filter(
+      users = await this.userService.getUsersBySkills(skills,this.mission.id).toPromise();
 
+      this.users = users.filter(
         (u) => !this.mission.suggestion.find((user) => user.id === u.id)
       );
-      this.users = users.filter (
-        (c)=> c.role != "CLIENT"
-      )
+      this.users = users.filter((c) => c.role != "CLIENT");
 
       this.userSource.load(this.users);
-
-      
     } catch (error) {
       console.log({ error });
     }
@@ -224,7 +211,10 @@ export class MissionDetailComponent implements OnInit {
   testVar: any;
   async viewProfile(user: UserModel) {
     this.dialogService.open(UserProfileComponent, {
-      context: { user, admin: this.currentUser.role == "ADMIN" ||  this.currentUser.role == "RH"},
+      context: {
+        user,
+        admin: true,
+      },
     });
   }
   async onCustomAction(event) {
@@ -258,7 +248,7 @@ export class MissionDetailComponent implements OnInit {
     let data: any = [];
     try {
       data = await this.missionService
-        .assignUserToMission(this.mission.id, user.id)
+        .acceptMission(this.mission.id, this.currentUser.id)
         .toPromise();
       await this.loadMission(this.mission.id);
     } catch (error) {
@@ -287,6 +277,57 @@ export class MissionDetailComponent implements OnInit {
       console.log({ error });
     }
   }
+
+  async onCancel() {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService
+        .cancelMission(this.mission.id)
+        .toPromise();
+      await this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+
+  async onAvailable() {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService
+        .availableMission(this.mission.id)
+        .toPromise();
+      await this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  async onBlock() {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService.lockMission(this.mission.id).toPromise();
+      await this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
   async onInvite(user: UserModel) {
     this.errorLogin = "";
     let data: any = [];
@@ -305,18 +346,4 @@ export class MissionDetailComponent implements OnInit {
       console.log({ error });
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

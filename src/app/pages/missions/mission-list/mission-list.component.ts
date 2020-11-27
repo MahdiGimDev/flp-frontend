@@ -92,9 +92,9 @@ export class MissionListComponent implements OnInit {
     this.source.load(data);
     this.spinner.show();
     try {
-      if (this.currentUser.role == "CLIENT") {
+      if (this.currentUser.role == "PROVIDER" || this.currentUser.role == "EMPLOYEE") {
         data = await this.missionService
-          .getAllClientMissions(this.currentUser.id)
+          .getAllEmployeeMissions(this.currentUser.id)
           .toPromise();
       } else if (
         this.currentUser.role == "RH" ||

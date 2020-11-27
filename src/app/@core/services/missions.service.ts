@@ -22,6 +22,9 @@ export class MissionsService {
   getAllClientMissions(idClient) {
     return this.http.get(this.baseUrl + `/client/${idClient}`);
   }
+  getAllEmployeeMissions(idClient) {
+    return this.http.get(this.baseUrl + `/employee/${idClient}`);
+  }
   getMissionsByType(type: string) {
     return this.http.get(this.baseUrl + "/get/" + type.toUpperCase());
   }
@@ -48,11 +51,20 @@ export class MissionsService {
   removeInvitationToMission(id: number, idUser: number) {
     return this.http.delete(`${this.baseUrl}/suggest/${id}/${idUser}`, {});
   }
-  assignUserToMission(id: number, idUser: number) {
-    return this.http.patch(`${this.baseUrl}/assign/${id}/${idUser}`, {});
+  acceptMission(id: number, idUser: number) {
+    return this.http.patch(`${this.baseUrl}/accept/${id}/${idUser}`, {});
+  }
+  lockMission(id: number) {
+    return this.http.patch(`${this.baseUrl}/lock/${id}`, {});
   }
   confirmMission(id: number) {
     return this.http.patch(`${this.baseUrl}/confirm/${id}`, {});
+  }
+  cancelMission(id: number) {
+    return this.http.patch(`${this.baseUrl}/cancel/${id}`, {});
+  }
+  availableMission(id: number) {
+    return this.http.patch(`${this.baseUrl}/available/${id}`, {});
   }
   updateMission(model: missionModel) {
     return this.http.patch(`${this.baseUrl}/update`, model);
