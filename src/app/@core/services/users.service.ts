@@ -38,6 +38,11 @@ export class UsersService {
   updateUser(model: UserModel) {
     return this.http.patch(`${this.baseUrl}/update`, model);
   }
+  uploadUser(userID, file: any) {
+    const form = new FormData();
+    form.set("file", file);
+    return this.http.post(`${this.baseUrl}/upload/${userID}`, form);
+  }
   enableUser(id: number, enable: boolean) {
     const url = enable
       ? `${this.baseUrl}/enable/${id}`

@@ -5,6 +5,7 @@ import {
   UserModel,
   SubscriptionModel,
 } from "../../../@core/models/entity.model";
+import { UsersService } from "../../../@core/services/users.service";
 @Component({
   selector: "app-user-detail",
   templateUrl: "./user-detail.component.html",
@@ -17,9 +18,11 @@ export class UserDetailComponent implements OnInit {
   updateErrorMsg = "";
   delayMessage = 3500;
   editable = false;
-  subscription: SubscriptionModel;
+  public files: any;
+  selectedFile: File;
   constructor(
     private route: ActivatedRoute,
+    private userService: UsersService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -31,25 +34,25 @@ export class UserDetailComponent implements OnInit {
   async loadUser(id) {
     this.spinner.show();
     try {
-      /* const data: any = await this.userService.getUser(id).toPromise();
+      const data: any = await this.userService.getUser(id).toPromise();
       this.user = data;
-      await this.loadSubscription(this.user.id);*/
     } catch (error) {
       console.log({ error });
     }
     this.spinner.hide();
   }
 
-  async enabledUser(id: number, enable: boolean) {
-    this.updateErrorMsg = "";
-    this.updateSuccessMsg = "";
+  async onUploadCv() {
+    this.spinner.show();
     try {
-      /* const data: any = await this.userService.enableUser(id, enable).toPromise();
-      this.user = data;
-      this.showUpdateMessage();*/
+      await this.userService
+        .uploadUser(this.user.id, this.selectedFile)
+        .toPromise();
+      this.loadUser(this.user.id);
     } catch (error) {
       console.log({ error });
     }
+    this.spinner.hide();
   }
 
   showUpdateMessage() {
@@ -78,5 +81,8 @@ export class UserDetailComponent implements OnInit {
   }
   toggleEdit() {
     this.editable = !this.editable;
+  }
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
   }
 }

@@ -11,6 +11,8 @@ import { NbCardModule, NbDatepickerModule } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxSelectModule } from 'ngx-select-ex';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { ThemeModule } from '../../@theme/theme.module';
 
 const routes: Routes = [
   {
@@ -36,10 +38,12 @@ const routes: Routes = [
     FormsModule,
     NbCardModule,
     Ng2SmartTableModule,
+    ThemeModule,
     NgxSelectModule,
     ReactiveFormsModule,
     NbDatepickerModule,
     NgxSpinnerModule,
+    CKEditorModule
   ],
 })
 export class UsersModule { }
