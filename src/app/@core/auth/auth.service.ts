@@ -13,6 +13,7 @@ import {
 export class AuthService {
   constructor(private httpClient: HttpClient) {}
   JWToken = "JW_token";
+  USER = "user";
   loginUser(email: string, password: string): Observable<any> {
     const payload = {
       email,

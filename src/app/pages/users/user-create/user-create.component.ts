@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Countries } from 'app/@core/data/consts';
+import { Countries } from "app/@core/data/consts";
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
 import { RegisterModel, skillsModel } from "../../../@core/models/auth.model";
@@ -23,7 +23,9 @@ export class UserCreateComponent implements OnInit {
   errorMessageUser = "";
   successMessageUser = "";
   selectedSkills = [];
-  phones=Countries ;
+  phones = Countries;
+  public files: any;
+  selectedFile: File;
 
   public ngxDisabled = false;
   skills: Array<skillsModel> = [];
@@ -61,10 +63,10 @@ export class UserCreateComponent implements OnInit {
         dateBirth: ["", Validators.required],
         salaire: [0],
         tjme: [""],
-        tjmd: [""],   
+        tjmd: [""],
         yearsExperience: [""],
         adress: [""],
-        phonenumber: ["",Validators.required],
+        phonenumber: ["", Validators.required],
         cv: [""],
         email: [
           null,
@@ -92,7 +94,9 @@ export class UserCreateComponent implements OnInit {
   onChange(value) {
     this.currentRole = value;
   }
-
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+  }
   onChangeFormation(value) {
     this.currentFormation = value;
   }
@@ -137,7 +141,7 @@ export class UserCreateComponent implements OnInit {
       this.errorMessageUser = "veuillez choisir un niveau de formation";
       return false;
     }
-  
+
     if (this.currentFormation == 2) {
       formation = "BAC+2";
     }

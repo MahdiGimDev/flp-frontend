@@ -11,7 +11,8 @@ import { LayoutService } from "../../../@core/utils";
 import { map, takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { AuthService } from "../../../@core/auth/auth.service";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
+import { JwtPayload } from "../../../@core/models/auth.model";
 
 @Component({
   selector: "ngx-header",
@@ -21,7 +22,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
-  user: any;
+  user: JwtPayload;
 
   themes = [
     {
@@ -52,19 +53,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private menuService: NbMenuService,
     private themeService: NbThemeService,
     private router: Router,
-    private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService
   ) {}
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-
-    this.userService
-      .getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => (this.user = users.Ibtissem));
-
+    this.user = this.authService.getTokenData();
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService
       .onMediaQueryChange()

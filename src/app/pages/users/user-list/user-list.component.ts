@@ -1,6 +1,6 @@
 import { Route } from "@angular/compiler/src/core";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { LocalDataSource } from "ng2-smart-table";
 import { NgxSpinnerService } from "ngx-spinner";
 import { UserModel } from "../../../@core/models/entity.model";
@@ -157,6 +157,7 @@ export class UserListComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UsersService
   ) {}
 
@@ -193,7 +194,10 @@ export class UserListComponent implements OnInit {
     }
     this.spinner.hide();
   }
-
+  onClickRow(event) {
+    const userID = event?.data?.id;
+    this.router.navigate(["/pages/users/detail", userID]);
+  }
   async onDeleteConfirm(event) {
     const user: UserModel = event.data;
     console.log({ user });

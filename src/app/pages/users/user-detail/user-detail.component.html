@@ -43,46 +43,36 @@
             <div class="col-md-5 col-sm-4 col-lg-4">
               <div style="text-align: center;">
                 <div style="margin-bottom: 20px; height: 150px;">
-                  <img
-                    class="profile-img"
-                    src="{{
+                  <img class="profile-img" src="{{
                       user.image ||
                         'https://www.clipartmax.com/png/full/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png'
-                    }}"
-                    alt=""
-                  />
+                    }}" alt="" />
                 </div>
                 <a class="btn btn-block btn-light" (click)="toggleEdit()" target="_self">
                   {{ editable ? 'Cancel Edit' : 'Edit' }}
                 </a>
-                <a *ngIf="!user.activated" (click)="enabledUser(user.id, true)" class="btn btn-block btn-light" target="_self">
-                  Enable User
-                </a>
-                <a *ngIf="user.activated" (click)="enabledUser(user.id, false)" class="btn btn-block btn-light" target="_self">
-                  Disable User</a
-                >
-                <a class="btn btn-block btn-light"> Reset Password</a>
-                <a class="btn btn-block btn-light"> Send Password Reset</a>
               </div>
             </div>
             <div class="col-md-7 col-sm-8 col-lg-8">
               <div style="margin-top: 30px;">
-                <h3>
-                  Username
-                </h3>
-                <ng-container *ngIf="!editable">
-                  <span>
-                    {{ user.username }}
-                  </span>
-                </ng-container>
+                <h3>{{ user.lastName  |titlecase}} {{ user.firstName |titlecase }}</h3>
                 <ng-container *ngIf="editable">
-                  <input name="username" [(ngModel)]="user.username" type="text" class="form-control" placeholder="Username" />
+                  <div class="row">
+                    <div class="col-6">
+                      <dt>Last Name</dt>
+                      <input name="username" [(ngModel)]="user.lastName" type="text" class="form-control"
+                        placeholder="Username" />
+                    </div>
+                    <div class="col-6">
+                      <dt>First Name</dt>
+                      <input name="username" [(ngModel)]="user.firstName" type="text" class="form-control mb-2"
+                        placeholder="Username" />
+                    </div>
+                  </div>
                 </ng-container>
               </div>
               <div style="margin-top: 15px;">
-                <h3>
-                  Role X
-                </h3>
+                <dt>Role</dt>
                 <span>
                   {{ user.role }}
                 </span>
@@ -103,9 +93,23 @@
 
                 <dt>Verified</dt>
                 <dd>{{ user.verified }}</dd>
-
-                <dt>Date Creation</dt>
+                <dt>CV</dt>
+                <dd *ngIf="user.cv">
+                  <a href="{{ user.cv }}" target="_blank">Preview</a>
+                </dd>
+                <dd *ngIf="!user.cv">
+                  No Resume
+                </dd>
+                <input style="width: 300px;" type="file" [(ngModel)]="files" class="form-control" name="files"
+                  (change)="onFileChanged($event)" />
+                <button (click)="onUploadCv()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile"> Upload
+                  Cv</button>
+                <dt>Date Ajout</dt>
                 <dd>{{ user.createdAt | date: 'MM-dd-yyyy' }}</dd>
+                <dt>Formation</dt>
+                <dd>
+                  <ngx-tiny-mce [(ngModel)]="user.formation"></ngx-tiny-mce>
+                </dd>
               </div>
               <div *ngIf="editable">
                 <button class="btn btn-success">Save</button>
@@ -123,29 +127,4 @@
     </div>
   </div>
 
-  <div class="card shadow mt-3">
-    <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
-      <p class="text-white">Loading...</p>
-    </ngx-spinner>
-    <div class="card-header">
-      Subscription
-    </div>
-    <div class="card-body">
-      <ng-container *ngIf="subscription">
-        <dt>Type</dt>
-        <dd>{{ subscription.type }}</dd>
-        <dt>Started At</dt>
-        <dd>{{ subscription.startAt | date: 'dd-MM-yyyy' }}</dd>
-        <dt>Expired At</dt>
-        <dd>{{ subscription.expireAt | date: 'dd-MM-yyyy' }}</dd>
-        <dt>Api Key</dt>
-        <dd>{{ subscription.apiKey?.key ? subscription.apiKey?.key : 'N/A' }}</dd>
-      </ng-container>
-      <div *ngIf="!subscription">
-        <p class="text-center">
-          User Not Subscribed
-        </p>
-      </div>
-    </div>
-  </div>
 </div>

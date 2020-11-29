@@ -67,11 +67,11 @@
                     <input formControlName="yearsExperience" type="number" name="text-input" class="form-control"
                         placeholder="years experience">
                     <div style="color: red" *ngIf=" yearsExperience.hasError('required') &&  yearsExperience.touched">
-                        * years experience 
+                        * years experience
                     </div>
                 </div>
             </div>
-            
+
             <div *ngIf="currentRole!=3" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Salaire</label>
@@ -86,7 +86,7 @@
 
             <div *ngIf="currentRole==3" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                   TJM en Presenciel</label>
+                    TJM en Presenciel</label>
                 <div class="col-md-9">
                     <input formControlName="tjme" type="number" name="text-input" class="form-control"
                         placeholder="Tarif Jour homme en Presenciel">
@@ -98,7 +98,7 @@
 
             <div *ngIf="currentRole==3" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                   TJM en Distanciel</label>
+                    TJM en Distanciel</label>
                 <div class="col-md-9">
                     <input formControlName="tjmd" type="number" name="text-input" class="form-control"
                         placeholder="Tarif Jour homme en Distanciel">
@@ -133,7 +133,7 @@
             </div>
 
 
-        
+
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
@@ -159,7 +159,7 @@
                 </div>
             </div>
 
-            
+
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="password-input">Password</label>
