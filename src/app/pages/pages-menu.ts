@@ -125,7 +125,7 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
       {
         title: "Liste quiz",
-        link: "/pages/skills/all",
+        link: "/pages/quiz/all",
       },
     ],
   },

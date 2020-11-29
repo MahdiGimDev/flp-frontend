@@ -1,0 +1,48 @@
+
+  <div class="container">
+    <form [formGroup]="propositionForm" (ngSubmit) = "processForm()">
+        <!--<div class="form group">
+            <input type="text" name="id" class="form-control" [(ngModel)]="questionnaire.id_questionnaire">
+        </div>-->
+  
+        <div class="form group">
+            <label for="name"> Proposition</label>
+            <input type="text" name="proposition" formControlName="proposition" class="form-control" [(ngModel)]="p.proposition" [ngClass]="{'is-invalid': submitted && f.proposition.errors}">
+            <div *ngIf="submitted && f.proposition.errors" class="invalid-feedback">
+              <div *ngIf="f.proposition.errors.required">>> required</div>
+            </div>
+          </div>
+       
+  
+        <div class="form group">
+            <label for="quantity">Reponse</label>
+            <input type="text"   name="reponse" formControlName="reponse" class="form-control" [(ngModel)]="p.reponse" [ngClass]="{'is-invalid': submitted && f.reponse.errors}">
+            <div *ngIf="submitted && f.reponse.errors" class="invalid-feedback">
+              <div *ngIf="f.reponse.errors.required">>> required</div>
+            </div>
+          </div>
+       
+     
+  <br><br>
+       <div aligne="center">
+        <input type="submit" value="Sauvgarder" class="btn btn-success" >
+        <input type="reset" value="Annuler" class="btn btn-light" >
+      </div>
+      </form>
+  </div>
+  
+  
+          
+  
+  <!--<app-list-of-questions></app-list-of-questions>-->
+  <footer class="container-fluid bg-4 text-center">
+    <b>  <p> Copyright @Brain Consulting:All Rights Reserved</p> </b>
+  </footer>
+  
+  
+  
+  
+  
+  
+  
+  

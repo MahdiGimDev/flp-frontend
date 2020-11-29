@@ -1,0 +1,25 @@
+<form [formGroup]="form" >
+  <div *ngIf="question">
+     <b> <p class="text-left">Question {{question.id_question}} </p> </b>
+      {{question.text_question}} : 
+      <div formArrayName="propositions" *ngFor="let p of form.controls.propositions.controls; let i = index">
+        <div *ngIf="question.type_question== 'multiple choice'; else elsetypeBlock">
+      <input type="checkbox" [formControlName]="i" value="{{p.id_proposition}} " >  {{propositions[i].proposition}}
+        </div>
+</div> 
+<div  *ngFor="let p of question.propositions" class="form-check">
+    <div *ngIf="question.type_question== 'one choice'">
+  <input class="form-check-input" name="proposition" type="radio"  value="{{p.id_proposition}} " (change)="OnSelected($event)" >  {{p.proposition}}
+
+</div>
+</div> 
+   
+    <div aligne="center">
+      <br><br>
+        <button class="btn btn-success btn-sm " (click)="verif()">Valider</button>
+        <br><br>
+  </div>
+      </div>
+  </form>
+  
+  

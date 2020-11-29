@@ -27,7 +27,7 @@ const routes: Routes = [
         ],
       },
 
-      /*{
+      {
         path: "quiz",
         children: [
           {
@@ -36,7 +36,7 @@ const routes: Routes = [
               import("./quiz/gestion-questionnaires.module").then((mod) => mod.GestionQuestionnairesModule),
           },
         ],
-      },*/
+      },
       {
         path: "missions",
         children: [

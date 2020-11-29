@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 col-md-4">
+           <app-create-proposition></app-create-proposition>
+         
+      </div>
+      <div class="col-12 col-md-8">
+          <table class="table table-striped">
+              <thead>
+                  <th>Proposition</th>
+                  <th>Réponse</th>
+                  <th>Actions</th>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let p of propositions">
+                      <td>{{p.proposition}}</td>
+                      <td>{{p.reponse}}</td>
+                     
+                     
+                      
+                      <td>
+                          <button class="btn btn-danger btn-sm" (click)="deleteProposition(proposition)"><i class="fa fa-trash"></i></button>
+                          &nbsp;
+                          <button class="btn btn-success btn-sm" (click)="saveOrUpdateProposition(proposition)"><i class="fa fa-pencil"></i></button>
+                          
+                          
+                          
+                          
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+              
+           
+  </div>
+    </div>
+  </div>
+  

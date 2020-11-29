@@ -1,0 +1,43 @@
+
+        
+          
+   
+
+<div class="container">
+        <button class="btn btn-info btn-sm pull-right" (click)="newQuestion()"><i class="fa fa-plus-square"> Create Question</i></button>
+    <table class="table table-striped">
+        <thead>
+            <th>N°</th>
+            <th>Type Question</th>
+            <th>Nombre Propositions</th>
+            <th>La Question </th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questions">
+                <td>{{question.id_question}}</td>
+                <td>{{question.type_question}}</td>
+                <td>{{question.nb_propositions}}</td>
+                <td>{{question.text_question}}</td>
+               
+                
+                <td>
+                    <button class="btn btn-danger btn-sm" (click)="deleteQuestion(question)"><i class="fa fa-trash"></i></button>
+                    &nbsp;
+                    <button class="btn btn-success btn-sm" (click)="saveOrUpdateQuestion(question)"><i class="fa fa-pencil"></i></button>
+                    
+                    
+                    
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+
+
+
+
+
+

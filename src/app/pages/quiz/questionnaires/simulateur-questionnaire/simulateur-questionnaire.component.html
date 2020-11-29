@@ -1,0 +1,14 @@
+<div aligne="center" *ngIf="questionnaireId">
+  <b class="text-uppercase mb-0" name = "titre">{{questionnaire.titre_questionnaire}}</b>
+</div>
+
+<app-question-simulateur [question]="questionnaire.questions[currIdx]" ></app-question-simulateur>
+
+
+
+<div class="container-fluid bg-4 text-center">
+ <button class="btn btn-secondary btn-sm" (click)="desIncrement()"><i class="fa fa-arrow-circle-left"></i></button>
+ &nbsp;&nbsp;
+  <button class="btn btn-secondary btn-sm" (click)="Increment()"><i class="fa fa-arrow-circle-right"></i></button> 
+
+</div>

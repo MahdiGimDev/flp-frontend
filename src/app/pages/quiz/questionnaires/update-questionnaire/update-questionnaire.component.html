@@ -1,0 +1,66 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/GestionQuestionnaires">Home</a></li>
+  <li class="breadcrumb-item active">UpdateQuestionnaire</li>
+</ol>
+<header class="masthead bg-light text-blue text-center">
+    <div class="container"><br>
+      <h4 class="text-uppercase mb-0">Fiche Questionnaire</h4>
+      <hr class="star-light">
+    </div>
+</header>
+<div class="container">
+  <form [formGroup]="questionnaireForm" (ngSubmit) = "processForm()">
+      <!--<div class="form group">
+          <input type="text" name="id" class="form-control" [(ngModel)]="questionnaire.id_questionnaire">
+      </div>-->
+
+      <div class="form group">
+          <label for="name"> Titre Questionnaire</label>
+          <input type="text" name="titre_questionnaire" formControlName="titre_questionnaire" class="form-control" [(ngModel)]="questionnaire.titre_questionnaire" [ngClass]="{'is-invalid': submitted && f.titre_questionnaire.errors}">
+          <div *ngIf="submitted && f.titre_questionnaire.errors" class="invalid-feedback">
+            <div *ngIf="f.titre_questionnaire.errors.required">>> required</div>
+          </div>
+        </div>
+      <div class="form group">
+            <label for="niveau">Niveau</label>
+            <select type="text" name="niveau" formControlName="niveau" class="form-control" [(ngModel)]="questionnaire.niveau" [ngClass]="{'is-invalid': submitted && f.niveau.errors}">
+              <option>Intermédiaire</option>
+              <option>Débutant</option>
+              <option>Expert</option>
+            <div *ngIf="submitted && f.niveau.errors" class="invalid-feedback">
+                <div *ngIf="f.niveau.errors.required">>> required</div>
+              </div>
+              </select>
+        </div>
+
+      <div class="form group">
+          <label for="quantity">Nombre Questions</label>
+          <input type="text"   name="nb_questions" formControlName="nb_questions" class="form-control" [(ngModel)]="questionnaire.nb_questions" [ngClass]="{'is-invalid': submitted && f.nb_questions.errors}">
+          <div *ngIf="submitted && f.nb_questions.errors" class="invalid-feedback">
+            <div *ngIf="f.nb_questions.errors.required">>> required</div>
+          </div>
+        </div>
+     
+    <div class="form group">
+        <label for="quantity">Date Mise à Jour</label>
+        <input type="date" name="dateUpdate" formControlName="dateUpdate" class="form-control" [(ngModel)]="questionnaire.dateUpdate" [ngClass]="{'is-invalid': submitted && f.dateUpdate.errors}">
+        <div *ngIf="submitted && f.dateUpdate.errors" class="invalid-feedback">
+            <div *ngIf="f.dateUpdate.errors.required">>> required</div>
+          </div>
+    </div>
+<br><br>
+     <div align=center>
+      <input type="submit" value="save" class="btn btn-primary" >
+    </div>
+  </form>
+</div>
+<app-list-of-questions></app-list-of-questions>
+<footer class="container-fluid bg-4 text-center">
+  <b>  <p> Copyright @Brain Consulting:All Rights Reserved</p> </b>
+</footer>
+
+
+
+
+
+
