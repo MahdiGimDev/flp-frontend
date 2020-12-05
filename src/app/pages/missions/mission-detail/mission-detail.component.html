@@ -89,8 +89,7 @@
                     <span class="mr-2"> {{mission.status}}</span>
                     <span>
                         <ng-container *ngIf="mission.user">
-                            {{mission.user.email}} <button (click)="viewProfile(mission.user)"
-                                class="btn btn-info btn-sm mx-2">View Profile</button>
+                            {{mission.user.email}} 
                         </ng-container>
                     </span>
                 </div>
@@ -98,13 +97,14 @@
             <div class="form-group row" *ngIf="currentUser.role=='RH'">
                 <ng-container>
                     <div class="d-flex flex-wrap justify-content-start">
-                        <button *ngIf="mission.status=='OPTION' " (click)="onBlock()"
+                        <button *ngIf="mission.status=='OPTION'" (click)="onBlock()"
                             class="btn btn-dark btn-sm mx-3">Block Mission</button>
-                        <button *ngIf="mission.status=='BLOCKED' " (click)="onConfirm()"
+                        <button *ngIf="mission.status=='BLOCKED'" (click)="onConfirm()"
                             class="btn btn-success btn-sm mx-3">Confirm Mission</button>
-                        <button *ngIf="mission.status=='BLOCKED' " (click)="onCancel()"
+                           
+                        <button *ngIf="mission.status=='BLOCKED'||mission.status=='CONFIRMED'" (click)="onAvailable()"
                             class="btn btn-danger btn-sm mx-3">Cancel Mission</button>
-                        <button *ngIf="mission.status!='CONFIRMED' && mission.status!='AVAILABLE' "
+                        <button *ngIf="mission.status!='CONFIRMED' && mission.status!='AVAILABLE'"
                             (click)="onAvailable()" class="btn btn-info btn-sm mx-3">Available</button>
                     </div>
                 </ng-container>
@@ -132,7 +132,8 @@
                     <span *ngIf="user.id ==  mission.user?.id" class="mx-2 btn btn-sm btn-success">Approved</span>
                     <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Declined</span>
                 </ng-container>
-                <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2">View Profile</button>
+                <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2">View Profi
+                    le</button>
                 <ng-container *ngIf="mission.status == 'AVAILABLE'">
                     <button (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Remove
                         Invitation</button>

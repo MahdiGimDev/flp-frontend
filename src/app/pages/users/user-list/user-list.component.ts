@@ -55,17 +55,20 @@ export class UserListComponent implements OnInit {
         title: "Date of birth",
         type: "Date",
       },
-
-      email: {
-        title: "E-mail",
+      skills: {
+        title: "Skills",
         type: "string",
       },
+     
       role: {
         title: "Role",
         type: "html",
         editor: {
           type: "list",
-          config: {
+        email: {
+        title: "E-mail",
+        type: "string",
+      },   config: {
             list: [
               { value: "ADMIN", title: "Admin" },
               { value: "EMPLOYEE", title: "Employee" },

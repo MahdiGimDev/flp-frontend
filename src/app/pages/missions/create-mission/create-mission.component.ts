@@ -223,7 +223,7 @@ export class CreateMissionComponent {
     const d = new Date(this.missionForm.get("startDate").value);
     const d1 = new Date(this.missionForm.get("endDate").value);
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
-    const date1 = d1.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
+    const date1 = d1.getMonth() + 1 + "-" + d1.getDate() + "-" + d1.getFullYear();
     const diff = d1.getTime() - d.getTime();
     const days = diff / (1000 * 3600 * 24);
     const period = +this.missionForm.get("period").value;
@@ -293,14 +293,14 @@ export class CreateMissionComponent {
   get experienceLevel() {
     return this.missionForm.get("experience level");
   }
-
-  get startDate() {
-    return this.missionForm.get("startDate");
+  get startDate(){
+    return this.missionForm.get("startDate");   
   }
 
-  get endDate() {
-    return this.missionForm.get("endDate");
-  }
+get endDate (){
+  return this.missionForm.get("endDate");
+}
+
 
   get period() {
     return this.missionForm.get("period");

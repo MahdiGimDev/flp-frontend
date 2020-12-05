@@ -3,11 +3,13 @@
         <div class="col-8">
             <h5>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
             <p><strong>About: </strong> {{user.role}} </p>
-            <p><strong>Experience: </strong> {{user.nbrExperience}} Year(s) </p>
+            <p><strong>Experience: </strong> {{user.yearsExperience}} ans </p>
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
                 <p><strong>Created: </strong> {{user.createdAt | date}} </p>
-                <p><strong>Salary: </strong> {{user.salaire}} </p>
+               <p  *ngIf= "user.role!='PROVIDER'"><strong>Salary: </strong> {{user.salaire}} Dinars </p>
+               <p  *ngIf= "user.role =='PROVIDER'"><strong>Tjm en presentiel: </strong> {{user.tjme}} Dinars</p>
+               <p  *ngIf= "user.role =='PROVIDER'"><strong>Tjm en distanciel: </strong> {{user.tjmd}} Dinars </p>
                 <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>
             </ng-container>
             <p><strong>Skills: </strong>
