@@ -6,6 +6,7 @@ import { NbDialogService } from "@nebular/theme";
 import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
+import { UsersSettings } from "../../../@core/data/variables";
 
 import {
   skillsModel,
@@ -27,85 +28,7 @@ export class MissionDetailComponent implements OnInit {
   skills: Array<skillsModel> = [];
   users: Array<UserModel> = [];
   userSource: LocalDataSource = new LocalDataSource();
-  settings = {
-    actions: {
-      add: false,
-      delete: false,
-      edit: false,
-      custom: [
-        {
-          name: "view",
-          title: '<span class="btn btn-sm btn-info">View</span>',
-        },
-        {
-          name: "invite",
-          title: '<span class="btn btn-sm btn-success">Envoyer</span>',
-        },
-      ],
-    },
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true,
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      id: {
-        title: "ID",
-        type: "number",
-      },
-      firstName: {
-        title: "First Name",
-        type: "string",
-      },
-      lastName: {
-        title: "Last Name",
-        type: "string",
-      },
-      username: {
-        title: "username",
-        type: "string",
-      },
-      salaire: {
-        title: "salaire",
-        type: "number",
-      },
-      dateBirth: {
-        title: "Date of birth",
-        type: "Date",
-      },
-      email: {
-        title: "E-mail",
-        type: "string",
-      },
-      role: {
-        title: "Role",
-        type: "html",
-        editor: {
-          type: "list",
-          config: {
-            list: [
-              { value: "ADMIN", title: "Admin" },
-              { value: "EMPLOYEE", title: "Employee" },
-              { value: "RH", title: "RH" },
-              { value: "PROVIDER", title: "Provider" },
-              { value: "OPERATIONAL", title: "Operational" },
-              { value: "COMMERCIAL", title: "Commercial" },
-            ],
-          },
-        },
-      },
-    },
-  };
+  settings = UsersSettings;
   mission: MissionCreateModel = {
     id: 0,
     address: "",
@@ -173,7 +96,9 @@ export class MissionDetailComponent implements OnInit {
       this.mission.skills.map((skill) => {
         skills += skill.label + ",";
       });
-      users = await this.userService.getUsersBySkills(skills,this.mission.id).toPromise();
+      users = await this.userService
+        .getUsersBySkills(skills, this.mission.id)
+        .toPromise();
 
       this.users = users.filter(
         (u) => !this.mission.suggestion.find((user) => user.id === u.id)

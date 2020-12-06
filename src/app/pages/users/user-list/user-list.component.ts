@@ -3,8 +3,12 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LocalDataSource } from "ng2-smart-table";
 import { NgxSpinnerService } from "ngx-spinner";
+import { UsersSettings } from "../../../@core/data/variables";
+import { skillsModel } from "../../../@core/models/auth.model";
 import { UserModel } from "../../../@core/models/entity.model";
 import { UsersService } from "../../../@core/services/users.service";
+import { SkillFilterComponent } from "../../../shared/components/skill-filter/skill-filter.component";
+import { SkillPreviewComponent } from "../../../shared/components/skill-preview/skill-preview.component";
 @Component({
   selector: "app-user-list",
   templateUrl: "./user-list.component.html",
@@ -12,149 +16,19 @@ import { UsersService } from "../../../@core/services/users.service";
 })
 export class UserListComponent implements OnInit {
   role = "all";
-  roles = ["provider", "rh", "admin", "employee", "operational", "commercial","client"];
-  settings = {
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true,
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      id: {
-        title: "ID",
-        type: "number",
-      },
-      firstName: {
-        title: "First Name",
-        type: "string",
-      },
-      lastName: {
-        title: "Last Name",
-        type: "string",
-      },
-      yearsExperience: {
-        title: "years Experience",
-        type: "number",
-      },
-      phonenumber: {
-        title: "phone Number",
-        type: "string",
-      },
-     
-      dateBirth: {
-        title: "Date of birth",
-        type: "Date",
-      },
-      skills: {
-        title: "Skills",
-        type: "string",
-      },
-     
-      role: {
-        title: "Role",
-        type: "html",
-        editor: {
-          type: "list",
-        email: {
-        title: "E-mail",
-        type: "string",
-      },   config: {
-            list: [
-              { value: "ADMIN", title: "Admin" },
-              { value: "EMPLOYEE", title: "Employee" },
-              { value: "RH", title: "RH" },
-              { value: "PROVIDER", title: "Provider" },
-              { value: "OPERATIONAL", title: "Operational" },
-              { value: "COMMERCIAL", title: "Commercial" },
-            ],
-          },
-        },
-      },
-    },
-  };
-
-
+  roles = [
+    "provider",
+    "rh",
+    "admin",
+    "employee",
+    "operational",
+    "commercial",
+    "client",
+  ];
+  settings = UsersSettings;
   roleP = "provider";
   rolesP = ["provider"];
-  settingsP = {
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true,
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      id: {
-        title: "ID",
-        type: "number",
-      },
-      firstName: {
-        title: "First Name",
-        type: "string",
-      },
-      lastName: {
-        title: "Last Name",
-        type: "string",
-      },
-      yearsExperience: {
-        title: "years Experience",
-        type: "number",
-      },
-      phonenumber: {
-        title: "phone Number",
-        type: "string",
-      },
-      tjme: {
-        title: "tjme",
-        type: "number",
-      },
-      tjmd: {
-        title: "tjmd",
-        type: "number",
-      },
-     
-      dateBirth: {
-        title: "Date of birth",
-        type: "Date",
-      },
 
-      email: {
-        title: "E-mail",
-        type: "string",
-      },
-      role: {
-        title: "Role",
-        type: "html",
-        editor: {
-          type: "list",
-          config: {
-            list: [
-         { value: "PROVIDER", title: "Provider" },
-            ],
-          },
-        },
-      },
-    },
-  };
   source: LocalDataSource = new LocalDataSource();
 
   constructor(
@@ -163,6 +37,15 @@ export class UserListComponent implements OnInit {
     private router: Router,
     private userService: UsersService
   ) {}
+
+  filterFunction(profile?: any, search?: string | number): boolean {
+    let match = profile.id == search;
+    if (match || search === "") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
@@ -185,10 +68,7 @@ export class UserListComponent implements OnInit {
       if (this.role == "all") {
         data = await this.userService.getAllUsers().toPromise();
         this.source.load(data);
-
-
-
-      }else {
+      } else {
         data = await this.userService.getUsersByRole(this.role).toPromise();
         this.source.load(data);
       }
