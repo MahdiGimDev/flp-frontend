@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { Route, ActivatedRoute } from "@angular/router";
+import { Route, ActivatedRoute, Router } from "@angular/router";
+import { LocalDataSource } from "ng2-smart-table";
 import { NgxSpinnerService } from "ngx-spinner";
 import {
   UserModel,
   SubscriptionModel,
 } from "../../../@core/models/entity.model";
 import { UsersService } from "../../../@core/services/users.service";
+import { VacationService } from "../../../@core/services/vacation.service";
 @Component({
   selector: "app-user-detail",
   templateUrl: "./user-detail.component.html",
@@ -13,6 +15,72 @@ import { UsersService } from "../../../@core/services/users.service";
 })
 export class UserDetailComponent implements OnInit {
   id = -1;
+  source: LocalDataSource = new LocalDataSource();
+  settings = {
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: false,
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: false,
+    },
+    display: {
+      editButtonContent: '<i class="nb-trash"></i>',
+    },
+    columns: {
+      id: {
+        title: "ID",
+        type: "number",
+      },
+      title: {
+        title: "Titre Repos",
+        type: "string",
+      },
+      type: {
+        title: "Type",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "SICKNESS", title: "Maladie" },
+              { value: "VACATION", title: "Repos" },
+            ],
+          },
+        },
+      },
+      startDate: {
+        title: "Date Debut",
+        type: "string",
+      },
+      period: {
+        title: "Nombre de jours",
+        type: "string",
+      },
+      status: {
+        title: "Status",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "PENDING", title: "En Attente" },
+              { value: "ACCEPTED", title: "ACCEPTER" },
+              { value: "REFUSED", title: "REFUSE" },
+            ],
+          },
+        },
+      },
+    },
+  };
   user: UserModel = null;
   updateSuccessMsg = "";
   updateErrorMsg = "";
@@ -22,7 +90,9 @@ export class UserDetailComponent implements OnInit {
   selectedFile: File;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UsersService,
+    private vacationService: VacationService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -36,6 +106,22 @@ export class UserDetailComponent implements OnInit {
     try {
       const data: any = await this.userService.getUser(id).toPromise();
       this.user = data;
+      this.loadVacations();
+    } catch (error) {
+      console.log({ error });
+    }
+    this.spinner.hide();
+  }
+
+  async loadVacations() {
+    let data: any = [];
+    this.source.load(data);
+    try {
+      this.spinner.show();
+      data = await this.vacationService
+        .getVacationsByUser(this.user.id)
+        .toPromise();
+      this.source.load(data);
     } catch (error) {
       console.log({ error });
     }
@@ -85,4 +171,9 @@ export class UserDetailComponent implements OnInit {
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
   }
+  onClickRow(event) {
+    const vacationID = event?.data?.id;
+    this.router.navigate(["/pages/vacations/detail", vacationID]);
+  }
+
 }

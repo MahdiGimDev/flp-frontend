@@ -6,7 +6,6 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ECommerceComponent } from "./e-commerce/e-commerce.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
 
-
 const routes: Routes = [
   {
     path: "",
@@ -33,7 +32,21 @@ const routes: Routes = [
           {
             path: "",
             loadChildren: () =>
-              import("./quiz/gestion-questionnaires.module").then((mod) => mod.GestionQuestionnairesModule),
+              import("./quiz/gestion-questionnaires.module").then(
+                (mod) => mod.GestionQuestionnairesModule
+              ),
+          },
+        ],
+      },
+      {
+        path: "vacations",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./vacations/vacations.module").then(
+                (mod) => mod.VacationsModule
+              ),
           },
         ],
       },
@@ -70,7 +83,6 @@ const routes: Routes = [
           },
         ],
       },
-
 
       {
         path: "iot-dashboard",
@@ -148,7 +160,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class PagesRoutingModule {}

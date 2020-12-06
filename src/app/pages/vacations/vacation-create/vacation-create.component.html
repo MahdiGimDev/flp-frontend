@@ -1,0 +1,66 @@
+<nb-card>
+    <nb-card-header>
+        Create Mission 
+        <ng-container *ngIf="user">
+            || Available Days : {{user.vacations}}
+        </ng-container>
+
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageMission" style="color: red;">
+            {{ errorMessageMission }}
+        </span>
+        <span *ngIf="successMessageMission" style="color: green;">
+            {{ successMessageMission }}
+        </span>
+        <form (submit)="createMission()" [formGroup]=" vacationForm" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+                <div class="col-md-9">
+                    <input formControlName="title" type="text" name="text-input" class="form-control"
+                        placeholder="Mission Title ">
+                    <div style="color: red" *ngIf="title.hasError('required')">
+                        * Title is required!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentType==0" value="0">selected please</option>
+                        <option [selected]="currentType==1" value="1">Vacance</option>
+                        <option [selected]="currentType==2" value="2">Maladie</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Start Date</label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="startDate" nbInput placeholder="Start Date"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf=" startDate.hasError('required')">
+                        * Start Date is required!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Period</label>
+                <div class="col-md-9">
+                    <input formControlName="period" type="number" name="text-input" class="form-control"
+                        placeholder="Period">
+                    <div style="color: red" *ngIf=" period.hasError('required')">
+                        * Period is required!
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                Ajout Repos</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+
+        </form>
+    </nb-card-body>
+</nb-card>

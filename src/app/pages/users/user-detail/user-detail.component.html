@@ -93,6 +93,10 @@
 
                 <dt>Verified</dt>
                 <dd>{{ user.verified }}</dd>
+
+                <dt>Vacations Available</dt>
+                <dd>{{ user.vacations }} Days</dd>
+
                 <dt>CV</dt>
                 <dd *ngIf="user.cv">
                   <a href="{{ user.cv }}" target="_blank">Preview</a>
@@ -125,6 +129,20 @@
         </div>
       </div>
     </div>
+
+    <nb-card>
+      <nb-card-header>Repos</nb-card-header>
+      <nb-card-body>
+        <nb-card>
+          <nb-card-header>
+          </nb-card-header>
+          <nb-card-body>
+            <ng2-smart-table (userRowSelect)="onClickRow($event)" [settings]="settings" [source]="source">
+            </ng2-smart-table>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-body>
+    </nb-card>
   </div>
 
 </div>

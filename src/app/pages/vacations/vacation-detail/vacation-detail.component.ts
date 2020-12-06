@@ -1,0 +1,108 @@
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NbDialogService } from "@nebular/theme";
+import { AuthService } from "../../../@core/auth/auth.service";
+import { JwtPayload } from "../../../@core/models/auth.model";
+import { VacationModel } from "../../../@core/models/entity.model";
+import { UsersService } from "../../../@core/services/users.service";
+import { VacationService } from "../../../@core/services/vacation.service";
+import { UserProfileComponent } from "../../../shared/components/user-profile/user-profile.component";
+
+@Component({
+  selector: "ngx-vacation-detail",
+  templateUrl: "./vacation-detail.component.html",
+  styleUrls: ["./vacation-detail.component.scss"],
+})
+export class VacationDetailComponent implements OnInit {
+  errorMessageMission = "";
+  successMessageMission = "";
+  errorLogin = "";
+  currentUser: JwtPayload;
+  vacation: VacationModel = {
+    id: 0,
+    title: "",
+    startDate: "",
+    period: 0,
+    file: "",
+    status: "",
+    type: "",
+  };
+  constructor(
+    private route: ActivatedRoute,
+    private vacationService: VacationService,
+    private router: Router,
+    private dialogService: NbDialogService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.currentUser = this.authService.getTokenData();
+    this.route.params.subscribe(async (params) => {
+      const id = params.id;
+      await this.loadVacation(id);
+    });
+  }
+
+  async loadVacation(id) {
+    let data: any = [];
+    try {
+      data = await this.vacationService.getVacation(id).toPromise();
+      this.vacation = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+  async viewProfile() {
+    this.dialogService.open(UserProfileComponent, {
+      context: {
+        user: this.vacation.user,
+        admin: true,
+      },
+    });
+  }
+  async onAccept() {
+    let data: any = [];
+    this.errorLogin = "";
+    try {
+      data = await this.vacationService
+        .acceptVacation(this.vacation.id)
+        .toPromise();
+      await this.loadVacation(this.vacation.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  async onRefuse() {
+    let data: any = [];
+    this.errorLogin = "";
+    try {
+      data = await this.vacationService
+        .refuseVacation(this.vacation.id)
+        .toPromise();
+      await this.loadVacation(this.vacation.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  async onDeleteConfirm() {
+    if (window.confirm("Are you sure you want to delete?")) {
+      try {
+        await this.vacationService.deleteVacation(this.vacation.id).toPromise();
+        this.router.navigate(["/pages/vacations/all"]);
+      } catch (error) {
+        console.log({ error });
+      }
+    } else {
+    }
+  }
+}

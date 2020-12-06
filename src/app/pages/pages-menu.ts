@@ -52,7 +52,28 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
     ],
   },
-
+  {
+    title: "Management de Conjes",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Tous",
+        link: "/pages/vacations/all",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/vacations/pending",
+      },
+      {
+        title: "Acceptee",
+        link: "/pages/vacations/accepted",
+      },
+      {
+        title: "Refused",
+        link: "/pages/vacations/refused",
+      },
+    ],
+  },
   {
     title: "Users Role Management",
     icon: "layout-outline",
@@ -83,8 +104,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     ],
   },
 
-
-
   {
     title: "Gestion d'offres d'emploi",
     icon: "layout-outline",
@@ -99,7 +118,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
     ],
   },
-
 
   {
     title: "gestion des competences",
@@ -129,7 +147,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
     ],
   },
-
 
   {
     title: "FEATURES",
@@ -373,6 +390,32 @@ export const MENU_ITEMS_CLIENT: NbMenuItem[] = [
       {
         title: " My mission",
         link: "/pages/missions/all",
+      },
+    ],
+  },
+  {
+    title: "Management Conges",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Ajout Conjes",
+        link: "/pages/vacations/new",
+      },
+      {
+        title: "Tous",
+        link: "/pages/vacations/all",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/vacations/pending",
+      },
+      {
+        title: "Acceptee",
+        link: "/pages/vacations/accepted",
+      },
+      {
+        title: "Refused",
+        link: "/pages/vacations/refused",
       },
     ],
   },

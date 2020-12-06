@@ -1,0 +1,88 @@
+<nb-card *ngIf="vacation">
+    <nb-card-header>
+        Mission Details
+        <button *ngIf="vacation.status=='PENDING'" (click)="onDeleteConfirm()"
+            class="btn btn-danger btn-sm ml-2">Supprimer demande</button>
+        <ng-container *ngIf="errorLogin">
+            <small style="color: red;">{{ errorLogin }}</small>
+        </ng-container>
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageMission" style="color: red;">
+            {{ errorMessageMission }}
+        </span>
+        <span *ngIf="successMessageMission" style="color: green;">
+            {{ successMessageMission }}
+        </span>
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Title</label>
+                <div class="col-md-9">
+                    {{vacation.title}}
+                </div>
+            </div>
+
+            <div class="form-group row" *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'">
+                <label class="col-md-3 col-form-label" for="text-input">Profile</label>
+                <div class="col-md-9">
+                    {{vacation?.user?.firstName}}  {{vacation?.user?.lastName}}
+                    <button (click)="viewProfile()" class="btn btn-info btn-sm mx-2">View Profile</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Type of vacation </label>
+                <div class="col-md-9">
+                    {{vacation.type}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Start Date</label>
+                <div class="col-md-9">
+                    {{vacation.startDate | date : 'dd-MM-yyyy'}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Period</label>
+                <div class="col-md-9">
+                    {{vacation.period}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    File</label>
+                <div class="col-md-9">
+                    <ng-container *ngIf="vacation.file else noFile">
+                        <a href="{{vacation.file}}"></a>
+                    </ng-container>
+                    <ng-template #noFile>
+                        N/A
+                    </ng-template>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Status</label>
+                <div class="col-md-9">
+                    <span class="mr-2 px-4 py-2 pending" *ngIf="vacation.status=='PENDING'"> {{vacation.status}}</span>
+                    <span class="mr-2 px-4 py-2 accepted" *ngIf="vacation.status=='ACCEPTED'">
+                        {{vacation.status}}</span>
+                    <span class="mr-2 px-4 py-2 refused" *ngIf="vacation.status=='REFUSED'"> {{vacation.status}}</span>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="currentUser.role=='RH'">
+                <ng-container>
+                    <div class="d-flex flex-wrap justify-content-start">
+                        <button *ngIf="vacation.status=='PENDING'" (click)="onAccept()"
+                            class="btn btn-dark btn-sm mx-3">Accept Mission</button>
+                        <button *ngIf="vacation.status=='PENDING'" (click)="onRefuse()"
+                            class="btn btn-success btn-sm mx-3">Refuse Mission</button>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

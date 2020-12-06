@@ -23,6 +23,7 @@ export interface UserModel extends BaseEntityModel {
   salaire: number;
   tjme: number;
   tjmd: number;
+  vacations?: number;
   yearsExperience: number;
   phonenumber: string;
   dateBirth: string;
@@ -48,6 +49,16 @@ export interface SubscriptionModel extends BaseEntityModel {
   type: string;
   user: UserModel;
   apiKey: ApiKeyModel;
+}
+
+export interface VacationModel extends BaseEntityModel {
+  title: string;
+  startDate: string;
+  status?: string;
+  type: string;
+  file?: string;
+  user?: UserModel;
+  period: number;
 }
 
 export interface ApiKeyModel extends BaseEntityModel {

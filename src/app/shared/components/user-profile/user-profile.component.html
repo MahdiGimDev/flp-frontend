@@ -4,6 +4,7 @@
             <h5>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
             <p><strong>About: </strong> {{user.role}} </p>
             <p><strong>Experience: </strong> {{user.yearsExperience}} ans </p>
+            <p><strong>Available Vacations: </strong> {{user.vacations}} Days </p>
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
                 <p><strong>Created: </strong> {{user.createdAt | date}} </p>
