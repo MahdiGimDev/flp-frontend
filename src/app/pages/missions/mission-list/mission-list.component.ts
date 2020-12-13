@@ -69,9 +69,10 @@ export class MissionListComponent implements OnInit {
         title: "Status",
         type: "string",
       },
-  },
+    },
   };
 
+  missions: Array<missionModel> = [];
   source: LocalDataSource = new LocalDataSource();
   currentUser: JwtPayload;
   constructor(
@@ -92,7 +93,10 @@ export class MissionListComponent implements OnInit {
     this.source.load(data);
     this.spinner.show();
     try {
-      if (this.currentUser.role == "PROVIDER" || this.currentUser.role == "EMPLOYEE") {
+      if (
+        this.currentUser.role == "PROVIDER" ||
+        this.currentUser.role == "EMPLOYEE"
+      ) {
         data = await this.missionService
           .getAllEmployeeMissions(this.currentUser.id)
           .toPromise();
@@ -102,6 +106,7 @@ export class MissionListComponent implements OnInit {
       ) {
         data = await this.missionService.getAllMissions().toPromise();
       }
+      this.missions = data;
       this.source.load(data);
     } catch (error) {
       console.log({ error });

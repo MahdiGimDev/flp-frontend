@@ -1,0 +1,150 @@
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+p.solid {
+  border-style: solid;
+}
+.btn-light {
+  height: 35px;
+  padding: 8px;
+  background: #f7f7f7;
+  span {
+    width: 15px;
+    font-size: 22px;
+    color: #220532;
+  }
+}
+.week-event-container {
+  height: 200px;
+  .img-view {
+    object-fit: cover;
+    width: 100%;
+    max-height: 120px;
+  }
+  .video-view {
+    width: 100%;
+  }
+}
+::ng-deep .cal-week-view .cal-day-headers span {
+  display: none !important;
+}
+
+::ng-deep .cal-week-view .cal-hour-odd {
+  background-color: #ffffff !important;
+}
+::ng-deep .cal-week-view .cal-time-label-column {
+  display: none !important;
+}
+::ng-deep .cal-week-view .cal-current-time-marker {
+  display: none !important;
+}
+
+.event-img {
+  width: 26px;
+  height: 29px;
+  object-fit: cover;
+}
+.month-view {
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: 'Roboto';
+  color: #220232 !important;
+}
+.event-message {
+  width: 57px;
+}
+.event-time {
+  width: 50px;
+}
+.event-detail {
+  border: 1.2px #a7a7a7 solid;
+  border-radius: 5px;
+  padding: 2px 0px;
+  font-size: 0.7em;
+  margin-bottom: 4px;
+  box-shadow: 0px 0px 1px 0px black;
+}
+::ng-deep .cal-header {
+  font-weight: 400 !important;
+  font-size: 13px !important;
+  color: #220232 !important;
+}
+::ng-deep .cal-day-cell {
+  min-height: 150px !important;
+  min-width: 40px !important;
+  background-color: white !important;
+}
+::ng-deep .cal-month-view .cal-cell-top {
+  min-height: 30px !important;
+  height: 30px !important;
+  flex: 0 !important;
+}
+::ng-deep .cal-week-view .cal-current-time-marker {
+  display: none !important;
+}
+::ng-deep .cal-week-view {
+  border-top: none !important;
+}
+::ng-deep .cal-week-view .cal-header {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid #e1e1e1 !important;
+  b {
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    color: #220232 !important;
+  }
+  span {
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    color: #220232 !important;
+  }
+}
+::ng-deep .cal-week-view .cal-day-headers {
+  border: 0px !important;
+  border-top: 0px !important;
+  border-right: 0px !important;
+  padding-left: 0px !important;
+}
+::ng-deep .cal-month-view .cal-day-number {
+  font-size: 0.9em !important;
+  font-weight: 500 !important;
+  margin-top: 5px !important;
+  margin-right: 5px !important;
+  float: right !important;
+  opacity: 1 !important;
+  margin-bottom: 10px !important;
+  color: #220232 !important;
+}
+.badge-status {
+  height: auto;
+  border-radius: 3px;
+  width: 5px;
+}
+.badge-status-REWORK_INTERNAL {
+  background: tomato;
+}
+
+.badge-status-REWORK_EXTERNAL {
+  background: tomato;
+}
+
+.badge-status-PENDING_INTERNAL {
+  background: rgb(255, 191, 71);
+}
+.badge-status-PENDING_EXTERNAL {
+  background: rgb(255, 191, 71);
+}
+
+.badge-status-APPROVED {
+  background: #0cab22;
+}
+
+.badge-status-DRAFT {
+  background: rgb(71, 181, 255);
+}

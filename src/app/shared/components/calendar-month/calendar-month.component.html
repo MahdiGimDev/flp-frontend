@@ -1,0 +1,54 @@
+<div style="background: white">
+  <div class="row text-left p-3">
+    <div class="col">
+      <div class="btn-group">
+        <div class="btn btn-light" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+          <span class="fas fa-angle-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </div>
+        <div class="text-center px-3 pt-1">
+          <h3 class="month-view" *ngIf="CalendarView.Month">
+            {{ viewDate | calendarDate: view + 'ViewTitle':'en' }}
+          </h3>
+        </div>
+        <div class="btn btn-light" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+          <span class="fas fa-angle-right" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mwl-calendar-month-view [viewDate]="viewDate" [refresh]="refresh" [events]="events"
+  [cellTemplate]="monthEventTemplate">
+</mwl-calendar-month-view>
+
+<div class="calendar-view-container">
+  <ng-template #monthEventTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+      <span class="cal-day-number">{{ day.date | calendarDate: 'monthViewDayNumber':locale }}</span>
+    </div>
+    <div>
+      <div *ngFor="let event of day.events" class="px-1">
+        {{logging(event)}}
+
+        <div class="d-flex justify-content-around event-detail" (click)="onClickEvent(event?.meta?.mission)">
+          <div class="d-flex">
+          </div>
+          <span class="pt-1 event-time">
+            {{ event?.meta?.mission.startDate }}
+          </span>
+          <span class="pt-1 event-message">
+            {{ event?.meta?.mission.title }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+
+
+<ng-template #hoursTemplate let-segment="segment" let-locale="locale" let-isTimeLabel="isTimeLabel" style="top: 0;">
+
+</ng-template>

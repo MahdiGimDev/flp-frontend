@@ -1,10 +1,12 @@
 <nb-card>
-    <nb-card-header>
-   
-    </nb-card-header>
-    <nb-card-body>
-      <ng2-smart-table (userRowSelect)="onClickRow($event)" [settings]="settings" [source]="source" (editConfirm)="onEditConfirm($event)"
-        (deleteConfirm)="onDeleteConfirm($event)" >
-      </ng2-smart-table>
-    </nb-card-body>
-  </nb-card>
+  <nb-card-header>
+
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table (userRowSelect)="onClickRow($event)" [settings]="settings" [source]="source"
+      (editConfirm)="onEditConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<app-calendar-month [posts]="missions"></app-calendar-month>
