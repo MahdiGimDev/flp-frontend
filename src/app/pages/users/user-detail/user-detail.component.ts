@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Route, ActivatedRoute, Router } from "@angular/router";
+import { certifsModel, skillsModel } from 'app/@core/models/auth.model';
+import { CertifsService } from 'app/@core/services/certifs.service';
+import { SkillsService } from 'app/@core/services/skills.service';
 import { LocalDataSource } from "ng2-smart-table";
+import { INgxSelectOption } from 'ngx-select-ex';
 import { NgxSpinnerService } from "ngx-spinner";
 import {
   UserModel,
@@ -14,6 +18,10 @@ import { VacationService } from "../../../@core/services/vacation.service";
   styleUrls: ["./user-detail.component.css"],
 })
 export class UserDetailComponent implements OnInit {
+  skills: Array<skillsModel> = [];
+  certifs: Array<certifsModel> = [];
+
+
   id = -1;
   source: LocalDataSource = new LocalDataSource();
   settings = {
@@ -88,7 +96,19 @@ export class UserDetailComponent implements OnInit {
   editable = false;
   public files: any;
   selectedFile: File;
+  selectedFileC: File;
+  selectedSkills = [];
+  selectedCertifs = [];
+
+
+
+
+
   constructor(
+    private skillsService: SkillsService,
+    private certifsService: CertifsService,
+
+
     private route: ActivatedRoute,
     private router: Router,
     private userService: UsersService,
@@ -99,7 +119,53 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params["id"];
     this.loadUser(this.id);
+    this.loadSkills();
+    this.loadCertifs();
   }
+
+
+  async loadSkills() {
+    let data: any = [];
+    try {
+      data = await this.skillsService.getAllSkills().toPromise();
+      this.skills = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+
+  async loadCertifs() {
+    let data: any = [];
+    try {
+      data = await this.certifsService.getAllCertifs().toPromise();
+      this.certifs = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+
+
+
+  public doSelectOptions = (options: INgxSelectOption[]) => {
+    this.selectedSkills = [];
+    options.map((option) => {
+      this.selectedSkills.push(option.data?.id);
+    });
+  };
+
+
+
+  public doSelectOptionsCertif = (options: INgxSelectOption[]) => {
+    this.selectedCertifs = [];
+    options.map((option) => {
+      this.selectedCertifs.push(option.data?.id);
+    });
+  };
+
+
+
 
   async loadUser(id) {
     this.spinner.show();
@@ -141,6 +207,21 @@ export class UserDetailComponent implements OnInit {
     this.spinner.hide();
   }
 
+
+  async onUploadCertif() {
+    this.spinner.show();
+    try {
+      await this.userService
+        .uploadCertifUser(this.user.id, this.selectedFileC)
+        .toPromise();
+      this.loadUser(this.user.id);
+    } catch (error) {
+      console.log({ error });
+    }
+    this.spinner.hide();
+  }
+
+
   showUpdateMessage() {
     this.updateErrorMsg = "";
     this.updateSuccessMsg = "User Updated Successfully";
@@ -170,6 +251,11 @@ export class UserDetailComponent implements OnInit {
   }
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
+  }
+
+
+  onFileChangedC(event) {
+    this.selectedFileC = event.target.files[0];
   }
   onClickRow(event) {
     const vacationID = event?.data?.id;

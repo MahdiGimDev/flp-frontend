@@ -18,6 +18,10 @@ export class SkillsService {
     return this.http.get(this.baseUrl + "/all");
   }
 
+
+
+  
+
   deleteSkills(id) {
     const params: HttpParams = new HttpParams().set("id", `${id}`);
     return this.http.delete(`${this.baseUrl}`, { params });

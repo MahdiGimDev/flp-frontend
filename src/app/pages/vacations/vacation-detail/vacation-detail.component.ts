@@ -22,6 +22,7 @@ export class VacationDetailComponent implements OnInit {
     id: 0,
     title: "",
     startDate: "",
+    endDate: "",
     period: 0,
     file: "",
     status: "",
@@ -72,9 +73,9 @@ export class VacationDetailComponent implements OnInit {
       if (error.error) {
         this.errorLogin = error.error.message;
       } else {
-        this.errorLogin = "Internal server";
+        this.errorLogin = "Internal server";                                    
       }
-      console.log({ error });
+      console.log({ error });   
     }
   }
   async onRefuse() {

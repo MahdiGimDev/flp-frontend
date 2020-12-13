@@ -36,6 +36,8 @@ export class JobsCreateComponent  {
   startDate: "",
   formation: " ",
   contrat:" ",
+  pays:"",
+  ville:"",
   addresse: " ",
   level: " ",
   description:" ",
@@ -215,6 +217,8 @@ createForm() {
       skillsIds: this.selectedSkills,
       level,  
       startDate: date,   
+      pays: this.jobForm.get("pays").value,
+      ville: this.jobForm.get("ville").value,
       addresse: this.jobForm.get("addresse").value,
       description: this.jobForm.get("description").value,
       contrat,
@@ -247,6 +251,14 @@ createForm() {
 
   get profil() {
     return this.jobForm.get("profil");
+  }
+
+  get pays() {
+    return this.jobForm.get("pays");
+  }
+
+  get ville() {
+    return this.jobForm.get("ville");
   }
 
   get poste() {

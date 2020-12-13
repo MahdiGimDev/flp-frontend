@@ -43,6 +43,14 @@ export class UsersService {
     form.set("file", file);
     return this.http.post(`${this.baseUrl}/upload/${userID}`, form);
   }
+
+
+  uploadCertifUser(userID, file: any) {
+    const form = new FormData();
+    form.set("file", file);
+    return this.http.post(`${this.baseUrl}/uploadcertif/${userID}`, form);
+  }
+
   enableUser(id: number, enable: boolean) {
     const url = enable
       ? `${this.baseUrl}/enable/${id}`

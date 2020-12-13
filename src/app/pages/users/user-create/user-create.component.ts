@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Countries } from "app/@core/data/consts";
+import { certifsModel, RegisterModel, skillsModel } from 'app/@core/models/auth.model';
+import { CertifsService } from 'app/@core/services/certifs.service';
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
-import { RegisterModel, skillsModel } from "../../../@core/models/auth.model";
 import { UserModel } from "../../../@core/models/entity.model";
 import { MustMatch } from "../../../@core/services/helpers";
 import { SkillsService } from "../../../@core/services/skills.service";
@@ -23,6 +24,8 @@ export class UserCreateComponent implements OnInit {
   errorMessageUser = "";
   successMessageUser = "";
   selectedSkills = [];
+  selectedCertifs = [];
+
   phones = Countries;
   public files: any;
   selectedFile: File;
@@ -30,18 +33,32 @@ export class UserCreateComponent implements OnInit {
   public ngxDisabled = false;
   skills: Array<skillsModel> = [];
 
+  public ngxDisabled1 = false;
+  certifs: Array<certifsModel> = [];
+
   public doSelectOptions = (options: INgxSelectOption[]) => {
     this.selectedSkills = [];
     options.map((option) => {
       this.selectedSkills.push(option.data?.id);
     });
   };
+
+
+  public doSelectOptionsC = (options: INgxSelectOption[]) => {
+    this.selectedCertifs = [];
+    options.map((option) => {
+      this.selectedCertifs.push(option.data?.id);
+    });
+  };
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
     private skillsService: SkillsService,
+    private certifsService: CertifsService,
+
     private userService: UsersService
   ) {
     this.createForm();
@@ -55,12 +72,27 @@ export class UserCreateComponent implements OnInit {
       console.log({ error });
     }
   }
+
+
+  async loadCertifs() {
+    let data: any = [];
+    try {
+      data = await this.certifsService.getAllCertifs().toPromise();
+      this.certifs = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
   createForm() {
     this.userForm = this.fb.group(
       {
         firstName: ["", Validators.required],
         lastName: ["", Validators.required],
         dateBirth: ["", Validators.required],
+        pays: ["", Validators.required],
+        paysd: ["", Validators.required],
+        ville: ["", Validators.required],
         salaire: [0],
         tjme: [0],
         tjmd: [0],   
@@ -89,6 +121,7 @@ export class UserCreateComponent implements OnInit {
   }
   ngOnInit() {
     this.loadSkills();
+    this.loadCertifs();
   }
 
   onChange(value) {
@@ -171,12 +204,16 @@ export class UserCreateComponent implements OnInit {
       email: this.userForm.get("email").value,
       firstName: this.userForm.get("firstName").value,
       lastName: this.userForm.get("lastName").value,
+      ville: this.userForm.get("ville").value,
+      pays: this.userForm.get("pays").value,
+      paysd: this.userForm.get("paysd").value,
       cv: this.userForm.value.cv,
       tjme: this.userForm.value.tjme,
       tjmd: this.userForm.value.tjmd,
       salaire: this.userForm.value.salaire,
       dateBirth: date,
       skillsIds: this.selectedSkills,
+      certifsIds: this.selectedCertifs,
       yearsExperience: this.userForm.value.yearsExperience,
       phonenumber: this.userForm.get("phonenumber").value,
       adress: this.userForm.get("adress").value,
@@ -225,6 +262,18 @@ export class UserCreateComponent implements OnInit {
   get adress() {
     return this.userForm.get("adress");
   }
+  get ville() {
+    return this.userForm.get("ville");
+  }
+  
+  get pays() {
+    return this.userForm.get("pays");
+  }
+
+  get paysd() {
+    return this.userForm.get("paysd");
+  }
+
 
   get formation() {
     return this.userForm.get("formation");

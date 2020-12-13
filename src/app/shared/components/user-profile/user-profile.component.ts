@@ -15,6 +15,8 @@ export class UserProfileComponent implements OnInit {
   admin: boolean = false;
   userForm: FormGroup;
   currentRole:0;
+  errorMessageUser = "";
+  successMessageUser = "";
   ngOnInit(): void {}
 
   onChange(value) {
@@ -26,13 +28,6 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  async roleT (){
-
-
-
-
-  }
  
-
 
 }

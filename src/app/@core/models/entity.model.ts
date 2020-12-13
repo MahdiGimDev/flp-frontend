@@ -31,6 +31,7 @@ export interface UserModel extends BaseEntityModel {
   verified?: boolean;
   subscription?: SubscriptionModel;
   cv?: string;
+  certif?: string;
   skills?: Array<skillsModel>;
   createdAt?: Date;
   formation?: string;
@@ -54,6 +55,7 @@ export interface SubscriptionModel extends BaseEntityModel {
 export interface VacationModel extends BaseEntityModel {
   title: string;
   startDate: string;
+  endDate: string;
   status?: string;
   type: string;
   file?: string;
@@ -61,7 +63,44 @@ export interface VacationModel extends BaseEntityModel {
   period: number;
 }
 
+
+export interface ExperienceModel extends BaseEntityModel {
+  title: string;
+  startDate: string;
+  endDate: string;
+  status?: string;
+  type: string;
+  file?: string;
+  user?: UserModel;
+  period: number;
+  ville: string;
+  pays : string;
+  etablissement : string;
+  adress : string;
+  grade : string;
+  poste: string;
+  speciality : string;
+  description:string;
+}
+
+
+
 export interface ApiKeyModel extends BaseEntityModel {
   key: string;
   enabled: boolean;
+}
+
+
+
+export interface FormationModel extends BaseEntityModel {
+  title: string;
+  speciality:string;
+  description:string;
+  startDate: string;
+  endDate: string;
+  status?: string;
+  type: string;
+  file?: string;
+  user?: UserModel;
+  period: number;
 }

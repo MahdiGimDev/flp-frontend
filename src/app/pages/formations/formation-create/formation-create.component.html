@@ -1,8 +1,7 @@
 <nb-card>
     <nb-card-header>
-        Creation une demande de congé 
+        ajout d'une formation
         <ng-container *ngIf="user">
-            || Available Days : {{user.vacations}}
         </ng-container>
 
     </nb-card-header>
@@ -13,7 +12,7 @@
         <span *ngIf="successMessageMission" style="color: green;">
             {{ successMessageMission }}
         </span>
-        <form (submit)="createMission()" [formGroup]="vacationForm" class="form-horizontal">
+        <form (submit)="createMission()" [formGroup]=" formationForm" class="form-horizontal">
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Titre</label>
                 <div class="col-md-9">
@@ -24,52 +23,77 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+                <div class="col-md-9">
+                    <input formControlName="speciality" type="text" name="text-input" class="form-control"
+                        placeholder="specailité de la formation ">
+                    <div style="color: red" *ngIf="speciality.hasError('required')">
+                        * specailité obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Description</label>
+                <div class="col-md-9">
+                    <input formControlName="description" type="text" name="text-input" class="form-control"
+                        placeholder="description">
+                    <div style="color: red" *ngIf="description.hasError('required')">
+                       
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Type de demande</label>
                 <div class="col-md-9">
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
                         <option [selected]="currentType==0" value="0">selected please</option>
-                        <option [selected]="currentType==1" value="1">Repos</option>
-                        <option [selected]="currentType==2" value="2">Maladie</option>
+                        <option [selected]="currentType==1" value="1">universitaire</option>
+                        <option [selected]="currentType==2" value="2">pro</option>
+                        <option [selected]="currentType==3" value="3">autre type</option>
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Date debut de congé</label>
+                    Date debut </label>
                 <div class="col-md-9">
                     <input class="form-control" formControlName="startDate" nbInput placeholder="Start Date"
                         [nbDatepicker]="formpicker">
                     <nb-datepicker #formpicker></nb-datepicker>
-                    <div style="color: red" *ngIf="startDate.hasError('required')">
+                    <div style="color: red" *ngIf=" startDate.hasError('required')">
                         * Date Debut Obligatoire!
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Date de fin de congé</label>
+                    Date de fin </label>
                 <div class="col-md-9">
                     <input class="form-control" formControlName="endDate" nbInput placeholder=" Date fin de congé"
                         [nbDatepicker]="formpicker1">
                     <nb-datepicker #formpicker1></nb-datepicker>
-                    <div style="color: red" *ngIf="endDate.hasError('required')">
+                    <div style="color: red" *ngIf=" endDate.hasError('required')">
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Nombre de jours</label>
+                    durée</label>
                 <div class="col-md-9">
                     <input formControlName="period" type="number" name="text-input" class="form-control"
                         placeholder="Period">
-                    <div style="color: red" *ngIf="period.hasError('required')">
+                    <div style="color: red" *ngIf=" period.hasError('required')">
                         * Nombre de jours obligatoire!
                     </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
-                Ajout Repos</button>
+                Ajout formation</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
 
         </form>

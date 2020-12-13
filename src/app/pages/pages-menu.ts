@@ -50,6 +50,10 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
         title: "Commercial",
         link: "/pages/users/Commercial",
       },
+      {
+        title: "Clients",
+        link: "/pages/users/Client",
+      },
     ],
   },
   {
@@ -74,6 +78,53 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: "Gestion formation collaborateur",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Tous",
+        link: "/pages/formations/all",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/formations/pending",
+      },
+      {
+        title: "Acceptee",
+        link: "/pages/formations/accepted",
+      },
+      {
+        title: "Refused",
+        link: "/pages/formations/refused",
+      },
+    ],
+  },
+
+
+  {
+    title: "Gestion experience collaborateur",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Tous",
+        link: "/pages/experiences/all",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/experiences/pending",
+      },
+      {
+        title: "Acceptee",
+        link: "/pages/experiences/accepted",
+      },
+      {
+        title: "Refused",
+        link: "/pages/experiences/refused",
+      },
+    ],
+  },
+
   {
     title: "Users Role Management",
     icon: "layout-outline",
@@ -133,6 +184,23 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
     ],
   },
+
+
+  {
+    title: "gestion des certifications",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "ajout d'une certification",
+        link: "/pages/certifs/new",
+      },
+      {
+        title: "Liste des certifications",
+        link: "/pages/certifs/all",
+      },
+    ],
+  },  
+
   {
     title: "gestion questionnaires",
     icon: "layout-outline",
@@ -407,16 +475,72 @@ export const MENU_ITEMS_CLIENT: NbMenuItem[] = [
       },
       {
         title: "Demandes",
-        link: "/pages/vacations/pending",
+        link: "/pages/vacations/en attente",
       },
       {
         title: "Acceptee",
-        link: "/pages/vacations/accepted",
+        link: "/pages/vacations/acceptee",
       },
       {
         title: "Refused",
-        link: "/pages/vacations/refused",
+        link: "/pages/vacations/refusee",
       },
     ],
   },
+  {
+    title: "Gestion de mes formations",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Ajout nouvelle formation",
+        link: "/pages/formations/new",
+      },
+      {
+        title: "Tous",
+        link: "/pages/formations/all",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/formations/EN ATTENTE",
+      },
+      {
+        title: "Acceptee",
+        link: "/pages/formations/ACCEPTEE",
+      },
+      {
+        title: "Refused",
+        link: "/pages/formations/REFUSEE",
+      },
+    ],
+  },
+
+  {
+    title: "Gestion mes experiences",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Ajout",
+        link: "/pages/experiences/new",
+      },
+      {
+        title: "Tous",
+        link: "/pages/experiences/all",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/experiences/pending",
+      },
+      {
+        title: "Acceptee",
+        link: "/pages/experiences/accepted",
+      },
+      {
+        title: "Refused",
+        link: "/pages/experiences/refused",
+      },
+    ],
+  },
+
+ 
+
 ];

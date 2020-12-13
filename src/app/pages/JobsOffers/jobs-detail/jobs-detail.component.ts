@@ -34,6 +34,8 @@ export class JobsDetailComponent implements OnInit {
     profil: "",
     specialite: "",
     formation: "",
+    ville:"",
+    pays:"",
     addresse: "",
     description: "",
     contrat: "",

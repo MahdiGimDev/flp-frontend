@@ -25,6 +25,16 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: "certifs",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./certifications/certif.module").then((mod) => mod.CertifsModule),
+          },
+        ],
+      },
 
       {
         path: "quiz",
@@ -50,6 +60,38 @@ const routes: Routes = [
           },
         ],
       },
+
+
+
+      {
+        path: "formations",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./formations/formations.module").then(
+                (mod) => mod.FormationsModule
+              ),
+          },
+        ],
+      },
+
+      {
+        path: "experiences",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./experiences/experience.module").then(
+                (mod) => mod.ExperienceModule
+              ),
+          },
+        ],
+      },
+
+
+
+
       {
         path: "missions",
         children: [
