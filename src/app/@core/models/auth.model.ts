@@ -25,11 +25,16 @@ export interface RegisterModel {
   role: string;
   formation: string;
   yearsExperience: number;
+  paysd:string;
+  ville:string;
+  pays:string;
   adress: string;
   phonenumber: string;
   password: string;
   confirmPassword: string;
+  certifsIds?: Array<number>;
   skillsIds?: Array<number>;
+
 }
 
 export interface JobCreateModel {
@@ -42,6 +47,8 @@ export interface JobCreateModel {
   level:string;
   startDate: string;
   contrat:string;
+  pays:string;
+  ville:string;
   addresse: string;
   description:string;
   status: string;
@@ -95,6 +102,22 @@ export interface SkillsCreateModel {
   description: string;
 }
 
+
+export interface CertifsCreateModel {
+  id?: number;
+  label: string;
+  description: string;
+}
+
+
+export interface certifsModel {
+  id: number;
+  label: string;
+  description: string;
+}
+
+
+
 export interface skillsModel {
   id: number;
   label: string;
@@ -106,7 +129,6 @@ export interface missionModel {
   titre: string;
   profil: string;
   type: string;
-
   technologies: string;
   niveauEx: string;
   dateDebut: string;

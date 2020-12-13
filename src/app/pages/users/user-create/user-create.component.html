@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div *ngIf="currentRole!=3" class="form-group row">
+            <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Salaire</label>
                 <div class="col-md-9">
@@ -121,13 +121,54 @@
                 </div>
             </div>
 
+
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Adress</label>
+                <label class="col-md-3 col-form-label" for="text-input">Pays d'origine</label>
+                <div class="col-md-9">
+                    <input formControlName="paysd" type="text" name="text-input" class="form-control"
+                        placeholder="Pays de naissance">
+                    <div style="color: red" *ngIf="paysd.hasError('required') && paysd.touched">
+                        * Pays d'origine!'
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Pays de résidence</label>
+                <div class="col-md-9">
+                    <input formControlName="pays" type="text" name="text-input" class="form-control"
+                        placeholder="Pays">
+                    <div style="color: red" *ngIf="pays.hasError('required') && pays.touched">
+                        * Pays de résidence obligatoire
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Ville</label>
+                <div class="col-md-9">
+                    <input formControlName="ville" type="text" name="text-input" class="form-control"
+                        placeholder="ville de résidence">
+                    <div style="color: red" *ngIf="ville.hasError('required') && ville.touched">
+                        * ville obligatoire
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Adresse</label>
                 <div class="col-md-9">
                     <input formControlName="adress" type="text" name="text-input" class="form-control"
-                        placeholder="Adress">
+                        placeholder="Adresse">
                     <div style="color: red" *ngIf="adress.hasError('required') && adress.touched">
-                        * Adresse is required!
+                        * Adresse est obligatoire !
                     </div>
                 </div>
             </div>
@@ -187,12 +228,22 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div *ngIf = "currentRole != 6" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Competences</label>
                 <div class="col-md-9">
                     <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
-                        placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)">
+                        placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
+                    </ngx-select>
+                </div>
+            </div>
+
+            <div *ngIf = "currentRole != 6" class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Certifications</label>
+                <div class="col-md-9">
+                    <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
+                        placeholder="certifications non selectionné" name="test" (selectionChanges)="doSelectOptionsC($event)">
                     </ngx-select>
                 </div>
             </div>

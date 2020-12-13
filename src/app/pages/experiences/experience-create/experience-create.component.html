@@ -1,0 +1,181 @@
+<nb-card>
+    <nb-card-header>
+        ajout d'une experience pro
+        <ng-container *ngIf="user">
+      
+        </ng-container>
+
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageMission" style="color: red;">
+            {{ errorMessageMission }}
+        </span>
+        <span *ngIf="successMessageMission" style="color: green;">
+            {{ successMessageMission }}
+        </span>
+        <form (submit)="createExperience()" [formGroup]="experienceForm" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+                <div class="col-md-9">
+                    <input formControlName="title" type="text" name="text-input" class="form-control"
+                        placeholder="Titre">
+                    <div style="color: red" *ngIf="title.hasError('required')">
+                        * Titre obligatoire!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Poste</label>
+                <div class="col-md-9">
+                    <input formControlName="poste" type="text" name="text-input" class="form-control"
+                        placeholder="Poste occupé">
+                    <div style="color: red" *ngIf="poste.hasError('required')">
+                        * Poste obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">grade</label>
+                <div class="col-md-9">
+                    <input formControlName="grade" type="text" name="text-input" class="form-control"
+                        placeholder="grade du poste">
+                    <div style="color: red" *ngIf="grade.hasError('required')">
+                        * grade obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Specialité</label>
+                <div class="col-md-9">
+                    <input formControlName="speciality" type="text" name="text-input" class="form-control"
+                        placeholder="Specialité de la demande ">
+                    <div style="color: red" *ngIf="speciality.hasError('required')">
+                       
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Etablissement</label>
+                <div class="col-md-9">
+                    <input formControlName="etablissement" type="text" name="text-input" class="form-control"
+                        placeholder="Etablissement de la demande ">
+                    <div style="color: red" *ngIf="etablissement.hasError('required')">
+                        * Etablissement obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Pays</label>
+                <div class="col-md-9">
+                    <input formControlName="pays" type="text" name="text-input" class="form-control"
+                        placeholder="Pays de l'établissement">
+                    <div style="color: red" *ngIf="pays.hasError('required')">
+                        * Pays obligatoire!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">ville</label>
+                <div class="col-md-9">
+                    <input formControlName="ville" type="text" name="text-input" class="form-control"
+                        placeholder="ville">
+                    <div style="color: red" *ngIf="ville.hasError('required')">
+                        * ville obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">adresse</label>
+                <div class="col-md-9">
+                    <input formControlName="adress" type="text" name="text-input" class="form-control"
+                        placeholder="adresse de l'établissement' ">
+                    <div style="color: red" *ngIf="adress.hasError('required')">
+                    
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">DESCRIPTION</label>
+                <div class="col-md-9">
+                    <input formControlName="description" type="text" name="text-input" class="form-control"
+                        placeholder="description">
+                    <div style="color: red" *ngIf="description.hasError('required')">
+                    
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Type de contrat</label>
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentType==0" value="0">selected please</option>
+                        <option [selected]="currentType==1" value="1">cdi</option>
+                        <option [selected]="currentType==2" value="2">cdd</option>
+                        <option [selected]="currentType==3" value="3">svp</option>
+                        <option [selected]="currentType==4" value="4">stage</option>
+                        <option [selected]="currentType==5" value="5">autre</option>
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Date debut</label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="startDate" nbInput placeholder="Start Date"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf="startDate.hasError('required')">
+                        * Date Debut Obligatoire!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Date de fin</label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="endDate" nbInput placeholder=" Date fin de congé"
+                        [nbDatepicker]="formpicker1">
+                    <nb-datepicker #formpicker1></nb-datepicker>
+                    <div style="color: red" *ngIf="endDate.hasError('required')">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    durée de l'experience</label>
+                <div class="col-md-9">
+                    <input formControlName="period" type="number" name="text-input" class="form-control"
+                        placeholder="durée de l'experience">
+                    <div style="color: red" *ngIf="period.hasError('required')">
+                        * durée de l'experience!
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                Ajout experience</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+
+        </form>
+    </nb-card-body>
+</nb-card>

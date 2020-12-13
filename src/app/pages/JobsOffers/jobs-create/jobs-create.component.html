@@ -109,6 +109,33 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
+                   Pays</label>
+                <div class="col-md-9">
+                    <input formControlName="Pays" type="text" name="text-input" class="form-control"
+                        placeholder=" Pays emplacement de l'entreprise">
+                    <div style="color: red" *ngIf=" pays.hasError('required') && pays.touched">
+                        * pays obligatoire!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    ville</label>
+                <div class="col-md-9">
+                    <input formControlName="ville" type="text" name="text-input" class="form-control"
+                        placeholder=" ville d'emplacement du client">
+                    <div style="color: red" *ngIf=" ville.hasError('required') && ville.touched">
+                        * vile obligatoire!
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
                     addresse</label>
                 <div class="col-md-9">
                     <input formControlName="addresse" type="text" name="text-input" class="form-control"

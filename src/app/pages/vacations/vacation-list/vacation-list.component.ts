@@ -15,7 +15,7 @@ import { VacationService } from "../../../@core/services/vacation.service";
   styleUrls: ["./vacation-list.component.scss"],
 })
 export class VacationListComponent implements OnInit {
-  statusList = ["all", "pending", "refused", "accepted"];
+  statusList = ["all", "en attente", "refusee", "acceptee"];
   status = "all";
   settings = {
     add: {
@@ -62,6 +62,10 @@ export class VacationListComponent implements OnInit {
         title: "Date Debut",
         type: "string",
       },
+      endDate: {
+        title: "Date fin",
+        type: "string",
+      },
       period: {
         title: "Nombre de jours",
         type: "string",
@@ -73,9 +77,9 @@ export class VacationListComponent implements OnInit {
           type: "selected",
           config: {
             selected: [
-              { value: "PENDING", title: "En Attente" },
-              { value: "ACCEPTED", title: "ACCEPTER" },
-              { value: "REFUSED", title: "REFUSE" },
+              { value: "EN ATTENTE", title: "EN ATTENTE" },
+              { value: "ACCEPTEE", title: "ACCEPTEE" },
+              { value: "REFUSEE", title: "REFUSEE" },
             ],
           },
         },

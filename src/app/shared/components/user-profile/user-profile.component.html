@@ -7,10 +7,7 @@
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
                 <p><strong>Created: </strong> {{user.createdAt | date}} </p>
-               <p  *ngIf= "user.role!='PROVIDER'"><strong>Salary: </strong> {{user.salaire}} Dinars </p>
-               <p  *ngIf= "user.role =='PROVIDER'"><strong>Tjm en presentiel: </strong> {{user.tjme}} Dinars</p>
-               <p  *ngIf= "user.role =='PROVIDER'"><strong>Tjm en distanciel: </strong> {{user.tjmd}} Dinars </p>
-                <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>
+                <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>      
             </ng-container>
             <p><strong>Skills: </strong>
                 <ng-container *ngFor="let skill of user.skills">

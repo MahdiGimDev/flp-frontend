@@ -87,7 +87,62 @@
                     <input name="email" [(ngModel)]="user.email" type="text" class="form-control" placeholder="email" />
                   </ng-container>
                 </dd>
+                <dt>Numero de telephone</dt>
+                <dd>
+                  <ng-container *ngIf="!editable">
+                    {{ user.phonenumber }}
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <input name="phonenumber" [(ngModel)]="user.phonenumber" type="text" class="form-control" placeholder="Num telephone" />
+                  </ng-container>
+                </dd>
 
+
+                <dt>Nombre d'année d'experience</dt>
+                <dd>
+                  <ng-container *ngIf="!editable">
+                    {{ user.yearsExperience }} ans
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <input name="yearsExperience" [(ngModel)]="user.yearsExperience" type="text" class="form-control" placeholder="nombre d'année d'experience" />
+                  </ng-container>
+                </dd>
+
+
+                <dt>salaire</dt>
+                <dd>
+                  <ng-container *ngIf="!editable">
+                    {{ user.salaire }} Dinars
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <input name="yearsExperience" [(ngModel)]="user.salaire" type="text" class="form-control" placeholder="salaire" />
+                  </ng-container>
+                </dd>
+
+
+                <dt>TJM en presentiel</dt>
+                <dd>
+                  <ng-container *ngIf="!editable">
+                    {{ user.tjme }} Dinars
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <input name="tjme" [(ngModel)]="user.tjme" type="text" class="form-control" placeholder="Tjme" />
+                  </ng-container>
+                </dd>
+
+
+                <dt>TJM en distanciel</dt>
+                <dd>
+                  <ng-container *ngIf="!editable" >
+                    {{ user.tjmd }} Dinars
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <input name="tjmd" [(ngModel)]="user.tjmd" type="text" class="form-control" placeholder="tjmd" />
+                  </ng-container>
+                </dd>
+
+
+            
                 <dt>Activated</dt>
                 <dd>{{ user.activated }}</dd>
 
@@ -97,17 +152,58 @@
                 <dt>Vacations Available</dt>
                 <dd>{{ user.vacations }} Days</dd>
 
+                <div class="form-group row">
+                <dt>competence Title</dt>
+                <dd>  
+                  <div class="col-md-9">
+
+                  <ng-container *ngFor="let skill of user.skills">
+                    <span class="m-1 btn btn-sm btn-primary"> {{skill.label}} </span>
+                </ng-container>
+              </div>  
+              </dd>
+             
+            </div>
+
+           
+            
+
                 <dt>CV</dt>
                 <dd *ngIf="user.cv">
                   <a href="{{ user.cv }}" target="_blank">Preview</a>
                 </dd>
                 <dd *ngIf="!user.cv">
-                  No Resume
+                 pas de cv
                 </dd>
                 <input style="width: 300px;" type="file" [(ngModel)]="files" class="form-control" name="files"
                   (change)="onFileChanged($event)" />
                 <button (click)="onUploadCv()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile"> Upload
                   Cv</button>
+
+                
+
+                    <dt>Certification Title</dt>
+                    <dd>
+                      <ng-container *ngFor="let certif of user.certifs">
+                        <span class="m-1 btn btn-sm btn-primary"> {{certif.label}} </span>
+                    </ng-container>
+                    </dd>
+
+                  
+
+                  <dt>Certification file</dt>
+                  <dd *ngIf="user.certif">
+                    <a href="{{ user.certif }}" target="_blank">afficher</a>
+                  </dd>
+                  <dd *ngIf="!user.certif">
+                    No Certif
+                  </dd>
+                  <input style="width: 300px;" type="file" [(ngModel)]="files" class="form-control" name="files"
+                    (change)="onFileChangedC($event)" />
+                  <button (click)="onUploadCertif()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFileC"> telecharger
+                    Certification</button>
+
+
                 <dt>Date Ajout</dt>
                 <dd>{{ user.createdAt | date: 'MM-dd-yyyy' }}</dd>
                 <dt>Formation</dt>

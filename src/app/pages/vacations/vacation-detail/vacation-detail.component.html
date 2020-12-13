@@ -1,6 +1,6 @@
 <nb-card *ngIf="vacation">
     <nb-card-header>
-        Mission Details
+        Détail de la demande de repos
         <button *ngIf="vacation.status=='PENDING'" (click)="onDeleteConfirm()"
             class="btn btn-danger btn-sm ml-2">Supprimer demande</button>
         <ng-container *ngIf="errorLogin">
@@ -45,9 +45,9 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Period</label>
+                    Nombre de jours</label>
                 <div class="col-md-9">
-                    {{vacation.period}}
+                    {{vacation.period}} jours
                 </div>
             </div>
             <div class="form-group row">
@@ -67,10 +67,10 @@
                 <label class="col-md-3 col-form-label" for="textarea">
                     Status</label>
                 <div class="col-md-9">
-                    <span class="mr-2 px-4 py-2 pending" *ngIf="vacation.status=='PENDING'"> {{vacation.status}}</span>
-                    <span class="mr-2 px-4 py-2 accepted" *ngIf="vacation.status=='ACCEPTED'">
+                    <span class="mr-2 px-4 py-2 pending" *ngIf="vacation.status=='EN ATTENTE'"> {{vacation.status}}</span>
+                    <span class="mr-2 px-4 py-2 accepted" *ngIf="vacation.status=='ACCEPTEE'">
                         {{vacation.status}}</span>
-                    <span class="mr-2 px-4 py-2 refused" *ngIf="vacation.status=='REFUSED'"> {{vacation.status}}</span>
+                    <span class="mr-2 px-4 py-2 refused" *ngIf="vacation.status=='REFUSEE'"> {{vacation.status}}</span>
                 </div>
             </div>
             <div class="form-group row" *ngIf="currentUser.role=='RH'">
