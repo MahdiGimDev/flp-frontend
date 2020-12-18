@@ -120,6 +120,53 @@ export interface MissionCreateModel {
   client?: UserModel;
 }
 
+export interface prospectCreateModel {
+  id?: number;
+  nom: string;
+  type: string;
+  secteur: string;
+  sujet: string;
+  startDate: string;
+  addresse: string;
+  file: string;
+  email: string;
+  description: string;
+  status?: string;
+  phonenumber:string
+  ville:string;
+  pays:string;
+  yearsExperience:number;
+
+
+
+
+}
+
+export interface MissionCreateModel {
+  id?: number;
+  title: string;
+  type: string;
+  technologies: string;
+  level: string;
+  startDate: string;
+  endDate: string;
+  period: number;
+  clientId?: number;
+  address: string;
+  description: string;
+  status?: string;
+  skillsIds?: Array<number>;
+  skills?: Array<skillsModel>;
+  suggestion?: Array<UserModel>;
+  user?: UserModel;
+  client?: UserModel;
+}
+
+
+
+
+
+
 export interface SkillsCreateModel {
   id?: number;
   label: string;

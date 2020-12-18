@@ -15,6 +15,9 @@ import { FormationListComponent } from './formations/formation-list/formation-li
 import { ExperienceCreateComponent } from './experiences/experience-create/experience-create.component';
 import { ExperienceListComponent } from './experiences/experience-list/experience-list.component';
 import { DoughnutChartComponent } from './chartFolder/doughnut-chart/doughnut-chart.component';
+import { CreateProspectComponent } from './prospection/create-prospect/create-prospect.component';
+import { ListProspectComponent } from './prospection/list-prospect/list-prospect.component';
+import { DetailProspectComponent } from './prospection/detail-prospect/detail-prospect.component';
 
 
 
