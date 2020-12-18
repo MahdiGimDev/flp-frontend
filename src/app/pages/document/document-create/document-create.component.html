@@ -1,0 +1,107 @@
+<nb-card>
+    <nb-card-header>
+        Create Document
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageMission" style="color: red;">
+            {{ errorMessageMission }}
+        </span>
+        <span *ngIf="successMessageMission" style="color: green;">
+            {{ successMessageMission }}
+        </span>
+        <form (submit)="createDocument()" [formGroup]=" documentForm" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Title</label>
+                <div class="col-md-9">
+                    <input formControlName="title" type="text" name="text-input" class="form-control"
+                        placeholder="Document Title ">
+                    <div style="color: red" *ngIf="title.hasError('required')">
+                        * Titre est obligatoire
+                    </div>
+                </div>
+            </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">file</label>
+                    <div class="col-md-9">
+                        <input formControlName="file" type="text" name="text-input" class="form-control"
+                            placeholder="Document file ">
+                        <div style="color: red" *ngIf="file.hasError('required')">
+                            * file
+                        </div>
+                    </div>
+                </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentType==0" value="0">selected please</option>
+                        <option [selected]="currentType==1" value="1">FACTURE</option>
+                        <option [selected]="currentType==2" value="2">BON DE COMMANDE</option>
+                        <option [selected]="currentType==3" value="3">COMPTABILITE</option>
+                        <option [selected]="currentType==4" value="4">AUTRE</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Start Date</label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="startDate" nbInput placeholder="Date"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf=" startDate.hasError('required')">
+                        * Date  obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    sujet</label>
+                <div class="col-md-9">
+                    <input formControlName="sujet" type="text" name="text-input" class="form-control"
+                        placeholder="sujet">
+                    <div style="color: red" *ngIf="sujet.hasError('required')">
+                        * sujet is required!
+                    </div>
+                </div>
+            </div>
+           
+
+             
+                
+        
+               
+             
+
+
+        
+           
+           
+        
+       
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Description</label>
+                <div class="col-md-9">
+                    <textarea rows="5" formControlName="description" class="form-control" type="textarea"
+                        name="textarea" placeholder="Description of mission"></textarea>
+                    <div style="color: red" *ngIf="description.hasError('required')">
+                        * description is required!
+                    </div>
+                </div>
+            </div>
+            
+            
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                create document</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+         
+
+            </form>
+    </nb-card-body>
+</nb-card>

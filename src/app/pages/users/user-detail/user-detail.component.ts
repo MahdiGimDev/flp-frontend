@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Route, ActivatedRoute, Router } from "@angular/router";
+import { User } from 'app/@core/data/users';
 import { certifsModel, skillsModel } from 'app/@core/models/auth.model';
 import { CertifsService } from 'app/@core/services/certifs.service';
 import { SkillsService } from 'app/@core/services/skills.service';
 import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from 'ngx-select-ex';
 import { NgxSpinnerService } from "ngx-spinner";
+import { userInfo } from 'os';
 import {
   UserModel,
   SubscriptionModel,
@@ -20,6 +22,7 @@ import { VacationService } from "../../../@core/services/vacation.service";
 export class UserDetailComponent implements OnInit {
   skills: Array<skillsModel> = [];
   certifs: Array<certifsModel> = [];
+  
 
 
   id = -1;
@@ -193,6 +196,8 @@ export class UserDetailComponent implements OnInit {
     }
     this.spinner.hide();
   }
+
+
 
   async onUploadCv() {
     this.spinner.show();

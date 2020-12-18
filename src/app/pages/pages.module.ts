@@ -14,6 +14,7 @@ import { FormationCreateComponent } from './formations/formation-create/formatio
 import { FormationListComponent } from './formations/formation-list/formation-list.component';
 import { ExperienceCreateComponent } from './experiences/experience-create/experience-create.component';
 import { ExperienceListComponent } from './experiences/experience-list/experience-list.component';
+import { DoughnutChartComponent } from './chartFolder/doughnut-chart/doughnut-chart.component';
 
 
 
@@ -29,7 +30,7 @@ import { ExperienceListComponent } from './experiences/experience-list/experienc
     NbCardModule,
     Ng2SmartTableModule
   ],
-  declarations: [ PagesComponent],
+  declarations: [ PagesComponent, DoughnutChartComponent],
 })
 export class PagesModule {
 }

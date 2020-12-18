@@ -62,6 +62,21 @@ const routes: Routes = [
       },
 
 
+      {
+        path: "documents",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./document/document.module").then(
+                (mod) => mod.DocumentModule
+              ),
+          },
+        ],
+      },
+
+
+
 
       {
         path: "formations",

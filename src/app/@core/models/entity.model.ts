@@ -30,8 +30,8 @@ export interface UserModel extends BaseEntityModel {
   activated?: boolean;
   verified?: boolean;
   subscription?: SubscriptionModel;
-  cv?: string;
   certif?: string;
+  cv?: string;
   skills?: Array<skillsModel>;
   createdAt?: Date;
   formation?: string;
@@ -44,6 +44,21 @@ export interface UserModel extends BaseEntityModel {
   verifyExpireAt?: Date;
   verifyToken?: string;
 }
+
+
+export interface DocumentModel extends BaseEntityModel {
+  title : string;
+  sujet : string ; 
+  file : string;
+  description : string ; 
+  startDate : string;
+  type:string;
+
+}
+
+
+
+
 export interface SubscriptionModel extends BaseEntityModel {
   startAt: Date;
   expireAt: Date;

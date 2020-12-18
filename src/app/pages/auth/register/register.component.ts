@@ -18,12 +18,21 @@ export class RegisterComponent implements OnInit {
     confirmPassword: '',
     email: '',
     salaire:1,
+    vacations:0,
+    certif:'',
     tjmd:0,
     tjme:0,
+    maxvacation:0,
+    maxmaladie:0,
+    vacationmaladie:0,
+    file:'',
+    startDate:'',
+    gender:'',
     yearsExperience:0,
     dateBirth:'',
     firstName:'',
     lastName:'',
+    typep:'',
     role:'',
     formation:'',
     paysd:'',
@@ -31,8 +40,8 @@ export class RegisterComponent implements OnInit {
     ville:'',
     adress:'',
     phonenumber:'',
-    cv:''
-
+    cv:'',
+    situation : '',
   };
   registerForm: FormGroup;
 

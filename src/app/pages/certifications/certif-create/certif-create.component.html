@@ -16,7 +16,7 @@
                     <input formControlName="label" type="text" name="text-input" class="form-control"
                         placeholder="Label ">
                     <div style="color: red" *ngIf="label.hasError('required') && label.touched">
-                        * Label is required!
+                        * Label obligatoire!
                     </div>
                 </div>
             </div>
@@ -26,7 +26,6 @@
                     <input formControlName="description" type="text" name="text-input" class="form-control"
                         placeholder="description ">
                     <div style="color: red" *ngIf="description.hasError('required') && description.touched">
-                        * description is required!
                     </div>
                 </div>
             </div>

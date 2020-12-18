@@ -36,6 +36,7 @@ export class MissionDetailComponent implements OnInit {
     period: 0,
     title: "",
     status: "",
+    
     technologies: "",
     type: "",
     startDate: "",

@@ -32,6 +32,10 @@ export class UsersService {
   getUser(id: number) {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
+
+
+  
+
   myProfile() {
     return this.http.get(`${this.baseUrl}/profile`);
   }
@@ -50,6 +54,11 @@ export class UsersService {
     form.set("file", file);
     return this.http.post(`${this.baseUrl}/uploadcertif/${userID}`, form);
   }
+
+
+  
+
+  
 
   enableUser(id: number, enable: boolean) {
     const url = enable

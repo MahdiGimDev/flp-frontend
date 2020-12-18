@@ -76,9 +76,9 @@
             <div class="form-group row" *ngIf="currentUser.role=='RH'">
                 <ng-container>
                     <div class="d-flex flex-wrap justify-content-start">
-                        <button *ngIf="vacation.status=='PENDING'" (click)="onAccept()"
+                        <button *ngIf="vacation.status=='EN ATTENTE'" (click)="onAccept()"
                             class="btn btn-dark btn-sm mx-3">Accept Mission</button>
-                        <button *ngIf="vacation.status=='PENDING'" (click)="onRefuse()"
+                        <button *ngIf="vacation.status=='EN ATTENTE'" (click)="onRefuse()"
                             class="btn btn-success btn-sm mx-3">Refuse Mission</button>
                     </div>
                 </ng-container>

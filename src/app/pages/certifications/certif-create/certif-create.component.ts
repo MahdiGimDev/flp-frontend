@@ -35,7 +35,7 @@ export class CertifsCreateComponent  {
   createFormCertifs() {
     this.certifsForm = this.fb.group({
       label: ["", Validators.required],
-      description: ["", Validators.required],
+      description: [""],
     });
   }
 

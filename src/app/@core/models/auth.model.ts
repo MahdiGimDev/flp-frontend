@@ -8,7 +8,7 @@ export interface JwtPayload {
   salaire: number;
   dateBirth: string;
   role: string;
-  image: string;
+  file: string;
   id: number;
 }
 
@@ -18,10 +18,20 @@ export interface RegisterModel {
   lastName: string;
   salaire: number;
   tjmd: number;
+  file:string;
+  gender:string;
   tjme: number;
+  typep:string;
+  startDate:string;
+  vacations:number;
+  maxvacation:number,
+  maxmaladie:number,
+  vacationmaladie:number,
   dateBirth: string;
   email: string;
   cv: string;
+  certif: string;
+  situation:string;
   role: string;
   formation: string;
   yearsExperience: number;
@@ -75,6 +85,20 @@ export interface JobModel {
   description: string;
   status: string;
 }
+
+export interface DocumentCreateModel {
+  id?: number;
+  title: string;
+  type: string;
+  sujet: string;
+  file:string;
+  startDate: string;
+ // clientId?: number;
+  description: string;
+//  user?: UserModel;
+ // client?: UserModel;
+}
+
 
 export interface MissionCreateModel {
   id?: number;

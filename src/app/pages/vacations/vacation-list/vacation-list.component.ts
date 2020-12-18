@@ -45,6 +45,11 @@ export class VacationListComponent implements OnInit {
         title: "Titre Repos",
         type: "string",
       },
+
+      profil: {
+        title: "Titre Repos",
+        type: "string",
+      },
       type: {
         title: "Type",
         type: "html",

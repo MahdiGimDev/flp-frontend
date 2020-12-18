@@ -28,19 +28,19 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
       {
         title: "All",
-        link: "/pages/users/all",
+        link: "/pages/users/ALL",
       },
       {
         title: "RH",
-        link: "/pages/users/rh",
+        link: "/pages/users/Rh",
       },
       {
         title: "Employee",
-        link: "/pages/users/employee",
+        link: "/pages/users/Employee",
       },
       {
         title: "Provider",
-        link: "/pages/users/provider",
+        link: "/pages/users/Provider",
       },
       {
         title: "Operational",
@@ -140,6 +140,8 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     ],
   },
 
+
+
   {
     title: "Gestion des offres missions",
     icon: "layout-outline",
@@ -167,6 +169,22 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
         title: " list d'offres d'emploi",
         link: "/pages/jobs/all",
       },
+    ],
+  },
+
+  {
+    title: "Gestion Document",
+    icon: "layout-outline",
+    children: [
+      {
+        title: "Tous",
+        link: "/pages/documents/new",
+      },
+      {
+        title: "Demandes",
+        link: "/pages/documents/all",
+      },
+     
     ],
   },
 
