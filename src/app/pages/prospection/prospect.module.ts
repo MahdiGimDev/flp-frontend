@@ -7,7 +7,6 @@ import { SharedModule } from 'app/shared/shared.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { CreatePropositionComponent } from '../quiz/propositions/create-proposition/create-proposition.component';
 import { CreateProspectComponent } from './create-prospect/create-prospect.component';
 import { DetailProspectComponent } from './detail-prospect/detail-prospect.component';
 import { ListProspectComponent } from './list-prospect/list-prospect.component';
@@ -31,7 +30,7 @@ const routes: Routes = [
   ];
   @NgModule({
     declarations: [
-        CreatePropositionComponent,
+        CreateProspectComponent,
         DetailProspectComponent,
         ListProspectComponent,
     ],

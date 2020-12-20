@@ -117,7 +117,8 @@ export class VacationListComponent implements OnInit {
     try {
       if (
         this.currentUser.role == "PROVIDER" ||
-        this.currentUser.role == "EMPLOYEE"
+        this.currentUser.role == "EMPLOYEE" 
+        
       ) {
         if (this.status.toLowerCase() === "all") {
           data = await this.vacationService

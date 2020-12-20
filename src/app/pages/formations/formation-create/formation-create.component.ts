@@ -53,10 +53,10 @@ export class FormationCreateComponent implements OnInit {
   createForm() {
     this.formationForm = this.fb.group({
       title: ["", Validators.required],
+      speciality: ["", Validators.required],
       startDate: ["", Validators.required],
       endDate: [""],
       period: [""],
-      speciality: ["", Validators.required],
       description: [""],
 
     });
