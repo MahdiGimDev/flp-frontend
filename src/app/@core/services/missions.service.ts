@@ -5,7 +5,7 @@ import { missionModel } from "../models/mission.model";
 import { MissionCreateModel } from "../models/auth.model";
 import { Observable } from "rxjs";
 
-@Injectable({
+  @Injectable({
   providedIn: "root",
 })
 export class MissionsService {

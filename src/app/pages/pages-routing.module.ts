@@ -74,6 +74,20 @@ const routes: Routes = [
         ],
       },
 
+      {
+        path: "prospections",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("./prospection/prospect.module").then(
+                (mod) => mod.ProspectsModule
+              ),
+          },
+        ],
+      },
+
+
 
 
 
