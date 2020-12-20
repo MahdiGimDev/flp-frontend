@@ -33,33 +33,30 @@ export class UsersService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-
-  
-
   myProfile() {
     return this.http.get(`${this.baseUrl}/profile`);
   }
   updateUser(model: UserModel) {
     return this.http.patch(`${this.baseUrl}/update`, model);
   }
-  uploadUser(userID, file: any) {
+  updateProfileUser(model: UserModel) {
+    return this.http.patch(`${this.baseUrl}/update/${model.id}`, model);
+  }
+  uploadImageUser(userID, file: any) {
+    const form = new FormData();
+    form.set("file", file);
+    return this.http.post(`${this.baseUrl}/uploadImage/${userID}`, form);
+  }
+  uploadCvUser(userID, file: any) {
     const form = new FormData();
     form.set("file", file);
     return this.http.post(`${this.baseUrl}/upload/${userID}`, form);
   }
-
-
   uploadCertifUser(userID, file: any) {
     const form = new FormData();
     form.set("file", file);
     return this.http.post(`${this.baseUrl}/uploadcertif/${userID}`, form);
   }
-
-
-  
-
-  
-
   enableUser(id: number, enable: boolean) {
     const url = enable
       ? `${this.baseUrl}/enable/${id}`

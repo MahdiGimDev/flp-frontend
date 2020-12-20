@@ -17,10 +17,6 @@ export const UsersSettings = {
     confirmDelete: true,
   },
   columns: {
-    id: {
-      title: "ID",
-      type: "number",
-    },
     firstName: {
       title: "First Name",
       type: "string",
@@ -37,7 +33,6 @@ export const UsersSettings = {
       title: "phone Number",
       type: "string",
     },
-
     dateBirth: {
       title: "Date of birth",
       type: "Date",
@@ -47,12 +42,15 @@ export const UsersSettings = {
       type: "string",
       valuePrepareFunction: (cell: any, row: any) => {
         const limit = 3;
-        let skills = row.skills
-          .slice(0, limit)
-          .reduce((array, value) => [...array, value.label], [])
-          .join(" ");
-        const size = row.skills.length;
-        skills += row.skills.length > limit ? ` + ${size - limit}` : "";
+        let skills = "";
+        if (row.skills) {
+          skills = row.skills
+            .slice(0, limit)
+            .reduce((array, value) => [...array, value.label], [])
+            .join(" ");
+          const size = row.skills.length;
+          skills += row.skills.length > limit ? ` + ${size - limit}` : "";
+        }
         return skills;
       },
       filterFunction: (data?: any, search?: any): boolean => {

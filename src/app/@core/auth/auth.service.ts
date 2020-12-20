@@ -21,8 +21,16 @@ export class AuthService {
     };
     return this.httpClient.post(`${environment.backend}/auth/login`, payload);
   }
-  registerUser(model: RegisterModel): Observable<any> {
-    return this.httpClient.post(`${environment.backend}/auth/register`, model);
+  registerUser(model: RegisterModel, image, cv): Observable<any> {
+    const form = new FormData();
+    for (const [key, value] of Object.entries(model)) {
+      form.append(`${key}`, value);
+    }
+    if (image && cv) {
+      form.append("files[]", image);
+      form.append("files[]", cv);
+    }
+    return this.httpClient.post(`${environment.backend}/auth/register`, form);
   }
 
   verifyAccount(model: VerificationModel): Observable<any> {

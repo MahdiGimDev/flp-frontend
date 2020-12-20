@@ -1,10 +1,19 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Countries } from "app/@core/data/consts";
-import { certifsModel, RegisterModel, skillsModel } from 'app/@core/models/auth.model';
-import { CertifsService } from 'app/@core/services/certifs.service';
+import {
+  certifsModel,
+  RegisterModel,
+  skillsModel,
+} from "app/@core/models/auth.model";
+import { CertifsService } from "app/@core/services/certifs.service";
 import { INgxSelectOption } from "ngx-select-ex";
 import { AuthService } from "../../../@core/auth/auth.service";
 import { UserModel } from "../../../@core/models/entity.model";
@@ -18,37 +27,26 @@ import { UsersService } from "../../../@core/services/users.service";
   styleUrls: ["./user-create.component.scss"],
 })
 export class UserCreateComponent implements OnInit {
-
-//////image 
-imageError: string;
-    isImageSaved: boolean;
-    cardImageBase64: string;
-
-
-
-
-
-
-
-
-
-
+  //////image
+  imageError: string;
+  isImageSaved: boolean;
+  cardImageBase64: string;
   user: RegisterModel;
   userForm: FormGroup;
   currentRole = 0;
   currentFormation = 1;
   currentGender = 1;
   currentProvider = 1;
-
-  currentSituation =1;
+  currentSituation = 1;
   errorMessageUser = "";
   successMessageUser = "";
   selectedSkills = [];
   selectedCertifs = [];
-  imageSrc : string;
+  imageSrc: string;
   phones = Countries;
   public files: any;
-  selectedFile: File;
+  imageFile: File;
+  cvFile: File;
 
   public ngxDisabled = false;
   skills: Array<skillsModel> = [];
@@ -62,7 +60,6 @@ imageError: string;
       this.selectedSkills.push(option.data?.id);
     });
   };
-
 
   public doSelectOptionsC = (options: INgxSelectOption[]) => {
     this.selectedCertifs = [];
@@ -78,7 +75,7 @@ imageError: string;
     private authService: AuthService,
     private skillsService: SkillsService,
     private certifsService: CertifsService,
- private http : HttpClient,
+    private http: HttpClient,
     private userService: UsersService
   ) {
     this.createForm();
@@ -93,7 +90,6 @@ imageError: string;
     }
   }
 
-
   async loadCertifs() {
     let data: any = [];
     try {
@@ -107,28 +103,26 @@ imageError: string;
   createForm() {
     this.userForm = this.fb.group(
       {
-        firstName: ["", Validators.required],
-        lastName: ["", Validators.required],
-        dateBirth: ["", Validators.required],
-        pays: ["", Validators.required],
-        paysd: ["", Validators.required],
-        ville: ["", Validators.required],
-        file: new FormControl('', [Validators.required]),
-        fileSource: new FormControl('', [Validators.required]),
-        salaire: [0],
-        maxvacation:[0],
-        vacationmaladie:[0],
-        maxmaladie:[0],
-        tjme: [0],
-        startDate: [""],
-        tjmd: [0],   
-        vacations:[0],
-        yearsExperience: [0],
-        adress: [""],
-        phonenumber: ["", Validators.required],
-        cv: [""],
+        firstName: ["aaa", Validators.required],
+        lastName: ["bbb", Validators.required],
+        dateBirth: [new Date(), Validators.required],
+        pays: ["sss", Validators.required],
+        paysd: ["ddd", Validators.required],
+        ville: ["asdasd", Validators.required],
+        salaire: [10],
+        maxvacation: [10],
+        vacationmaladie: [10],
+        maxmaladie: [10],
+        tjme: [10],
+        startDate: [new Date()],
+        tjmd: [10],
+        vacations: [10],
+        yearsExperience: [10],
+        adress: ["1111"],
+        phonenumber: ["123456", Validators.required],
+        cv: ["dddd"],
         email: [
-          null,
+          "test@email.com",
           Validators.compose([
             Validators.required,
             Validators.minLength(5),
@@ -138,8 +132,8 @@ imageError: string;
             // Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
           ]),
         ],
-        password: ["", Validators.required],
-        confirmPassword: ["", Validators.required],
+        password: ["123456", Validators.required],
+        confirmPassword: ["123456", Validators.required],
       },
       {
         validator: MustMatch("password", "confirmPassword"),
@@ -154,8 +148,11 @@ imageError: string;
   onChange(value) {
     this.currentRole = value;
   }
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
+  onImageFileChanged(event) {
+    this.imageFile = event.target.files[0];
+  }
+  onCvFileChanged(event) {
+    this.cvFile = event.target.files[0];
   }
   onChangeFormation(value) {
     this.currentFormation = value;
@@ -165,7 +162,6 @@ imageError: string;
     this.currentProvider = value;
   }
 
-
   onChangeGender(value) {
     this.currentGender = value;
   }
@@ -173,7 +169,6 @@ imageError: string;
   onChangeSituation(value) {
     this.currentSituation = value;
   }
-
 
   async createUser() {
     console.log({ userform: this.userForm });
@@ -192,7 +187,7 @@ imageError: string;
     let typep: any;
 
     let situation: any;
-    let gender : any;
+    let gender: any;
     if (this.currentRole == 1) {
       role = "EMPLOYEE";
     }
@@ -220,8 +215,6 @@ imageError: string;
       return false;
     }
 
-
-
     if (this.currentFormation == 1) {
       gender = "Homme";
     }
@@ -235,37 +228,36 @@ imageError: string;
       return false;
     }
 
- if (this.currentSituation== 1){
-   situation = "CELIBATAIRE";
- }
- if (this.currentSituation== 2){
-  situation = "MARIEE";
-}
-if (this.currentSituation== 3){
-  situation = "DIVORCE";
-}
-if (this.currentSituation== 4){
-  situation = "VEUF";
-}
-if (this.currentSituation== 5){
-  situation = "AUTRE";
-}
-if (this.currentSituation== 6){
-  situation = "VEUVE";
-}
-if (this.currentProvider == 0) {
-  this.errorMessageUser = "veuillez choisir un type fournisseur";
-  return false;
-}
+    if (this.currentSituation == 1) {
+      situation = "CELIBATAIRE";
+    }
+    if (this.currentSituation == 2) {
+      situation = "MARIEE";
+    }
+    if (this.currentSituation == 3) {
+      situation = "DIVORCE";
+    }
+    if (this.currentSituation == 4) {
+      situation = "VEUF";
+    }
+    if (this.currentSituation == 5) {
+      situation = "AUTRE";
+    }
+    if (this.currentSituation == 6) {
+      situation = "VEUVE";
+    }
+    if (this.currentProvider == 0) {
+      this.errorMessageUser = "veuillez choisir un type fournisseur";
+      return false;
+    }
 
-if (this.currentProvider == 1) {
-  typep = "MORAL";
-}
+    if (this.currentProvider == 1) {
+      typep = "MORAL";
+    }
 
-if (this.currentProvider == 2) {
-  typep = "PHYSIQUE";
-}
-
+    if (this.currentProvider == 2) {
+      typep = "PHYSIQUE";
+    }
 
     if (this.currentFormation == 0) {
       this.errorMessageUser = "veuillez choisir un niveau de formation";
@@ -294,12 +286,16 @@ if (this.currentProvider == 2) {
     const d = new Date(this.userForm.get("dateBirth").value);
     const d1 = new Date(this.userForm.get("startDate").value);
 
-    if (d.getTime() > new Date().getTime()||d1.getTime() > new Date().getTime() ) {
+    if (
+      d.getTime() > new Date().getTime() ||
+      d1.getTime() > new Date().getTime()
+    ) {
       this.errorMessageUser = "Date Invalide";
       return false;
     }
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
-    const dated = d1.getMonth() + 1 + "-" + d1.getDate() + "-" + d1.getFullYear();
+    const dated =
+      d1.getMonth() + 1 + "-" + d1.getDate() + "-" + d1.getFullYear();
 
     this.user = {
       email: this.userForm.get("email").value,
@@ -312,10 +308,10 @@ if (this.currentProvider == 2) {
       certif: this.userForm.value.cv,
       tjme: this.userForm.value.tjme,
       tjmd: this.userForm.value.tjmd,
-      vacations : this.userForm.value.vacations,
-      maxvacation : this.userForm.value.maxvacation,
-      vacationmaladie : this.userForm.value.vacationmaladie,
-      maxmaladie : this.userForm.value.maxmaladie,
+      vacations: this.userForm.value.vacations,
+      maxvacation: this.userForm.value.maxvacation,
+      vacationmaladie: this.userForm.value.vacationmaladie,
+      maxmaladie: this.userForm.value.maxmaladie,
       salaire: this.userForm.value.salaire,
       dateBirth: date,
       startDate: dated,
@@ -324,7 +320,6 @@ if (this.currentProvider == 2) {
       yearsExperience: this.userForm.value.yearsExperience,
       phonenumber: this.userForm.get("phonenumber").value,
       adress: this.userForm.get("adress").value,
-      file: this.userForm.get("file").value,
       gender,
       formation,
       typep,
@@ -334,63 +329,60 @@ if (this.currentProvider == 2) {
       confirmPassword: this.userForm.get("confirmPassword").value,
       username: this.userForm.get("firstName").value,
     };
-    this.authService.registerUser(this.user).subscribe(
-      (data) => {
-        if (data.success) {
-          this.router.navigate(["/pages/users/all"]);
-          this.successMessageUser = "Created successfully";
-        } else {
-          this.errorMessageUser = data?.message?.message;
+    console.log({
+      createUser: this.user,
+      image: this.imageFile,
+      cv: this.cvFile,
+    });
+    this.authService
+      .registerUser(this.user, this.imageFile, this.cvFile)
+      .subscribe(
+        (data) => {
+          if (data.success) {
+            this.router.navigate(["/pages/users/all"]);
+            this.successMessageUser = "Created successfully";
+          } else {
+            this.errorMessageUser = data?.message?.message;
+          }
+        },
+        (err) => {
+          this.errorMessageUser = "Error on creating";
         }
-      },
-      (err) => {
-        this.errorMessageUser = "Error on creating";
-      }
-    );
+      );
     console.log({ user: this.user });
   }
 
-
-////image file///
+  ////image file///
   onFileChange(event) {
     const reader = new FileReader();
-    
-    if(event.target.files && event.target.files.length) {
+
+    if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
-    
+
       reader.onload = () => {
-   
         this.imageSrc = reader.result as string;
-     
+
         this.userForm.patchValue({
-          fileSource: reader.result
+          fileSource: reader.result,
         });
-   
       };
-   
     }
   }
 
-
-  submit(){
+  submit() {
     console.log(this.userForm.value);
-    this.http.post('http://localhost:8001/upload.php', this.userForm.value)
-      .subscribe(res => {
+    this.http
+      .post("http://localhost:8001/upload.php", this.userForm.value)
+      .subscribe((res) => {
         console.log(res);
-        alert('Uploaded Successfully.');
-      })
+        alert("Uploaded Successfully.");
+      });
   }
 
-
-
-   
-  get f(){
+  get f() {
     return this.userForm.controls;
   }
-
-
-
 
   get email() {
     return this.userForm.get("email");
@@ -399,11 +391,10 @@ if (this.currentProvider == 2) {
     return this.userForm.get("situation");
   }
 
-
   get salaire() {
     return this.userForm.get("salaire");
   }
-  get vacations(){
+  get vacations() {
     return this.userForm.get("vacations");
   }
 
@@ -429,8 +420,7 @@ if (this.currentProvider == 2) {
   get typep() {
     return this.userForm.get("typep");
   }
-  
-  
+
   get pays() {
     return this.userForm.get("pays");
   }
@@ -442,7 +432,6 @@ if (this.currentProvider == 2) {
   get paysd() {
     return this.userForm.get("paysd");
   }
-
 
   get formation() {
     return this.userForm.get("formation");
@@ -461,15 +450,9 @@ if (this.currentProvider == 2) {
   get cv() {
     return this.userForm.get("cv");
   }
-
-  get file() {
-    return this.userForm.get("file");
-  }
-
   get startDate() {
     return this.userForm.get("startDate");
   }
-
 
   get vacationmaladie() {
     return this.userForm.get("vacationmaladie");
@@ -483,7 +466,6 @@ if (this.currentProvider == 2) {
     return this.userForm.get("maxvacation");
   }
 
-
   get lastName() {
     return this.userForm.get("lastName");
   }
@@ -494,80 +476,61 @@ if (this.currentProvider == 2) {
     return this.userForm.get("confirmPassword");
   }
 
+  //////////image fonction not work ///////////
 
-
-
-
-
-
-
-//////////image fonction not work ///////////
-
-fileChangeEvent(file: any) {
-  this.imageError = null;
-  if (file.target.files && file.target.files[0]) {
+  fileChangeEvent(file: any) {
+    this.imageError = null;
+    if (file.target.files && file.target.files[0]) {
       // Size Filter Bytes
       const max_size = 20971520;
-      const allowed_types = ['image/png', 'image/jpeg','image/jpg'];
-     
+      const allowed_types = ["image/png", "image/jpeg", "image/jpg"];
+
       const max_height = 15200;
       const max_width = 25600;
 
       if (file.target.files[0].size > max_size) {
-          this.imageError =
-              'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+        this.imageError = "Maximum size allowed is " + max_size / 1000 + "Mb";
 
-          return false;
+        return false;
       }
 
       if (!file.target.files[0].type.includes(allowed_types)) {
-          this.imageError = 'Only Images are allowed ( JPG | PNG )';
-          return false;
+        this.imageError = "Only Images are allowed ( JPG | PNG )";
+        return false;
       }
       const reader = new FileReader();
       reader.onload = (e: any) => {
-          const image = new Image();
-          image.src = e.target.result;
-          image.onload = rs => {
-              const img_height = rs.currentTarget['height'];
-              const img_width = rs.currentTarget['width'];
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = (rs) => {
+          const img_height = rs.currentTarget["height"];
+          const img_width = rs.currentTarget["width"];
 
-              console.log(img_height, img_width);
+          console.log(img_height, img_width);
 
-
-              if (img_height > max_height && img_width > max_width) {
-                  this.imageError =
-                      'Maximum dimentions allowed ' +
-                      max_height +
-                      '*' +
-                      max_width +
-                      'px';
-                  return false;
-              } else {
-                  const imgBase64Path = e.target.result;
-                  this.cardImageBase64 = imgBase64Path;
-                  this.isImageSaved = true;
-                  // this.previewImagePath = imgBase64Path;
-              }
-          };
+          if (img_height > max_height && img_width > max_width) {
+            this.imageError =
+              "Maximum dimentions allowed " +
+              max_height +
+              "*" +
+              max_width +
+              "px";
+            return false;
+          } else {
+            const imgBase64Path = e.target.result;
+            this.cardImageBase64 = imgBase64Path;
+            this.isImageSaved = true;
+            // this.previewImagePath = imgBase64Path;
+          }
+        };
       };
 
       reader.readAsDataURL(file.target.files[0]);
+    }
   }
-}
 
-removeImage() {
-  this.cardImageBase64 = null;
-  this.isImageSaved = false;
-}
-
-
-
-
-
-
-
-
-
-
+  removeImage() {
+    this.cardImageBase64 = null;
+    this.isImageSaved = false;
+  }
 }

@@ -7,7 +7,7 @@
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
                 <p><strong>Created: </strong> {{user.createdAt | date}} </p>
-                <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>      
+                <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>
             </ng-container>
             <p><strong>Skills: </strong>
                 <ng-container *ngFor="let skill of user.skills">
@@ -17,7 +17,8 @@
         </div>
         <div class="col-4 text-center">
             <figure>
-                <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="" class="img-circle img-responsive">
+                <img src="{{user.file || 'https://randomuser.me/api/portraits/men/81.jpg'}}" alt=""
+                    class="img-circle img-responsive">
             </figure>
         </div>
     </div>

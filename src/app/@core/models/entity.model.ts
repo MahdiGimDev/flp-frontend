@@ -32,6 +32,7 @@ export interface UserModel extends BaseEntityModel {
   subscription?: SubscriptionModel;
   certif?: string;
   cv?: string;
+  file?: string;
   skills?: Array<skillsModel>;
   createdAt?: Date;
   formation?: string;

@@ -13,6 +13,9 @@ import { Subject } from "rxjs";
 import { AuthService } from "../../../@core/auth/auth.service";
 import { Router } from "@angular/router";
 import { JwtPayload } from "../../../@core/models/auth.model";
+import { UserService } from "../../../@core/mock/users.service";
+import { UsersService } from "../../../@core/services/users.service";
+import { UserModel } from "../../../@core/models/entity.model";
 
 @Component({
   selector: "ngx-header",
@@ -22,8 +25,7 @@ import { JwtPayload } from "../../../@core/models/auth.model";
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
-  user: JwtPayload;
-
+  user: UserModel;
   themes = [
     {
       value: "default",
@@ -53,13 +55,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private menuService: NbMenuService,
     private themeService: NbThemeService,
     private router: Router,
+    private userService: UsersService,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService
   ) {}
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-    this.user = this.authService.getTokenData();
+    this.loadUser(this.authService.getTokenData().id);
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService
       .onMediaQueryChange()
@@ -82,6 +85,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((themeName) => (this.currentTheme = themeName));
   }
 
+  async loadUser(id) {
+    try {
+      const data: any = await this.userService.getUser(id).toPromise();
+      this.user = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
@@ -94,6 +106,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onContextItemSelection(title) {
     if (title === "Log out") {
       this.logout();
+    } else if (title === "Profile") {
+      this.router.navigateByUrl("/pages/users/profile");
     }
   }
 

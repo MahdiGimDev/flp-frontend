@@ -20,6 +20,7 @@ import * as moment from "moment";
 import { Output } from "@angular/core";
 import { missionModel } from "../../../@core/models/mission.model";
 import { endOfDay, startOfDay } from "date-fns";
+import { Router } from "@angular/router";
 
 const colors: any = {
   red: {
@@ -64,7 +65,7 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
   activeDayIsOpen = true;
   currentDate = new Date();
   closeResult = "";
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
   onStartLoading() {}
@@ -76,9 +77,7 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
     this.refresh.next();
   }
   open(event): any {}
-  logging(payload) {
-    console.log({ payload });
-  }
+  
   fillEvents() {
     const events: Array<CalendarEvent> = [];
     this.posts.map((mission) => {
@@ -104,7 +103,8 @@ export class CalendarMonthComponent implements OnInit, OnChanges {
     console.log({ events });
   }
   onClickEvent(event) {
-    console.log({ event });
+    const missionID = event?.id;
+    this.router.navigate(["/pages/missions/detail", missionID]);
     this.clicked.emit(event); // Pass any payload as argument
   }
 

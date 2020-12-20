@@ -89,7 +89,7 @@
                     <span class="mr-2"> {{mission.status}}</span>
                     <span>
                         <ng-container *ngIf="mission.user">
-                            {{mission.user.email}} 
+                            {{mission.user.email}}
                         </ng-container>
                     </span>
                 </div>
@@ -101,7 +101,7 @@
                             class="btn btn-dark btn-sm mx-3">Block Mission</button>
                         <button *ngIf="mission.status=='BLOCKED'" (click)="onConfirm()"
                             class="btn btn-success btn-sm mx-3">Confirm Mission</button>
-                           
+
                         <button *ngIf="mission.status=='BLOCKED'||mission.status=='CONFIRMED'" (click)="onAvailable()"
                             class="btn btn-danger btn-sm mx-3">Cancel Mission</button>
                         <button *ngIf="mission.status!='CONFIRMED' && mission.status!='AVAILABLE'"
@@ -133,7 +133,7 @@
                     <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Declined</span>
                 </ng-container>
                 <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2"> viewProfile
-                    </button>
+                </button>
                 <ng-container *ngIf="mission.status == 'AVAILABLE'">
                     <button (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Remove
                         Invitation</button>

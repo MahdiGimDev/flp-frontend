@@ -32,8 +32,8 @@
             </div>
 
 
-           
-            
+
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Role</label>
                 <div class="col-md-9">
@@ -58,7 +58,7 @@
                         <option [selected]="currentProvider==0" value="0">choisir type fournisseur</option>
                         <option [selected]="currentProvider==1" value="1">Moral</option>
                         <option [selected]="currentProvider==2" value="2">Physique</option>
-                        
+
                     </select>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                         <option [selected]="currentGender==0" value="0">choisir un sex</option>
                         <option [selected]="currentGender==1" value="1">masculin</option>
                         <option [selected]="currentGender==2" value="2">feminin</option>
-                  
+
                     </select>
                 </div>
             </div>
@@ -138,8 +138,8 @@
                 <label class="col-md-3 col-form-label" for="text-input">
                     Date debut de collaboration </label>
                 <div class="col-md-9">
-                    <input class="form-control" formControlName="startDate" nbInput placeholder="Date Debut de colloboration ou d'emploi"
-                        [nbDatepicker]="formpicker5">
+                    <input class="form-control" formControlName="startDate" nbInput
+                        placeholder="Date Debut de colloboration ou d'emploi" [nbDatepicker]="formpicker5">
                     <nb-datepicker #formpicker5></nb-datepicker>
                     <div style="color: red" *ngIf="startDate.hasError('required') && startDate.touched">
                         * Date debut obligatoire
@@ -155,7 +155,7 @@
                     <input formControlName="maxvacation" type="number" name="text-input" class="form-control"
                         placeholder=" le plafond du solde des conges repos">
                     <div style="color: red" *ngIf=" maxvacation.hasError('required') &&  maxvacation.touched">
-                     
+
                     </div>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                     <input formControlName="vacations" type="number" name="text-input" class="form-control"
                         placeholder="solde des conges valide">
                     <div style="color: red" *ngIf=" vacations.hasError('required') &&  vacations.touched">
-                     
+
                     </div>
                 </div>
             </div>
@@ -179,15 +179,15 @@
                     <input formControlName="maxmaladie" type="number" name="text-input" class="form-control"
                         placeholder="le plafond du solde des conges maladie">
                     <div style="color: red" *ngIf=" maxmaladie.hasError('required') &&  maxmaladie.touched">
-                     
+
                     </div>
                 </div>
             </div>
 
 
-            
-          
-          
+
+
+
             <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Solde des conges maladie</label>
@@ -195,7 +195,7 @@
                     <input formControlName="vacationmaladie" type="number" name="text-input" class="form-control"
                         placeholder=" solde de congé maladie actuelle de cet employee">
                     <div style="color: red" *ngIf=" vacationmaladie.hasError('required') &&  vacationmaladie.touched">
-                     
+
                     </div>
                 </div>
             </div>
@@ -253,10 +253,9 @@
 
 
             <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="text-input">Pays de résidence</label>
-                    <div class="col-md-9">
-                    <input formControlName="pays" type="text" name="text-input" class="form-control"
-                        placeholder="Pays">
+                <label class="col-md-3 col-form-label" for="text-input">Pays de résidence</label>
+                <div class="col-md-9">
+                    <input formControlName="pays" type="text" name="text-input" class="form-control" placeholder="Pays">
                     <div style="color: red" *ngIf="pays.hasError('required') && pays.touched">
                         * Pays de résidence obligatoire
                     </div>
@@ -284,7 +283,7 @@
                     <input formControlName="adress" type="text" name="text-input" class="form-control"
                         placeholder="Adresse">
                     <div style="color: red" *ngIf="adress.hasError('required') && adress.touched">
-                       
+
                     </div>
                 </div>
             </div>
@@ -344,7 +343,7 @@
                 </div>
             </div>
 
-            <div *ngIf = "currentRole != 6" class="form-group row">
+            <div *ngIf="currentRole != 6" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Competences</label>
                 <div class="col-md-9">
@@ -354,37 +353,36 @@
                 </div>
             </div>
 
-            <div *ngIf = "currentRole != 6" class="form-group row">
+            <div *ngIf="currentRole != 6" class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Certifications</label>
                 <div class="col-md-9">
                     <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
-                        placeholder="certifications non selectionné" name="test" (selectionChanges)="doSelectOptionsC($event)">
+                        placeholder="certifications non selectionné" name="test"
+                        (selectionChanges)="doSelectOptionsC($event)">
                     </ngx-select>
                 </div>
             </div>
 
-            
             <div class="form-group">
-                <label for="file">Telecharger une photo</label>
-               
-                <input 
-                    formControlName="file"
-                    id="file" 
-                    type="file" 
-                    class="form-control"
-                    (change)="onFileChange($event)">
-                <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
-                    <div *ngIf="f.file.errors.required">File is required.</div>
-
-                 
+                <label for="file">Telecharger CV</label>
+                <input style="width: 300px;" type="file" class="form-control" name="dde"
+                    (change)="onCvFileChanged($event)" />
+                <div *ngIf="!cvFile" class="alert alert-danger">
+                    <div>CV is required.</div>
                 </div>
             </div>
-            
+
+            <div class="form-group">
+                <label for="file">Telecharger une photo</label>
+                <input style="width: 300px;" type="file" class="form-control" name="files"
+                    (change)="onImageFileChanged($event)" />
+                <div *ngIf="!imageFile" class="alert alert-danger">
+                    <div>Image is required.</div>
+                </div>
+            </div>
+
             <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
-
-
-
 
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 Submit</button>

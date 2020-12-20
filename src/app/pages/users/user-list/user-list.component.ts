@@ -28,9 +28,7 @@ export class UserListComponent implements OnInit {
   settings = UsersSettings;
   roleP = "provider";
   rolesP = ["provider"];
-
   source: LocalDataSource = new LocalDataSource();
-
   constructor(
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
@@ -46,7 +44,6 @@ export class UserListComponent implements OnInit {
       return false;
     }
   }
-
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
       const role = `${params.role}`.toLowerCase();
@@ -59,13 +56,12 @@ export class UserListComponent implements OnInit {
     });
     this.loadUsers();
   }
-
   async loadUsers() {
     let data: any = [];
     this.source.load(data);
     this.spinner.show();
     try {
-      if (this.role == "all") {
+      if (this.role.toLocaleLowerCase() == "all") {
         data = await this.userService.getAllUsers().toPromise();
         this.source.load(data);
       } else {

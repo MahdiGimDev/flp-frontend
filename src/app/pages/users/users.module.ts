@@ -10,11 +10,16 @@ import { NbCardModule, NbDatepickerModule } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxSelectModule } from "ngx-select-ex";
-import { CKEditorModule } from "ng2-ckeditor";
 import { ThemeModule } from "../../@theme/theme.module";
 import { SharedModule } from "../../shared/shared.module";
+import { ProfileDetailComponent } from "./profile-detail/profile-detail.component";
+import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
 
 const routes: Routes = [
+  {
+    path: "profile",
+    component: ProfileDetailComponent,
+  },
   {
     path: "new",
     component: UserCreateComponent,
@@ -30,7 +35,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [UserListComponent, UserDetailComponent, UserCreateComponent],
+  declarations: [
+    UserListComponent,
+    UserDetailComponent,
+    UserCreateComponent,
+    ProfileDetailComponent,
+  ],
   imports: [
     CommonModule,
     NgxSpinnerModule,
@@ -44,7 +54,7 @@ const routes: Routes = [
     NbDatepickerModule,
     NgxSpinnerModule,
     SharedModule,
-    CKEditorModule,
-  ],
+    EditorModule,
+  ]
 })
 export class UsersModule {}

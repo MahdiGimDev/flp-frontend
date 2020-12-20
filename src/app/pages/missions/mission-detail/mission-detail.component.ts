@@ -28,7 +28,24 @@ export class MissionDetailComponent implements OnInit {
   skills: Array<skillsModel> = [];
   users: Array<UserModel> = [];
   userSource: LocalDataSource = new LocalDataSource();
-  settings = UsersSettings;
+  settings = {
+    ...UsersSettings,
+    actions: {
+      add: false,
+      delete: false,
+      edit: false,
+      custom: [
+        {
+          name: "view",
+          title: '<span class="btn btn-sm btn-info">View</span>',
+        },
+        {
+          name: "invite",
+          title: '<span class="btn btn-sm btn-success">Envoyer</span>',
+        },
+      ],
+    },
+  };
   mission: MissionCreateModel = {
     id: 0,
     address: "",
@@ -36,7 +53,7 @@ export class MissionDetailComponent implements OnInit {
     period: 0,
     title: "",
     status: "",
-    
+
     technologies: "",
     type: "",
     startDate: "",

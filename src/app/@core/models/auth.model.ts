@@ -18,7 +18,7 @@ export interface RegisterModel {
   lastName: string;
   salaire: number;
   tjmd: number;
-  file:string;
+  file?:string;
   gender:string;
   tjme: number;
   typep:string;
@@ -44,7 +44,6 @@ export interface RegisterModel {
   confirmPassword: string;
   certifsIds?: Array<number>;
   skillsIds?: Array<number>;
-
 }
 
 export interface JobCreateModel {

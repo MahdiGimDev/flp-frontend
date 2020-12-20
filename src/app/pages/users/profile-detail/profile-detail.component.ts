@@ -8,6 +8,7 @@ import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
 import { NgxSpinnerService } from "ngx-spinner";
 import { userInfo } from "os";
+import { AuthService } from "../../../@core/auth/auth.service";
 import {
   UserModel,
   SubscriptionModel,
@@ -15,11 +16,11 @@ import {
 import { UsersService } from "../../../@core/services/users.service";
 import { VacationService } from "../../../@core/services/vacation.service";
 @Component({
-  selector: "app-user-detail",
-  templateUrl: "./user-detail.component.html",
-  styleUrls: ["./user-detail.component.css"],
+  selector: "app-profile-detail",
+  templateUrl: "./profile-detail.component.html",
+  styleUrls: ["./profile-detail.component.css"],
 })
-export class UserDetailComponent implements OnInit {
+export class ProfileDetailComponent implements OnInit {
   skills: Array<skillsModel> = [];
   certifs: Array<certifsModel> = [];
   id = -1;
@@ -105,8 +106,7 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private skillsService: SkillsService,
     private certifsService: CertifsService,
-
-    private route: ActivatedRoute,
+    private auth: AuthService,
     private router: Router,
     private userService: UsersService,
     private vacationService: VacationService,
@@ -114,7 +114,7 @@ export class UserDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.id = this.route.snapshot.params["id"];
+    this.id = this.auth.getTokenData().id;
     this.loadUser(this.id);
     this.loadSkills();
     this.loadCertifs();

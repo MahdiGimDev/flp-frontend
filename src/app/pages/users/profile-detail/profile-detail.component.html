@@ -12,7 +12,7 @@
       <p class="text-white">Loading...</p>
     </ngx-spinner>
     <div class="card-header">
-      User Details
+      <h5>My Profile</h5>
     </div>
     <div class="card-body">
       <div class="bd-example">
@@ -223,8 +223,8 @@
                   <dd>{{ user.formation }}</dd>
                 </ng-container>
                 <ng-container *ngIf="editable">
-                  <textarea name="formation" [(ngModel)]="userEdit.formation" type="text" class="form-control"
-                    placeholder="Formation"> </textarea>
+                  <input name="formation" [(ngModel)]="userEdit.formation" type="text" class="form-control"
+                    placeholder="Formation" />
                 </ng-container>
               </div>
             </div>
@@ -238,20 +238,6 @@
         </div>
       </div>
     </div>
-
-    <nb-card>
-      <nb-card-header>Repos</nb-card-header>
-      <nb-card-body>
-        <nb-card>
-          <nb-card-header>
-          </nb-card-header>
-          <nb-card-body>
-            <ng2-smart-table (userRowSelect)="onClickRow($event)" [settings]="settings" [source]="source">
-            </ng2-smart-table>
-          </nb-card-body>
-        </nb-card>
-      </nb-card-body>
-    </nb-card>
   </div>
 
 </div>

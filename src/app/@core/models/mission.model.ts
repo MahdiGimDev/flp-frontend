@@ -7,6 +7,7 @@ export interface missionModel {
   technologies: string;
 
   niveauEx?: "JUNIOR" | "SENIOR" | "EXPERT";
+
   dateDebut: string;
 
   durée: string;

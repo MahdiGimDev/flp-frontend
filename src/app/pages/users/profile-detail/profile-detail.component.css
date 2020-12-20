@@ -1,0 +1,103 @@
+.example-card {
+    max-width: 500px;
+}
+
+.button-row {
+    margin: 10px 0;
+}
+
+.profile-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    border: 3px #2f353a solid;
+    object-fit: cover;
+}
+
+.desc {
+    padding: 5px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+
+a {
+    margin: 10px auto auto;
+    /* width: 180px; */
+    cursor: pointer;
+}
+
+.alert {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-bottom: 0.7rem;
+    color: black;
+    cursor: pointer;
+}
+
+.alert-error {
+    background-color: #fee2e1;
+    border-color: #fdd2d2;
+}
+
+.alert-success {
+    background-color: #c2ffc6;
+    border-color: #b0f3b4;
+}
+
+.alert-info {
+    background-color: #fee2e1;
+    border-color: #fdd6d6;
+}
+
+.selected {
+    filter: brightness(0.8);
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
+}
+
+
+.success-msg {
+    color: green;
+    margin: 0;
+}
+.error-msg {
+    color: red;
+    margin: 0;
+}
+
+.btn-message {
+    right: 15px;
+    padding: 4px;
+    width: 35px;
+    position: absolute;
+}
+
+.update-message {
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

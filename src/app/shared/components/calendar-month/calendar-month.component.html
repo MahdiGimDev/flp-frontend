@@ -30,27 +30,30 @@
     </div>
     <div>
       <div *ngFor="let event of day.events" class="px-1">
-        {{logging(event)}}
-
-        <div class="d-flex justify-content-around event-detail" (click)="onClickEvent(event?.meta?.mission)">
-          <div class="d-flex">
-          </div>
-          <span class="pt-1 event-time">
-            {{ event?.meta?.mission.startDate }}        {{ event?.meta?.mission.status }}
-
+        <div class="event-detail" (click)="onClickEvent(event?.meta?.mission)">
+          <span class="pt-1 event-message mr-2">
+            <strong> {{ event?.meta?.mission.title }}</strong>
           </span>
-          
-        <span class="pt-1 event-message">
-         </span>
-          <span class="pt-1 event-message">
-            {{ event?.meta?.mission.title }}
-           
-
+          <span style="color: rgb(70, 70, 228);">
+            <strong>{{ event?.meta?.mission.status }}</strong>
           </span>
-
-        
-
-       
+          <br>
+          <span>
+            Client : <strong>{{ event?.meta?.mission?.client?.firstName }} {{ event?.meta?.mission?.client?.lastName
+              }}</strong>
+          </span>
+          <br>
+          <span>
+            Provider :
+            <ng-container *ngIf="!event?.meta?.mission?.user">
+              N/A
+            </ng-container>
+            <ng-container *ngIf="event?.meta?.mission?.user">
+              <strong>
+                {{ event?.meta?.mission?.user?.firstName }} {{ event?.meta?.mission?.user?.lastName}}
+              </strong>
+            </ng-container>
+          </span>
         </div>
       </div>
     </div>

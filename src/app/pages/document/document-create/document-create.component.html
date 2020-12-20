@@ -21,16 +21,17 @@
                 </div>
             </div>
 
-                <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="text-input">file</label>
-                    <div class="col-md-9">
-                        <input formControlName="file" type="text" name="text-input" class="form-control"
-                            placeholder="Document file ">
-                        <div style="color: red" *ngIf="file.hasError('required')">
-                            * file
-                        </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Telecharger Document</label>
+                <div class="col-md-9">
+                    <input style="width: 300px;" type="file" class="form-control" name="dde"
+                        (change)="onFileChanged($event)" />
+                    <div style="color: red" *ngIf="!selectedFile">
+                        * Document est obligatoire
                     </div>
                 </div>
+            </div>
+
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
@@ -53,7 +54,7 @@
                         [nbDatepicker]="formpicker">
                     <nb-datepicker #formpicker></nb-datepicker>
                     <div style="color: red" *ngIf=" startDate.hasError('required')">
-                        * Date  obligatoire!
+                        * Date obligatoire!
                     </div>
                 </div>
             </div>
@@ -70,20 +71,20 @@
                     </div>
                 </div>
             </div>
-           
-
-             
-                
-        
-               
-             
 
 
-        
-           
-           
-        
-       
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="textarea">
                     Description</label>
@@ -95,13 +96,13 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 create document</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
-         
 
-            </form>
+
+        </form>
     </nb-card-body>
 </nb-card>
