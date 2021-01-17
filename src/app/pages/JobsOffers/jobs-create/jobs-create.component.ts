@@ -1,55 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JobCreateModel, skillsModel } from 'app/@core/models/auth.model';
-import { JobService } from 'app/@core/services/job.service';
-import { SkillsService } from 'app/@core/services/skills.service';
-import { INgxSelectOption } from 'ngx-select-ex';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { JobCreateModel, skillsModel } from "app/@core/models/auth.model";
+import { JobService } from "app/@core/services/job.service";
+import { SkillsService } from "app/@core/services/skills.service";
+import { INgxSelectOption } from "ngx-select-ex";
 
 @Component({
-  selector: 'ngx-jobs-create',
-  templateUrl: './jobs-create.component.html',
-  styleUrls: ['./jobs-create.component.scss']
+  selector: "ngx-jobs-create",
+  templateUrl: "./jobs-create.component.html",
+  styleUrls: ["./jobs-create.component.scss"],
 })
-export class JobsCreateComponent  {
-
+export class JobsCreateComponent {
   jobForm: FormGroup;
   currentLevel = 1;
   currentContrat = 1;
-  currentFormation=1;
- 
+  currentFormation = 1;
+
   errorMessageJob = "";
   successMessageJob = "";
   selectedSkills = [];
 
-
-
-
-
   skills: Array<skillsModel> = [];
-  job :JobCreateModel ={
-  id: 0 ,
-  title:" ",
-  profil: " ",
-  poste: " ",
-  specialite: " ",
-  startDate: "",
-  formation: " ",
-  contrat:" ",
-  pays:"",
-  ville:"",
-  addresse: " ",
-  level: " ",
-  description:" ",
-  skills: [],
-  skillsIds: [],
-  status:"",
- 
-
+  job: JobCreateModel = {
+    id: 0,
+    title: " ",
+    profil: " ",
+    poste: " ",
+    specialite: " ",
+    startDate: "",
+    formation: " ",
+    contrat: " ",
+    pays: "",
+    ville: "",
+    addresse: " ",
+    level: " ",
+    description: " ",
+    skills: [],
+    skillsIds: [],
+    status: "",
   };
 
   ngOnInit(): void {
-
     this.loadSkills();
   }
 
@@ -59,16 +51,9 @@ export class JobsCreateComponent  {
     private jobService: JobService,
     private skillsService: SkillsService,
     private fb: FormBuilder
-  ) { 
-
-
+  ) {
     this.createForm();
   }
-
- 
- 
-
-
 
   public doSelectOptions = (options: INgxSelectOption[]) => {
     this.selectedSkills = [];
@@ -80,7 +65,6 @@ export class JobsCreateComponent  {
   onChangeContrat(value) {
     this.currentContrat = value;
   }
- 
 
   onChangeFormation(value) {
     this.currentFormation = value;
@@ -99,26 +83,23 @@ export class JobsCreateComponent  {
     }
   }
 
-
-
-createForm() {
+  createForm() {
     this.jobForm = this.fb.group({
       title: ["", Validators.required],
       poste: ["", Validators.required],
       profil: ["", Validators.required],
       specialite: ["", Validators.required],
       formation: ["", Validators.required],
-      startDate: ["",Validators.required],
+      startDate: ["", Validators.required],
       addresse: ["", Validators.required],
       contrat: ["", Validators.required],
       level: ["", Validators.required],
-      description: [""],    
+      description: [""],
+      pays: [""],
+      ville: [""],
       status: ["", Validators.required],
     });
   }
-
-
-
 
   async createJob() {
     /*if (this.jobForm.status !== "VALID") {
@@ -130,12 +111,12 @@ createForm() {
       this.errorMessageJob = "Invalid level";
       return false;
     }
-   
+
     this.errorMessageJob = "";
     this.successMessageJob = "";
     let level: any;
-    let formation:any;
-    let contrat :any;
+    let formation: any;
+    let contrat: any;
 
     if (this.currentLevel == 2) {
       level = "SENIOR";
@@ -144,40 +125,23 @@ createForm() {
     } else {
       level = "JUNIOR";
     }
-    
-
-
 
     if (this.currentContrat == 1) {
       contrat = "CDI";
-    }
-    
-    else if (this.currentContrat == 2) {
+    } else if (this.currentContrat == 2) {
       contrat = "CDD";
-    } 
-    
-
-    else if (this.currentContrat == 3) {
+    } else if (this.currentContrat == 3) {
       contrat = "SVP";
-    } 
-
-    else if (this.currentContrat == 3) {
+    } else if (this.currentContrat == 3) {
       contrat = "STAGE";
-    } 
-
-    else {
+    } else {
       contrat = "AUTRE";
     }
-    
-
-
-
-
 
     if (this.currentFormation == 1) {
       formation = "BAC";
     }
-  
+
     if (this.currentFormation == 2) {
       formation = "BAC+2";
     }
@@ -197,38 +161,32 @@ createForm() {
       formation = "PLUS";
     }
 
-
-
-
     const d = new Date(this.jobForm.get("startDate").value);
     if (d.getTime() < new Date().getTime()) {
       this.errorMessageJob = "Date Invalide";
       return false;
     }
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
-    
+
     this.job = {
       id: 0,
-      title: this.jobForm.get("title").value, 
+      title: this.jobForm.get("title").value,
       profil: this.jobForm.get("profil").value,
       poste: this.jobForm.get("poste").value,
       specialite: this.jobForm.value.specialite,
       formation,
       skillsIds: this.selectedSkills,
-      level,  
-      startDate: date,   
+      level,
+      startDate: date,
       pays: this.jobForm.get("pays").value,
       ville: this.jobForm.get("ville").value,
       addresse: this.jobForm.get("addresse").value,
       description: this.jobForm.get("description").value,
       contrat,
       status: this.jobForm.get("status").value,
-     
     };
     try {
-      const data: any = await this.jobService
-        .createJob(this.job)
-        .toPromise();
+      const data: any = await this.jobService.createJob(this.job).toPromise();
       if (data.id) {
         this.router.navigate(["/pages/jobs/all"]);
         this.successMessageJob = "Created successfully";
@@ -238,7 +196,7 @@ createForm() {
     } catch (error) {
       this.errorMessageJob = "Error on creating";
     }
-    console.log({job: this.job });
+    console.log({ job: this.job });
   }
 
   get id() {
@@ -271,7 +229,6 @@ createForm() {
     return this.missionForm.get("skills");
   }*/
 
-
   get formation() {
     return this.jobForm.get("formation");
   }
@@ -287,7 +244,6 @@ createForm() {
     return this.jobForm.get("startDate");
   }
 
-
   get addresse() {
     return this.jobForm.get("addresse");
   }
@@ -298,11 +254,4 @@ createForm() {
   get status() {
     return this.jobForm.get("status");
   }
-
-
-
-
-
-
-
 }

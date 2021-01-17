@@ -1,6 +1,12 @@
 <nb-card>
     <nb-card-header>
         détail de l'offre d'emploi
+        <!-- AddToAny BEGIN -->
+        <div>
+            <li><a href="https://www.facebook.com/sharer.php?u={{link}}">Share on Facebook</a></li>
+            <li><a href="https://twitter.com/intent/tweet?url={{link}}">Share on Twitter</a></li>
+            <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=google.com">Share on LinkedIn</a></li>
+        </div>
     </nb-card-header>
     <nb-card-body>
         <span *ngIf="errorMessageJob" style="color: red;">
@@ -18,33 +24,30 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">poste</label>
-                <div class="col-mpd-9">
+                <div class="col-md-9">
                     {{job.poste}}
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                   Specialité</label>
+                    Specialité</label>
                 <div class="col-md-9">
                     {{job.profil}}
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">poste</label>
-                <div class="col-mpd-9">
+                <div class="col-md-9">
                     {{job.specialite}}
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Formation</label>
                 <div class="col-md-9">
                     {{job.formation}}
                 </div>
             </div>
-
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">experience level</label>
                 <div class="col-md-9">
@@ -66,7 +69,7 @@
                     {{job.startDate | date : 'dd-MM-yyyy'}}
                 </div>
             </div>
-          
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Addresse</label>
@@ -81,7 +84,6 @@
                     {{job.description}}
                 </div>
             </div>
-            
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Skills</label>
@@ -91,6 +93,52 @@
                     </ng-container>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Status</label>
+                <div class="col-md-9">
+                    <span class="mr-2"> {{job.status}}</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Quiz</label>
+                <div class="col-md-9">
+                    <span>
+                        <ng-container *ngIf="job.quiz">
+                            <strong>{{job.quiz.title}} </strong>
+                            <button class="m-1 btn btn-sm btn-info" (click)="goToQuiz(job.quiz)">View</button>
+                            <button class="m-1 btn btn-sm btn-danger" (click)="onUnAssign()">Remove </button>
+                        </ng-container>
+                        <ng-container *ngIf="!job.quiz"> N/A </ng-container>
+                    </span>
+                </div>
+            </div>
         </div>
+    </nb-card-body>
+</nb-card>
+
+<ng-container *ngIf="(currentUser.role == 'RH' || currentUser.role == 'ADMIN')&&!job.quiz">
+    <nb-card>
+        <nb-card-header>
+            Suggest Quiz
+        </nb-card-header>
+        <nb-card-body>
+            <ng-container *ngIf="errorLogin">
+                <small style="color: red;">{{ errorLogin }}</small>
+            </ng-container>
+            <ng2-smart-table (custom)="onCustomAction($event)" [settings]="settings" [source]="quizSource">
+            </ng2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</ng-container>
+
+<nb-card>
+    <nb-card-header>
+        Candidature List
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="responseSettings" [source]="responseSource">
+        </ng2-smart-table>
     </nb-card-body>
 </nb-card>

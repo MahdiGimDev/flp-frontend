@@ -1,0 +1,135 @@
+<ng-container *ngIf="!edit">
+    <div class="card">
+        <div class="card-header">
+            Quiz Creation
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" placeholder="Title" class="form-control" [(ngModel)]="selectedQuiz.title">
+                </div>
+                <div class="col-6">
+                    <input type="text" placeholder="Type" class="form-control" [(ngModel)]="selectedQuiz.type">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="select1">Experience level</label>
+                    <div class="col-md-9">
+                        <select [(ngModel)]="selectedLevel" id="select1" name="select1" class="form-control">
+                            <option [selected]="selectedLevel==0" value="0">Select level</option>
+                            <option [selected]="selectedLevel==1" value="1">JUNIOR</option>
+                            <option [selected]="selectedLevel==2" value="2">SENIOR</option>
+                            <option [selected]="selectedLevel==3" value="3">EXPERT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">
+                        Skills</label>
+                    <div class="col-md-9">
+                        <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'"
+                            [autoClearSearch]="true" placeholder="No skills selected" name="test"
+                            (selectionChanges)="doSelectOptions($event)">
+                        </ngx-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button (click)="addQuiz()" class="btn btn-success float-right">Add Quiz</button>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="edit">
+    <div class="card">
+        <div class="card-header">
+            Quiz Details
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="text-input">
+                    <strong>Name</strong>
+                </label>
+                <div class="col-md-9">
+                    {{selectedQuiz.title}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="text-input">
+                    <strong>Level</strong>
+                </label>
+                <div class="col-md-9">
+                    {{selectedQuiz.level}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="text-input">
+                    <strong>Skills</strong>
+                </label>
+                <div class="col-md-9">
+                    <ng-container *ngFor="let skill of  selectedQuiz.skills">
+                        <span class="m-1 btn btn-sm btn-primary"> {{skill.label}} </span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            Add Quiz Questions
+        </div>
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            Duration (seconds)
+                            <input [(ngModel)]="newQuestion.duration" class="form-control" type="number"
+                                placeholder="Duration">
+                        </div>
+                        <div class="col-6">
+                            Score (points)
+                            <input [(ngModel)]="newQuestion.score" class="form-control" type="number"
+                                placeholder="Score">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <span class="py-2">
+                            <strong>Question</strong>
+                        </span>
+                        <input class="form-control" [(ngModel)]="newQuestion.text" type="text" placeholder="Question">
+                    </div>
+                    <button class="btn btn-sm btn-info" (click)="addProposition()">Add Proposition</button>
+                    <ng-container *ngFor="let proposition of newQuestion.propositions let i = index">
+                        <div class="d-flex my-2">
+                            <span class="p-2">
+                                <strong>{{ i +1 }}</strong>
+                            </span>
+                            <input class="form-control" type="text" [(ngModel)]="proposition.text"
+                                placeholder="proposition">
+                            <input style="width: 25px;" class="form-control mx-2" type="checkbox"
+                                [(ngModel)]="proposition.valid">
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="card-footer">
+                    <button (click)="addQuestion()" class="btn btn-success float-right">Add Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            Quiz Questions
+        </div>
+        <div class="card-body">
+            <ngx-quiz-question-component [quiz]="selectedQuiz"></ngx-quiz-question-component>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,91 @@
+<ng-container *ngIf="!start">
+    <div class="card">
+        <div class="card-header">
+            Start Quiz
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    <input type="tel" placeholder="Full Name" class="form-control" [(ngModel)]="session.name">
+                </div>
+                <div class="col-4">
+                    <input type="email" placeholder="Email" class="form-control" [(ngModel)]="session.email">
+                </div>
+                <div class="col-4">
+                    <input type="text" placeholder="Phone" class="form-control" [(ngModel)]="session.phone">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button (click)="startQuiz()" class="btn btn-success float-right">Add Quiz</button>
+        </div>
+    </div>
+</ng-container>
+
+
+<ng-container *ngIf="start">
+    <div class="card">
+        <div class="card-header">
+            Starting Quiz
+        </div>
+        <div class="card-body">
+            <div class="container mt-5">
+                <div class="d-flex justify-content-center row">
+                    <div class="col-md-10 col-lg-10">
+                        <div class="border" *ngIf="!finish">
+                            <ng-container *ngFor="let question of [currentQuestion]">
+                                <div class="question bg-white p-3 border-bottom">
+                                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                                        <h5>Question {{indexQuestion+1}}</h5>
+                                        <span>
+                                            Duration: {{question.duration}} seconds
+                                            ({{indexQuestion+1}} of {{responses.length}})
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="question bg-white p-3 border-bottom">
+                                    <div class="d-flex flex-row align-items-center question-title">
+                                        <h3 class="text-danger">Q.</h3>
+                                        <h5 class="mt-1 ml-2">{{question.text}}</h5>
+                                    </div>
+                                    <ng-container *ngFor="let proposition of question.propositions ; let index = index">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="ans ml-2">
+                                                <label class="radio mr-2">
+                                                    <input [(ngModel)]="proposition.valid" [checked]="proposition.valid"
+                                                        type="checkbox" name="check_{{proposition.id}}">
+                                                    <span>{{index + 1}}</span>
+                                                </label>
+                                                <span>{{proposition.text}}</span>
+                                            </div>
+                                            <div>
+                                                <span class="fa fa-edit mr-2"></span>
+                                                <span class="fa fa-times"></span>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                                    <button (click)="onSubmit()"
+                                        class="btn btn-primary border-success align-items-center btn-success"
+                                        type="button">
+                                        {{this.indexQuestion == this.responses.length - 1 ? 'Finish' : 'Submit'}}
+                                        <i class="fa fa-angle-right ml-2"></i>
+                                    </button>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="border" *ngIf="finish">
+                            <div class="text-center p-5">
+                                <p>
+                                    Merci d'avoir passer le test
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ng-container>

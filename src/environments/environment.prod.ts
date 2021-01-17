@@ -5,5 +5,6 @@
  */
 export const environment = {
   production: true,
-  backend: 'http://localhost:4004',
+  baseUrl: "www.google.com",
+  backend: "http://localhost:4004",
 };

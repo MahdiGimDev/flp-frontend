@@ -30,7 +30,9 @@ const routes: Routes = [
           {
             path: "",
             loadChildren: () =>
-              import("./certifications/certif.module").then((mod) => mod.CertifsModule),
+              import("./certifications/certif.module").then(
+                (mod) => mod.CertifsModule
+              ),
           },
         ],
       },
@@ -41,9 +43,7 @@ const routes: Routes = [
           {
             path: "",
             loadChildren: () =>
-              import("./quiz/gestion-questionnaires.module").then(
-                (mod) => mod.GestionQuestionnairesModule
-              ),
+              import("./quizz/quizz.module").then((mod) => mod.QuizzModule),
           },
         ],
       },
@@ -59,7 +59,6 @@ const routes: Routes = [
           },
         ],
       },
-
 
       {
         path: "documents",
@@ -87,10 +86,6 @@ const routes: Routes = [
         ],
       },
 
-
-
-
-
       {
         path: "formations",
         children: [
@@ -116,9 +111,6 @@ const routes: Routes = [
           },
         ],
       },
-
-
-
 
       {
         path: "missions",

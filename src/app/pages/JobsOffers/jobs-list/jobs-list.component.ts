@@ -1,20 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JobModel } from 'app/@core/models/auth.model';
-import { JobService } from 'app/@core/services/job.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { JobModel, skillsModel } from "app/@core/models/auth.model";
+import { JobService } from "app/@core/services/job.service";
+import { LocalDataSource } from "ng2-smart-table";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'ngx-jobs-list',
-  templateUrl: './jobs-list.component.html',
-  styleUrls: ['./jobs-list.component.scss']
+  selector: "ngx-jobs-list",
+  templateUrl: "./jobs-list.component.html",
+  styleUrls: ["./jobs-list.component.scss"],
 })
 export class JobsListComponent implements OnInit {
-
- 
-
-
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -44,7 +40,7 @@ export class JobsListComponent implements OnInit {
         title: "Titre ",
         type: "string",
       },
-    
+
       poste: {
         title: "Poste ",
         type: "string",
@@ -59,17 +55,37 @@ export class JobsListComponent implements OnInit {
         title: "Formation ",
         type: "string",
       },
-
-
-      
-     
+      skills: {
+        title: "Skills",
+        type: "string",
+        valuePrepareFunction: (cell: any, row: any) => {
+          const limit = 3;
+          let skills = "";
+          if (row.skills) {
+            skills = row.skills
+              .slice(0, limit)
+              .reduce((array, value) => [...array, value.label], [])
+              .join(" ");
+            const size = row.skills.length;
+            skills += row.skills.length > limit ? ` + ${size - limit}` : "";
+          }
+          return skills;
+        },
+        filterFunction: (data?: any, search?: any): boolean => {
+          let result = false;
+          data.map((skill: skillsModel) => {
+            if (skill.label.toLowerCase().includes(search.toLowerCase())) {
+              result = true;
+            }
+          });
+          return result;
+        },
+      },
       status: {
         title: "Status",
         type: "string",
       },
-
-    
-  },
+    },
   };
 
   source: LocalDataSource = new LocalDataSource();
@@ -83,25 +99,21 @@ export class JobsListComponent implements OnInit {
 
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
-     // const type = `${params.type}`.toLowerCase();
-     // this.type = this.types.includes(type) ? type : "all";
+      // const type = `${params.type}`.toLowerCase();
+      // this.type = this.types.includes(type) ? type : "all";
       this.loadJobs();
     });
     this.loadJobs();
   }
- 
 
   async loadJobs() {
     let data: any = [];
     this.source.load(data);
     this.spinner.show();
     try {
-      
-        data = await this.jobService.getAllJobs().toPromise();
-        this.source.load(data);
-      } 
-        
-     catch (error) {
+      data = await this.jobService.getAllJobs().toPromise();
+      this.source.load(data);
+    } catch (error) {
       console.log({ error });
     }
     this.spinner.hide();
@@ -111,12 +123,6 @@ export class JobsListComponent implements OnInit {
     const jobID = event?.data?.id;
     this.router.navigate(["/pages/jobs/detail", jobID]);
   }
-
-
-
-
-
-
 
   async onDeleteConfirm(event) {
     const job: JobModel = event.data;
@@ -142,6 +148,4 @@ export class JobsListComponent implements OnInit {
       event.confirm.reject();
     }
   }
-
-
 }

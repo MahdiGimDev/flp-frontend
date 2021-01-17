@@ -101,7 +101,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     ],
   },
 
-
   {
     title: "Gestion experience collaborateur",
     icon: "layout-outline",
@@ -139,8 +138,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
       },
     ],
   },
-
-
 
   {
     title: "Gestion des offres missions",
@@ -184,7 +181,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
         title: "Demandes",
         link: "/pages/documents/all",
       },
-     
     ],
   },
 
@@ -203,7 +199,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     ],
   },
 
-
   {
     title: "gestion des certifications",
     icon: "layout-outline",
@@ -217,7 +212,7 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
         link: "/pages/certifs/all",
       },
     ],
-  },  
+  },
 
   {
     title: "gestion questionnaires",
@@ -228,8 +223,12 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
         link: "/pages/quiz/new",
       },
       {
-        title: "Liste quiz",
+        title: "Quiz List",
         link: "/pages/quiz/all",
+      },
+      {
+        title: "Session List",
+        link: "/pages/quiz/session",
       },
     ],
   },
@@ -558,7 +557,4 @@ export const MENU_ITEMS_CLIENT: NbMenuItem[] = [
       },
     ],
   },
-
- 
-
 ];

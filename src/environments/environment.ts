@@ -10,5 +10,6 @@
 
 export const environment = {
   production: false,
+  baseUrl: "www.google.com",
   backend: "http://localhost:4004",
 };

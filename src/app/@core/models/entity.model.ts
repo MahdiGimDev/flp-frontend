@@ -1,7 +1,7 @@
 import { skillsModel } from "./auth.model";
 
 export interface BaseEntityModel {
-  id: number;
+  id?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

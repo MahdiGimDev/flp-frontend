@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10 col-lg-10">
+            <div class="border" *ngIf="quiz && quiz.questions && quiz.questions.length>0">
+                <ng-container *ngFor="let question of [quiz.questions[indexQuestion]]">
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                            <h5>Question {{indexQuestion+1}}</h5>
+                            <span>
+                                Duration: {{question.duration}} seconds |
+                                Score: {{question.duration}} Points |
+                                ({{indexQuestion+1}} of {{quiz.questions.length}})
+                            </span>
+                            <span (click)="removeQuestion(question.id)" class="fa fa-times"
+                                style="color: red;cursor: pointer;" class="fa fa-times p-2">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row align-items-center question-title">
+                            <h3 class="text-danger">Q.</h3>
+                            <h5 class="mt-1 ml-2">{{question.text}}</h5>
+                        </div>
+                        <ng-container *ngFor="let proposition of question.propositions ; let index = index">
+                            <div class="d-flex justify-content-between">
+                                <div class="ans ml-2">
+                                    <label class="radio mr-2">
+                                        <input [disabled]="true" [checked]="proposition.valid" type="checkbox" name="check_{{proposition.id}}">
+                                        <span>{{index + 1}}</span>
+                                    </label>
+                                    <span>{{proposition.text}}</span>
+                                </div>
+                                <div>
+                                    <span class="fa fa-edit mr-2"></span>
+                                    <span class="fa fa-times"></span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                    <button [disabled]="indexQuestion == 0" (click)="onPrevious()"
+                        class="btn btn-primary d-flex align-items-center btn-danger" type="button">
+                        <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;
+                        previous
+                    </button>
+                    <button [disabled]="indexQuestion == quiz.questions.length -1" (click)="onNext()"
+                        class="btn btn-primary border-success align-items-center btn-success" type="button">
+                        Next
+                        <i class="fa fa-angle-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

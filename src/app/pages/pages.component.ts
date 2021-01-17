@@ -15,10 +15,11 @@ import { MENU_ITEMS_ADMIN, MENU_ITEMS_CLIENT } from "./pages-menu";
 })
 export class PagesComponent {
   menu = MENU_ITEMS_CLIENT;
-
   constructor(private authService: AuthService) {
     const user = authService.getTokenData();
-    if (user.role == "RH" || user.role == "ADMIN") {
+    if (!user) {
+      this.menu = [];
+    } else if (user.role == "RH" || user.role == "ADMIN") {
       this.menu = MENU_ITEMS_ADMIN;
     }
   }

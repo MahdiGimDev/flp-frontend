@@ -25,9 +25,10 @@ import { AnonymousGuard } from "./@core/auth/anonymous.guard";
 import { AuthGuard } from "./@core/auth/auth.guard";
 import { ErrorIntercept } from "./@core/auth/token-interceptor.service";
 import { GestionQuestionnairesModule } from './pages/quiz/gestion-questionnaires.module';
+import { PublicLayoutComponent } from './public/public-layout/public-layout.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PublicLayoutComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

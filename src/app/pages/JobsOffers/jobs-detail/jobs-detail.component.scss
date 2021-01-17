@@ -1,0 +1,19 @@
+::ng-deep ng2-smart-table .ng2-smart-actions a.ng2-smart-action {
+    margin-top: 36px;
+    height: 20px !important;
+    width: 20px !important;
+    padding: 14px 0px;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    span {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+  }
+  
+  ::ng-deep  ng2-st-tbody-edit-delete {
+    height: 0px !important;
+    display: none !important;
+  }
+  

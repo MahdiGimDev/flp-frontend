@@ -1,3 +1,4 @@
+import { QuizModel } from "../../pages/quizz/quizz.model";
 import { UserModel } from "./entity.model";
 
 export interface JwtPayload {
@@ -18,26 +19,26 @@ export interface RegisterModel {
   lastName: string;
   salaire: number;
   tjmd: number;
-  file?:string;
-  gender:string;
+  file?: string;
+  gender: string;
   tjme: number;
-  typep:string;
-  startDate:string;
-  vacations:number;
-  maxvacation:number,
-  maxmaladie:number,
-  vacationmaladie:number,
+  typep: string;
+  startDate: string;
+  vacations: number;
+  maxvacation: number;
+  maxmaladie: number;
+  vacationmaladie: number;
   dateBirth: string;
   email: string;
   cv: string;
   certif: string;
-  situation:string;
+  situation: string;
   role: string;
   formation: string;
   yearsExperience: number;
-  paysd:string;
-  ville:string;
-  pays:string;
+  paysd: string;
+  ville: string;
+  pays: string;
   adress: string;
   phonenumber: string;
   password: string;
@@ -53,25 +54,20 @@ export interface JobCreateModel {
   poste: string;
   formation: string;
   specialite: string;
-  level:string;
+  level: string;
   startDate: string;
-  contrat:string;
-  pays:string;
-  ville:string;
+  contrat: string;
+  pays: string;
+  ville: string;
   addresse: string;
-  description:string;
+  description: string;
   status: string;
   skillsIds?: Array<number>;
   skills?: Array<skillsModel>;
- 
-  
-
+  quiz?: QuizModel;
 }
 
-
-
 export interface JobModel {
-
   id: number;
   titre: string;
   profil: string;
@@ -90,14 +86,13 @@ export interface DocumentCreateModel {
   title: string;
   type: string;
   sujet: string;
-  file:string;
+  file: string;
   startDate: string;
- // clientId?: number;
+  // clientId?: number;
   description: string;
-//  user?: UserModel;
- // client?: UserModel;
+  //  user?: UserModel;
+  // client?: UserModel;
 }
-
 
 export interface MissionCreateModel {
   id?: number;
@@ -131,14 +126,10 @@ export interface prospectCreateModel {
   email: string;
   description: string;
   status?: string;
-  phonenumber:string
-  ville:string;
-  pays:string;
-  yearsExperience:number;
-
-
-
-
+  phonenumber: string;
+  ville: string;
+  pays: string;
+  yearsExperience: number;
 }
 
 export interface MissionCreateModel {
@@ -161,17 +152,11 @@ export interface MissionCreateModel {
   client?: UserModel;
 }
 
-
-
-
-
-
 export interface SkillsCreateModel {
   id?: number;
   label: string;
   description: string;
 }
-
 
 export interface CertifsCreateModel {
   id?: number;
@@ -179,14 +164,11 @@ export interface CertifsCreateModel {
   description: string;
 }
 
-
 export interface certifsModel {
   id: number;
   label: string;
   description: string;
 }
-
-
 
 export interface skillsModel {
   id: number;

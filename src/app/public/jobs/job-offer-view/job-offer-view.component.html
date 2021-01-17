@@ -1,0 +1,116 @@
+<div class="card" *ngIf="job">
+    <div class="card-header d-flex justify-content-between">
+        <div>
+            Détail de l'offre d'emploi
+        </div>
+        <div *ngIf="job.quiz">
+            <a [routerLink]="['/jobs/quiz/',job.quiz.id]" class="btn btn-success btn-sm">Passez Quiz</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <span *ngIf="errorMessageJob" style="color: red;">
+            {{ errorMessageJob }}
+        </span>
+        <span *ngIf="successMessageJob" style="color: green;">
+            {{ successMessageJob }}
+        </span>
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Title</label>
+                <div class="col-md-9">
+                    {{job.title}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">poste</label>
+                <div class="col-md-9">
+                    {{job.poste}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Specialité</label>
+                <div class="col-md-9">
+                    {{job.profil}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">poste</label>
+                <div class="col-md-9">
+                    {{job.specialite}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Formation</label>
+                <div class="col-md-9">
+                    {{job.formation}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">experience level</label>
+                <div class="col-md-9">
+                    {{job.level}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">contrat</label>
+                <div class="col-md-9">
+                    {{job.contrat}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Start Date</label>
+                <div class="col-md-9">
+                    {{job.startDate | date : 'dd-MM-yyyy'}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Addresse</label>
+                <div class="col-md-9">
+                    {{job.addresse}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Description</label>
+                <div class="col-md-9">
+                    {{job.description}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Skills</label>
+                <div class="col-md-9">
+                    <ng-container *ngFor="let skill of job.skills">
+                        <span class="m-1 btn btn-sm btn-primary"> {{skill.label}} </span>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Status</label>
+                <div class="col-md-9">
+                    <span class="mr-2"> {{job.status}}</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Quiz</label>
+                <div class="col-md-9">
+                    <span>
+                        <ng-container *ngIf="job.quiz">
+                            <strong>{{job.quiz.title}} </strong>
+                        </ng-container>
+                        <ng-container *ngIf="!job.quiz"> N/A </ng-container>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@
         </span>
         <form (submit)="createJob()" [formGroup]=" jobForm" class="form-horizontal">
 
-           <div class="form-group row">
+            <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Title</label>
                 <div class="col-md-9">
                     <input formControlName="title" type="text" name="text-input" class="form-control"
@@ -46,7 +46,7 @@
             </div>
 
 
-          
+
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">specialite</label>
@@ -60,7 +60,7 @@
             </div>
 
 
-            
+
 
 
             <div class="form-group row">
@@ -68,12 +68,12 @@
                     Skills</label>
                 <div class="col-md-9">
                     <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
-                        placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)"> 
+                        placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)">
                     </ngx-select>
                 </div>
             </div>
 
-          
+
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
@@ -109,28 +109,28 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                   Pays</label>
+                    Pays</label>
                 <div class="col-md-9">
-                    <input formControlName="Pays" type="text" name="text-input" class="form-control"
+                    <input formControlName="pays" type="text" name="text-input" class="form-control"
                         placeholder=" Pays emplacement de l'entreprise">
-                    <div style="color: red" *ngIf=" pays.hasError('required') && pays.touched">
+                    <div style="color: red" *ngIf="pays.hasError('required') && pays.touched">
                         * pays obligatoire!
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     ville</label>
                 <div class="col-md-9">
                     <input formControlName="ville" type="text" name="text-input" class="form-control"
                         placeholder=" ville d'emplacement du client">
-                    <div style="color: red" *ngIf=" ville.hasError('required') && ville.touched">
+                    <div style="color: red" *ngIf="ville.hasError('required') && ville.touched">
                         * vile obligatoire!
                     </div>
                 </div>
             </div>
-            
+
 
 
 
@@ -145,8 +145,8 @@
                     </div>
                 </div>
             </div>
-            
-             <div class="form-group row">
+
+            <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">type du contrat </label>
                 <div class="col-md-9">
                     <select (change)="onChangeContrat($event.target.value)" id="select1" name="select1"
@@ -160,7 +160,7 @@
                     </select>
                 </div>
             </div>
-            
+
 
 
             <div class="form-group row">
@@ -175,9 +175,6 @@
                     </select>
                 </div>
             </div>
-
-            
-
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Description</label>
                 <div class="col-md-9">
