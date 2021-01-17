@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NbDialogService } from "@nebular/theme";
+import { CertifsService } from 'app/@core/services/certifs.service';
+import { SkillsService } from 'app/@core/services/skills.service';
 import { AuthService } from "../../../@core/auth/auth.service";
-import { JwtPayload } from "../../../@core/models/auth.model";
+import { certifsModel, JwtPayload, skillsModel } from "../../../@core/models/auth.model";
 import { VacationModel } from "../../../@core/models/entity.model";
 import { UsersService } from "../../../@core/services/users.service";
 import { VacationService } from "../../../@core/services/vacation.service";
@@ -17,6 +19,8 @@ export class VacationDetailComponent implements OnInit {
   errorMessageMission = "";
   successMessageMission = "";
   errorLogin = "";
+  skills: Array<skillsModel> = [];
+  certifs: Array<certifsModel> = [];
   currentUser: JwtPayload;
   vacation: VacationModel = {
     id: 0,
@@ -33,6 +37,8 @@ export class VacationDetailComponent implements OnInit {
     private vacationService: VacationService,
     private router: Router,
     private dialogService: NbDialogService,
+    private skillsService: SkillsService,
+    private certifsService:CertifsService,
     private authService: AuthService
   ) {}
 
@@ -41,7 +47,35 @@ export class VacationDetailComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       const id = params.id;
       await this.loadVacation(id);
+      if (this.currentUser.role == "RH" || this.currentUser.role == "ADMIN"||this.currentUser.role == "OPERATIONAL") {
+        
+        this.loadSkills();
+        this.loadCertifs();
+       
+
+      }
     });
+  }
+
+  async loadSkills() {
+    let data: any = [];
+    try {
+      data = await this.skillsService.getAllSkills().toPromise();
+      this.skills = data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+
+  async loadCertifs() {
+    let data: any = [];
+    try {
+      data = await this.certifsService.getAllCertifs().toPromise();
+      this.certifs = data;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   async loadVacation(id) {

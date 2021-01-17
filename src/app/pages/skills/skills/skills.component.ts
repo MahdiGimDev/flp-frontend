@@ -53,6 +53,8 @@ export class SkillsCreateComponent {
       const data: any = await this.skillsService
         .createSkills(this.skills)
         .toPromise();
+        if (window.confirm('Competence ajoutée avec succés'))
+
       if (data.id) {
         this.router.navigate(["/pages/skills/all"]);
         this.successMessageSkills = "Created successfully";

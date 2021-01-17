@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     email: "",
     salaire: 1,
     vacations: 0,
-    certif: "",
+   
     tjmd: 0,
     tjme: 0,
     maxvacation: 0,

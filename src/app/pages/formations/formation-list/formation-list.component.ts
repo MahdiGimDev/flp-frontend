@@ -15,7 +15,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class FormationListComponent implements OnInit {
 
-  statusList = ["all", "en attente", "refusee", "acceptee"];
+  statusList = ["all", "approuvee", "refusee", "non approuvee"];
+  typelist = ["experience", "formation", "projet"];
+
   status = "all";
   settings = {
     add: {
@@ -31,7 +33,7 @@ export class FormationListComponent implements OnInit {
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: false,
+      confirmDelete: true,
     },
     display: {
       editButtonContent: '<i class="nb-trash"></i>',
@@ -42,16 +44,12 @@ export class FormationListComponent implements OnInit {
         type: "number",
       },
       title: {
-        title: "Titre Repos",
+        title: "Titre",
         type: "string",
       },
 
-      profil: {
-        title: "Titre Repos",
-        type: "string",
-      },
-      type: {
-        title: "Type",
+      categorie: {
+        title: "Situation",
         type: "html",
         editor: {
           type: "selected",
@@ -72,9 +70,34 @@ export class FormationListComponent implements OnInit {
         title: "Date fin",
         type: "string",
       },
-      period: {
-        title: "Durée",
-        type: "string",
+      
+      type: {
+        title: "Categorie",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "EN COURS", title: "EN COURS" },
+              { value: "ACCEPTEE", title: "ACCEPTEE" },
+              { value: "REFUSEE", title: "REFUSEE" },
+            ],
+          },
+        },
+      },
+      type2: {
+        title: "Type",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "EN COURS", title: "EN COURS" },
+              { value: "ACCEPTEE", title: "ACCEPTEE" },
+              { value: "REFUSEE", title: "REFUSEE" },
+            ],
+          },
+        },
       },
       status: {
         title: "Status",
@@ -120,7 +143,9 @@ export class FormationListComponent implements OnInit {
     try {
       if (
         this.currentUser.role == "PROVIDER" ||
-        this.currentUser.role == "EMPLOYEE" 
+        this.currentUser.role == "EMPLOYEE" ||
+        this.currentUser.role == "COMMERCIAL" ||
+        this.currentUser.role == "OPERATIONAL" 
         
       ) {
         if (this.status.toLowerCase() === "all") {
@@ -128,22 +153,24 @@ export class FormationListComponent implements OnInit {
             .getMyVacations()
             .toPromise();
         } else {
-          data = await this.formationService
-            .getMyVacationsByStatus(this.status)
-            .toPromise();
+          data =await this.formationService.getMyVacations().toPromise();
+          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          console.log(this.status.toLocaleLowerCase());
         }
       } else if (
         this.currentUser.role == "RH" ||
         this.currentUser.role == "ADMIN"
       ) {
         if (this.status.toLowerCase() === "all") {
-          data = await this.formationService.getAllVacations().toPromise();
+          data = await this.formationService.getAllFormations().toPromise();
         } else {
-          data = await this.formationService
-            .getVacationsByStatus(this.status)
-            .toPromise();
+          data =await this.formationService.getAllFormations().toPromise();
+          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          console.log(this.status.toLocaleLowerCase());
         }
+     
       }
+     
       console.log({ data });
       this.source.load(data);
     } catch (error) {

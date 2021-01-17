@@ -12,8 +12,24 @@ export class MissionsService {
   baseUrl = `${environment.backend}/missions`;
   constructor(private http: HttpClient) {}
 
-  createMission(mission: MissionCreateModel) {
+
+
+
+  //////////ancienne methode de create mission
+  /*createMission(mission: MissionCreateModel,planfile) {
     return this.http.put(this.baseUrl + "/save", mission);
+  }*/
+
+
+  createMission(mission: MissionCreateModel, file) {
+    const form = new FormData();
+    for (const [key, value] of Object.entries(mission)) {
+      form.append(`${key}`, value);
+    }
+    if (file) {
+      form.append("planfile", file);
+    }
+    return this.http.put(this.baseUrl + "/save", form);
   }
 
   getAllMissions() {
@@ -25,12 +41,25 @@ export class MissionsService {
   getAllEmployeeMissions(idClient) {
     return this.http.get(this.baseUrl + `/employee/${idClient}`);
   }
+
+
+
+  getAllUserOwnerMissions(idClient) {
+    return this.http.get(this.baseUrl + `/userc/${idClient}`);
+  }
+
+
+
   getMissionsByType(type: string) {
     return this.http.get(this.baseUrl + "/get/" + type.toUpperCase());
   }
 
   getMissionsById(id: number) {
     return this.http.get(this.baseUrl + "/get/" + id);
+  }
+
+  getMyMissions() {
+    return this.http.get(this.baseUrl +`/me`);
   }
 
   getMissions(page = 1, limit = 10) {
@@ -66,6 +95,15 @@ export class MissionsService {
   availableMission(id: number) {
     return this.http.patch(`${this.baseUrl}/available/${id}`, {});
   }
+
+
+  enCoursMission(id: number) {
+    return this.http.patch(`${this.baseUrl}/cours/${id}`, {});
+  }
+
+
+
+
   updateMission(model: missionModel) {
     return this.http.patch(`${this.baseUrl}/update`, model);
   }
@@ -74,4 +112,54 @@ export class MissionsService {
     const params: HttpParams = new HttpParams().set("id", `${idMission}`);
     return this.http.delete(`${this.baseUrl}`, { params });
   }
+
+  getMissionByStatus(status: string) {
+    return this.http.get(this.baseUrl + "/status/"+status.toUpperCase());
+  }
+
+
+uploadPlanFileMission(userID, file: any) {
+  const form = new FormData();
+  form.set("planfile", file);
+  return this.http.post(`${this.baseUrl}/uploadplan/${userID}`, form);
+}
+/////////////Upload files of situation administrative /////
+
+
+
+uploadDeviseMission(userID, file: any) {
+  const form = new FormData();
+  form.set("devise", file);
+  return this.http.post(`${this.baseUrl}/uploaddevise/${userID}`, form);
+}
+
+uploadBonfileMission(userID, file: any) {
+  const form = new FormData();
+  form.set("file", file);
+  return this.http.post(`${this.baseUrl}/uploadbon/${userID}`, form);
+}
+
+uploadVisaMission(userID, file: any) {
+  const form = new FormData();
+  form.set("visa", file);
+  return this.http.post(`${this.baseUrl}/uploadvisa/${userID}`, form);
+}
+
+
+
+uploadTransportMission(userID, file: any) {
+  const form = new FormData();
+  form.set("transport", file);
+  return this.http.post(`${this.baseUrl}/uploadtransport/${userID}`, form);
+}
+
+
+uploadLogementMission(userID, file: any) {
+  const form = new FormData();
+  form.set("logement", file);
+  return this.http.post(`${this.baseUrl}/uploadlogement/${userID}`, form);
+}
+
+
+
 }

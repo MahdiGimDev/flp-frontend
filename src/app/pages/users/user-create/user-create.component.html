@@ -1,17 +1,31 @@
 <nb-card>
     <nb-card-header>
         User Create
-    </nb-card-header>
-    <nb-card-body>
+     </nb-card-header>
+     <nb-card-body>
         <span *ngIf="errorMessageUser" style="color: red;">
             {{ errorMessageUser }}
-        </span>
-        <span *ngIf="successMessageUser" style="color: green;">
+         </span>
+         <span *ngIf="successMessageUser" style="color: green;">
             {{ successMessageUser }}
         </span>
         <form (submit)="createUser()" [formGroup]="userForm" class="form-horizontal">
+
+            <h1>Données personelles</h1>
+                <div class="row">
+                    
+               
+            <article class="col-md-5">
+
+
+         
+
             <div class="form-group row">
+
+
                 <label class="col-md-3 col-form-label" for="text-input">First Name</label>
+
+
                 <div class="col-md-9">
                     <input formControlName="firstName" type="text" name="text-input" class="form-control"
                         placeholder="First Name">
@@ -19,8 +33,11 @@
                         * First Name is required!
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
+             </div>
+
+
+
+             <div class="form-group row" >
                 <label class="col-md-3 col-form-label" for="text-input">Last Name</label>
                 <div class="col-md-9">
                     <input formControlName="lastName" type="text" name="text-input" class="form-control"
@@ -29,12 +46,12 @@
                         * Last Name is required!
                     </div>
                 </div>
-            </div>
+             </div>
 
 
 
 
-            <div class="form-group row">
+             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Role</label>
                 <div class="col-md-9">
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
@@ -47,13 +64,12 @@
                         <option [selected]="currentRole==6" value="6">CLIENT</option>
                     </select>
                 </div>
-            </div>
+             </div>
 
-
-            <div *ngIf="currentRole==3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Type fournisseur</label>
+             <div *ngIf="currentRole==3" class="form-group row">
+                <label class="col-md-3 col-form-label" for="select12">Type fournisseur</label>
                 <div class="col-md-9">
-                    <select (change)="onChangeProvider($event.target.value)" id="select1" name="select1"
+                    <select (change)="onChangeProvider($event.target.value)" id="select12" name="select12"
                         class="form-control">
                         <option [selected]="currentProvider==0" value="0">choisir type fournisseur</option>
                         <option [selected]="currentProvider==1" value="1">Moral</option>
@@ -61,9 +77,10 @@
 
                     </select>
                 </div>
-            </div>
+             </div>
+             
 
-            <div *ngIf="currentRole!=6 && currentProvider==2 " class="form-group row">
+             <div *ngIf="currentRole!=6" class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Sex</label>
                 <div class="col-md-9">
                     <select (change)="onChangeGender($event.target.value)" id="select1" name="select1"
@@ -74,9 +91,9 @@
 
                     </select>
                 </div>
-            </div>
+             </div>
 
-            <div *ngIf="currentRole!=6 && currentProvider==2 " class="form-group row">
+             <div *ngIf="currentRole!=6" class="form-group row">
                 <label class="col-md-3 col-form-label" for="select1">Situation social</label>
                 <div class="col-md-9">
                     <select (change)="onChangeSituation($event.target.value)" id="select1" name="select1"
@@ -90,142 +107,8 @@
                         <option [selected]="currentSituation==5" value="5">Autre</option>
                     </select>
                 </div>
-            </div>
-
-
-            <div *ngIf="currentRole!=6 && currentProvider==2 " class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Formation</label>
-                <div class="col-md-9">
-                    <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1"
-                        class="form-control">
-                        <option [selected]="currentFormation==0" value="0">select formation</option>
-                        <option [selected]="currentFormation==1" value="1">Bac</option>
-                        <option [selected]="currentFormation==2" value="2">Bac+2</option>
-                        <option [selected]="currentFormation==3" value="3">Bac+3</option>
-                        <option [selected]="currentFormation==4" value="4">Bac+4</option>
-                        <option [selected]="currentFormation==5" value="5">Bac+5</option>
-                        <option [selected]="currentFormation==6" value="6">doctorant(e)</option>
-                        <option [selected]="currentFormation==7" value="7">autre</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    years of experience</label>
-                <div class="col-md-9">
-                    <input formControlName="yearsExperience" type="number" name="text-input" class="form-control"
-                        placeholder="years experience">
-                    <div style="color: red" *ngIf=" yearsExperience.hasError('required') &&  yearsExperience.touched">
-                        * years experience
-                    </div>
-                </div>
-            </div>
-
-            <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Salaire</label>
-                <div class="col-md-9">
-                    <input formControlName="salaire" type="number" name="text-input" class="form-control"
-                        placeholder="dinar salary">
-                    <div style="color: red" *ngIf=" salaire.hasError('required') &&  salaire.touched">
-                        * Salaire dont forget!
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Date debut de collaboration </label>
-                <div class="col-md-9">
-                    <input class="form-control" formControlName="startDate" nbInput
-                        placeholder="Date Debut de colloboration ou d'emploi" [nbDatepicker]="formpicker5">
-                    <nb-datepicker #formpicker5></nb-datepicker>
-                    <div style="color: red" *ngIf="startDate.hasError('required') && startDate.touched">
-                        * Date debut obligatoire
-                    </div>
-                </div>
-            </div>
-
-
-            <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    le plafond du solde de congé repos</label>
-                <div class="col-md-9">
-                    <input formControlName="maxvacation" type="number" name="text-input" class="form-control"
-                        placeholder=" le plafond du solde des conges repos">
-                    <div style="color: red" *ngIf=" maxvacation.hasError('required') &&  maxvacation.touched">
-
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Solde de congé</label>
-                <div class="col-md-9">
-                    <input formControlName="vacations" type="number" name="text-input" class="form-control"
-                        placeholder="solde des conges valide">
-                    <div style="color: red" *ngIf=" vacations.hasError('required') &&  vacations.touched">
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Plafond du solde des conges maladie</label>
-                <div class="col-md-9">
-                    <input formControlName="maxmaladie" type="number" name="text-input" class="form-control"
-                        placeholder="le plafond du solde des conges maladie">
-                    <div style="color: red" *ngIf=" maxmaladie.hasError('required') &&  maxmaladie.touched">
-
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-            <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Solde des conges maladie</label>
-                <div class="col-md-9">
-                    <input formControlName="vacationmaladie" type="number" name="text-input" class="form-control"
-                        placeholder=" solde de congé maladie actuelle de cet employee">
-                    <div style="color: red" *ngIf=" vacationmaladie.hasError('required') &&  vacationmaladie.touched">
-
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div *ngIf="currentRole==3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    TJM en Presenciel</label>
-                <div class="col-md-9">
-                    <input formControlName="tjme" type="number" name="text-input" class="form-control"
-                        placeholder="Tarif Jour homme en Presenciel">
-                    <div style="color: red" *ngIf=" tjme.hasError('required') &&  tjme.touched">
-                        * TJM is required!
-                    </div>
-                </div>
-            </div>
-
-            <div *ngIf="currentRole==3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    TJM en Distanciel</label>
-                <div class="col-md-9">
-                    <input formControlName="tjmd" type="number" name="text-input" class="form-control"
-                        placeholder="Tarif Jour homme en Distanciel">
-                    <div style="color: red" *ngIf=" tjmd.hasError('required') &&  tjmd.touched">
-                        * TJM is required!
-                    </div>
-                </div>
-            </div>
-
+             </div>
+             
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Date of birth </label>
@@ -239,154 +122,355 @@
                 </div>
             </div>
 
+             
+        </article>
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Pays d'origine</label>
-                <div class="col-md-9">
-                    <input formControlName="paysd" type="text" name="text-input" class="form-control"
-                        placeholder="Pays de naissance">
-                    <div style="color: red" *ngIf="paysd.hasError('required') && paysd.touched">
-                        * Pays d'origine!'
-                    </div>
+
+
+
+
+    
+
+        <article class="col-md-5 col-md-offset-5">
+
+
+           
+
+  <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Pays</label>
+        <div class="col-md-9">
+            <input formControlName="paysd" type="text" name="text-input" class="form-control"
+                placeholder="Pays de naissance">
+            <div style="color: red" *ngIf="paysd.hasError('required') && paysd.touched">
+                * Pays d'origine!'
+            </div>
+        </div>
+    </div>
+
+
+
+           
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Pays</label>
+        <div class="col-md-9">
+            <input formControlName="pays" type="text" name="text-input" class="form-control" placeholder="Pays">
+            <div style="color: red" *ngIf="pays.hasError('required') && pays.touched">
+                * Pays de résidence obligatoire
+            </div>
+        </div>
+    </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Ville</label>
+        <div class="col-md-9">
+            <input formControlName="ville" type="text" name="text-input" class="form-control"
+                placeholder="ville de résidence">
+            <div style="color: red" *ngIf="ville.hasError('required') && ville.touched">
+                * ville obligatoire
+            </div>
+        </div>
+    </div>
+            
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Adresse</label>
+        <div class="col-md-9">
+            <input formControlName="adress" type="text" name="text-input" class="form-control"
+                placeholder="Adresse">
+            <div style="color: red" *ngIf="adress.hasError('required') && adress.touched">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Phone Number</label>
+        <div class="col-md-9">
+            <input formControlName="phonenumber" type="text" name="text-input" class="form-control"
+                placeholder="phone Number">
+            <div style="color: red" *ngIf="phonenumber.hasError('required') && phonenumber.touched">
+                * phone number is required!
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div *ngIf="currentRole!=6 " class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Formation</label>
+        <div class="col-md-9">
+        
+            <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1"
+                class="form-control">
+                <option [selected]="currentFormation==0" value="0">select formation</option>
+                <option [selected]="currentFormation==1" value="1">Bac</option>
+                <option [selected]="currentFormation==2" value="2">Bac+2</option>
+                <option [selected]="currentFormation==3" value="3">Bac+3</option>
+                <option [selected]="currentFormation==4" value="4">Bac+4</option>
+                <option [selected]="currentFormation==5" value="5">Bac+5</option>
+                <option [selected]="currentFormation==6" value="6">doctorant(e)</option>
+                <option [selected]="currentFormation==7" value="7">autre</option>
+            </select>
+        
+    </div>
+     </div>
+
+     
+
+    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
+ 
+            
+       </article>   
+
+
+
+    </div>
+
+
+
+
+       <h1>Données pro</h1>
+       <div class="row">
+           
+      
+   <article class="col-md-5">
+
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
+        <div class="col-md-9">
+            <input formControlName="email" type="email" id="email-input" class="form-control"
+                placeholder="Enter Email">
+            <div style="color: red" *ngIf="email.hasError('required') && email.touched">
+                * Email is required!</div>
+            <div style="color: red" *ngIf="email.hasError('pattern') && email.touched">
+                * This email format is invalid!</div>
+            <span class="help-block">Please enter your email</span>
+        </div>
+    </div>
+
+ 
+
+
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            years of experience</label>
+        <div class="col-md-9">
+            <input formControlName="yearsExperience" type="number" name="text-input" class="form-control"
+                placeholder="years experience">
+            <div style="color: red" *ngIf=" yearsExperience.hasError('required') &&  yearsExperience.touched">
+                * years experience
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            Salaire</label>
+        <div class="col-md-9">
+            <input formControlName="salaire" type="number" name="text-input" class="form-control"
+                placeholder="dinar salary">
+            <div style="color: red" *ngIf=" salaire.hasError('required') &&  salaire.touched">
+                * Salaire dont forget!
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            Date collaboration</label>
+        <div class="col-md-9">
+            <input class="form-control" formControlName="startDate" nbInput
+                placeholder="Date Debut de colloboration ou d'emploi" [nbDatepicker]="formpicker5">
+            <nb-datepicker #formpicker5></nb-datepicker>
+            <div style="color: red" *ngIf="startDate.hasError('required') && startDate.touched">
+                * Date debut obligatoire
+            </div>
+        </div>
+    </div>
+
+
+  
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="password-input">Password</label>
+        <div class="col-md-9">
+            <input formControlName="password" type="password" class="form-control" placeholder="Password">
+            <div style="color: red" *ngIf="password.hasError('required') && password.touched">
+                * Password is required!</div>
+            <span class="help-block">Please enter a complex password</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="password-input">Confirm Password</label>
+        <div class="col-md-9">
+            <input formControlName="confirmPassword" type="password" class="form-control"
+                placeholder="confirmPassword">
+            <div style="color: red" *ngIf="confirmPassword.touched">
+                <div *ngIf="confirmPassword.hasError('required')">
+                    * Confirm Password is required!
+                </div>
+                <div *ngIf="confirmPassword.hasError('mustMatch')">
+                    * Password must Match!
                 </div>
             </div>
+            <span class="help-block">Please repeat your password</span>
+        </div>
+    </div>
+
+    
+
+    
+</article>
 
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Pays de résidence</label>
-                <div class="col-md-9">
-                    <input formControlName="pays" type="text" name="text-input" class="form-control" placeholder="Pays">
-                    <div style="color: red" *ngIf="pays.hasError('required') && pays.touched">
-                        * Pays de résidence obligatoire
-                    </div>
-                </div>
+
+
+
+
+
+<article class="col-md-5 col-md-offset-5">
+    <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            IMMATRICULE </label>
+        <div class="col-md-9">
+            <input formControlName="maxvacation" type="number" name="text-input" class="form-control"
+                placeholder="Immatricule cnss || fical">
+            <div style="color: red" *ngIf=" maxvacation.hasError('required') &&  maxvacation.touched">
+
             </div>
+        </div>
+    </div>
+    <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            SOLDE DES CONGES</label>
+        <div class="col-md-9">
+            <input formControlName="vacations" type="number" name="text-input" class="form-control"
+                placeholder="solde des conges valide par default 0">
+            <div style="color: red" *ngIf=" vacations.hasError('required') &&  vacations.touched">
 
-
-
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Ville</label>
-                <div class="col-md-9">
-                    <input formControlName="ville" type="text" name="text-input" class="form-control"
-                        placeholder="ville de résidence">
-                    <div style="color: red" *ngIf="ville.hasError('required') && ville.touched">
-                        * ville obligatoire
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
 
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Adresse</label>
-                <div class="col-md-9">
-                    <input formControlName="adress" type="text" name="text-input" class="form-control"
-                        placeholder="Adresse">
-                    <div style="color: red" *ngIf="adress.hasError('required') && adress.touched">
+    <div *ngIf="currentRole!=6 " class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            NUMERO CIN</label>
+        <div class="col-md-9">
+            <input formControlName="maxmaladie" type="number" name="text-input" class="form-control"
+                placeholder="NUMERO CIN">
+            <div style="color: red" *ngIf=" maxmaladie.hasError('required') &&  maxmaladie.touched">
 
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
 
 
+    
 
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
-                <div class="col-md-9">
-                    <input formControlName="email" type="email" id="email-input" class="form-control"
-                        placeholder="Enter Email">
-                    <div style="color: red" *ngIf="email.hasError('required') && email.touched">
-                        * Email is required!</div>
-                    <div style="color: red" *ngIf="email.hasError('pattern') && email.touched">
-                        * This email format is invalid!</div>
-                    <span class="help-block">Please enter your email</span>
-                </div>
+    
+  
+    <div *ngIf="currentRole==3" class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            TJM en Presenciel</label>
+        <div class="col-md-9">
+            <input formControlName="tjme" type="number" name="text-input" class="form-control"
+                placeholder="Tarif Jour homme en Presenciel">
+            <div style="color: red" *ngIf=" tjme.hasError('required') &&  tjme.touched">
+                * TJM is required!
             </div>
-
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Phone Number</label>
-                <div class="col-md-9">
-                    <input formControlName="phonenumber" type="text" name="text-input" class="form-control"
-                        placeholder="phone Number">
-                    <div style="color: red" *ngIf="phonenumber.hasError('required') && phonenumber.touched">
-                        * phone number is required!
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div *ngIf="currentRole==3" class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            TJM en Distanciel</label>
+        <div class="col-md-9">
+            <input formControlName="tjmd" type="number" name="text-input" class="form-control"
+                placeholder="Tarif Jour homme en Distanciel">
+            <div style="color: red" *ngIf=" tjmd.hasError('required') &&  tjmd.touched">
+                * TJM is required!
             </div>
+        </div>
+    </div>
 
 
+    <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">
+            Solde conges</label>
+        <div class="col-md-9">
+            <input formControlName="vacationmaladie" type="number" name="text-input" class="form-control"
+                placeholder=" solde de congé maladie actuelle de cet employee">
+            <div style="color: red" *ngIf=" vacationmaladie.hasError('required') &&  vacationmaladie.touched">
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="password-input">Password</label>
-                <div class="col-md-9">
-                    <input formControlName="password" type="password" class="form-control" placeholder="Password">
-                    <div style="color: red" *ngIf="password.hasError('required') && password.touched">
-                        * Password is required!</div>
-                    <span class="help-block">Please enter a complex password</span>
-                </div>
             </div>
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="password-input">Confirm Password</label>
-                <div class="col-md-9">
-                    <input formControlName="confirmPassword" type="password" class="form-control"
-                        placeholder="confirmPassword">
-                    <div style="color: red" *ngIf="confirmPassword.touched">
-                        <div *ngIf="confirmPassword.hasError('required')">
-                            * Confirm Password is required!
-                        </div>
-                        <div *ngIf="confirmPassword.hasError('mustMatch')">
-                            * Password must Match!
-                        </div>
-                    </div>
-                    <span class="help-block">Please repeat your password</span>
-                </div>
-            </div>
+        </div>
+    </div>
+ 
 
-            <div *ngIf="currentRole != 6" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Competences</label>
-                <div class="col-md-9">
-                    <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
-                        placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
-                    </ngx-select>
-                </div>
-            </div>
+</article>   
+</div>
 
-            <div *ngIf="currentRole != 6" class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    Certifications</label>
-                <div class="col-md-9">
-                    <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
-                        placeholder="certifications non selectionné" name="test"
-                        (selectionChanges)="doSelectOptionsC($event)">
-                    </ngx-select>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="file">Telecharger CV</label>
-                <input style="width: 300px;" type="file" class="form-control" name="dde"
-                    (change)="onCvFileChanged($event)" />
-                <div *ngIf="!cvFile" class="alert alert-danger">
-                    <div>CV is required.</div>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="file">Telecharger une photo</label>
-                <input style="width: 300px;" type="file" class="form-control" name="files"
-                    (change)="onImageFileChanged($event)" />
-                <div *ngIf="!imageFile" class="alert alert-danger">
-                    <div>Image is required.</div>
-                </div>
-            </div>
 
-            <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
 
-            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
-                Submit</button>
-            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
-        </form>
-    </nb-card-body>
+
+
+
+
+
+  
+
+    
+<div class="row">
+
+<button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+    creer</button>
+<button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+
+
+</div>
+
+
+</form>
+</nb-card-body>
 </nb-card>
+
+
+
+<div *ngIf="currentRole !=6" class="form-group row">
+    <label class="col-md-3 col-form-label" for="text-input">
+        Competences</label>
+    <div class="col-md-9">
+        <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
+            placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
+        </ngx-select>
+    </div>
+</div>
+
+<div *ngIf="currentRole != 6" class="form-group row">
+    <label class="col-md-3 col-form-label" for="text-input">
+        Certifications</label>
+    <div class="col-md-9">
+        <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
+            placeholder="certifications non selectionné" name="test"
+            (selectionChanges)="doSelectOptionsC($event)">
+        </ngx-select>
+    </div>
+</div>
+<div>
+<ng-container>
+    <dd> Ajout Competence</dd>
+    <dt>
+      <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
+        placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
+      </ngx-select>
+    </dt>
+  </ng-container></div>

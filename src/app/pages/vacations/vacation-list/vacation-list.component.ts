@@ -5,7 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from "../../../@core/auth/auth.service";
 import { UserService } from "../../../@core/mock/users.service";
 import { JwtPayload } from "../../../@core/models/auth.model";
-import { VacationModel } from "../../../@core/models/entity.model";
+import { UserModel, VacationModel } from "../../../@core/models/entity.model";
 import { UsersService } from "../../../@core/services/users.service";
 import { VacationService } from "../../../@core/services/vacation.service";
 
@@ -17,6 +17,7 @@ import { VacationService } from "../../../@core/services/vacation.service";
 export class VacationListComponent implements OnInit {
   statusList = ["all", "en attente", "refusee", "acceptee"];
   status = "all";
+  user:UserModel;
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -47,8 +48,9 @@ export class VacationListComponent implements OnInit {
       },
 
       profil: {
-        title: "Titre Repos",
+        title: "profil",
         type: "string",
+
       },
       type: {
         title: "Type",
@@ -93,6 +95,7 @@ export class VacationListComponent implements OnInit {
   };
   source: LocalDataSource = new LocalDataSource();
   currentUser: JwtPayload;
+  vacations: Array<VacationModel> = [];
   constructor(
     private spinner: NgxSpinnerService,
     private authService: AuthService,
@@ -107,7 +110,8 @@ export class VacationListComponent implements OnInit {
       const status = `${params.status}`.toLowerCase();
       this.status = this.statusList.includes(status) ? status : "all";
       this.loadVacations();
-    });
+    }
+    );
   }
 
   async loadVacations() {
@@ -117,32 +121,38 @@ export class VacationListComponent implements OnInit {
     try {
       if (
         this.currentUser.role == "PROVIDER" ||
-        this.currentUser.role == "EMPLOYEE" 
+        this.currentUser.role == "EMPLOYEE" ||
+        this.currentUser.role == "COMMERCIAL"
         
       ) {
         if (this.status.toLowerCase() === "all") {
           data = await this.vacationService
             .getMyVacations()
             .toPromise();
-        } else {
-          data = await this.vacationService
-            .getMyVacationsByStatus(this.status)
-            .toPromise();
+        }  else {
+          data =await this.vacationService.getMyVacations().toPromise();
+          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          console.log(this.status.toLocaleLowerCase());
         }
-      } else if (
+      } 
+      else if (
         this.currentUser.role == "RH" ||
         this.currentUser.role == "ADMIN"
-      ) {
+       )
+        {
         if (this.status.toLowerCase() === "all") {
           data = await this.vacationService.getAllVacations().toPromise();
-        } else {
-          data = await this.vacationService
-            .getVacationsByStatus(this.status)
-            .toPromise();
+        }   
+        else {
+          data =await this.vacationService.getAllVacations().toPromise();
+          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          console.log(this.status.toLocaleLowerCase());
         }
       }
       console.log({ data });
+      this.vacations=data;
       this.source.load(data);
+      
     } catch (error) {
       console.log({ error });
     }

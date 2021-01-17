@@ -1,0 +1,127 @@
+
+
+<nb-card>
+    <nb-card-header>
+        creation d'un prospect
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageMission" style="color: red;">
+            {{ errorMessageMission }}
+        </span>
+        <span *ngIf="successMessageMission" style="color: green;">
+            {{ successMessageMission }}
+        </span>
+        <form (submit)="createProspect()" [formGroup]="createForm" class="form-horizontal">
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">nom</label>
+                <div class="col-md-9">
+                    <input formControlName="nom" type="text" name="text-input" class="form-control"
+                        placeholder="nom prospect">
+                    <div style="color: red" *ngIf="nom.hasError('required')">
+                        * nom prospoect obligatoire
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Status de prospection</label>
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentStatus==0" value="0">Selected please</option>
+                        <option [selected]="currentStatus==1" value="1">Non prospecté</option>
+                        <option [selected]="currentStatus==2" value="2">EN COURS DE PROSPECTION</option>
+                        <option [selected]="currentStatus==3" value="3">Prospécté avec succés</option>
+                        <option [selected]="currentStatus==4" value="4">A recontacter</option>
+                        <option [selected]="currentStatus==5" value="5">Prospécté avec refus</option>
+
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="currentStatus==4" class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Recontacter le </label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="endDate" nbInput placeholder="date pour recontacter "
+                        [nbDatepicker]="formpicker1">
+                    <nb-datepicker #formpicker1></nb-datepicker>
+                    <div style="color: red" *ngIf="endDate.hasError('required')">
+                        * End Date is required!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                   SECTEUR</label>
+                <div class="col-md-9">
+                    <input formControlName="secteur" type="text" name="text-input" class="form-control"
+                        placeholder="secteur d'activité">
+                    <div style="color: red" *ngIf="secteur.hasError('required')">
+                        * secteur is required!
+                    </div>
+                </div>
+            </div>
+            
+  
+          
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Date de prospection</label>
+                <div class="col-md-9">
+                    <input class="form-control" formControlName="startDate" nbInput placeholder="DATE DE PROSPECTION"
+                        [nbDatepicker]="formpicker">
+                    <nb-datepicker #formpicker></nb-datepicker>
+                    <div style="color: red" *ngIf="startDate.hasError('required')">
+                        * Date obligatoire!
+                    </div>
+                </div>
+            </div>
+
+          
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    sujet</label>
+                <div class="col-md-9">
+                    <input formControlName="sujet" type="string" name="text-input" class="form-control"
+                        placeholder="sujet">
+                    <div style="color: red" *ngIf="sujet.hasError('required')">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Addresse</label>
+                <div class="col-md-9">
+                    <input formControlName="addresse" type="text" name="text-input" class="form-control"
+                        placeholder="emplacement">
+                    <div style="color: red" *ngIf="addresse.hasError('required')">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text">
+                    Description</label>
+                <div class="col-md-9">
+                    <textarea rows="5" formControlName="description" class="form-control" type="text"
+                        name="text" placeholder="Description of mission"></textarea>
+                    <div style="color: red" *ngIf="description.hasError('required')">
+                        * description is required!
+                    </div>
+                </div>
+            </div>
+               
+           
+            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
+                create prospect</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+         
+
+            </form>
+    </nb-card-body>
+</nb-card>

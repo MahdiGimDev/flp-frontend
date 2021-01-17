@@ -1,559 +1,1157 @@
-import { NbMenuItem } from "@nebular/theme";
-import { icon } from "leaflet";
-import { title } from "process";
+import { NbMenuItem } from '@nebular/theme';
+import { icon } from 'leaflet';
+import { title } from 'process';
 
 export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
+  /*{
+    title: 'E-commerce',
+    icon: 'shopping-cart-outline',
+    link: '/pages/dashboard',
+    home: true,
+  },*/
   {
-    title: "E-commerce",
-    icon: "shopping-cart-outline",
-    link: "/pages/dashboard",
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
     home: true,
   },
   {
-    title: "IoT Dashboard",
-    icon: "home-outline",
-    link: "/pages/iot-dashboard",
-  },
-  {
-    title: "Admin FLP",
+    title: 'Admin Freelance Provider',
     group: true,
   },
   {
-    title: "Management Users ",
-    icon: "layout-outline",
+    title: 'Gestion Users ',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Add User",
-        link: "/pages/users/new",
+        title: 'Ajout Utilisateur',
+        link: '/pages/users/new',
       },
       {
-        title: "All",
-        link: "/pages/users/ALL",
+        title: 'Tous les utlisateurs',
+        link: '/pages/users/ALL',
       },
       {
-        title: "RH",
-        link: "/pages/users/Rh",
+        title: 'RH',
+        link: '/pages/users/Rh',
       },
       {
-        title: "Employee",
-        link: "/pages/users/Employee",
+        title: 'Employee',
+        link: '/pages/users/Employee',
       },
       {
-        title: "Provider",
-        link: "/pages/users/Provider",
+        title: 'Provider',
+        link: '/pages/users/Provider',
       },
       {
-        title: "Operational",
-        link: "/pages/users/Operational",
+        title: 'Operational',
+        link: '/pages/users/Operational',
       },
       {
-        title: "Commercial",
-        link: "/pages/users/Commercial",
+        title: 'Commercial',
+        link: '/pages/users/Commercial',
       },
       {
-        title: "Clients",
-        link: "/pages/users/Client",
+        title: 'Clients',
+        link: '/pages/users/Client',
       },
     ],
   },
   {
-    title: "Management de Conjes",
-    icon: "layout-outline",
+    title: 'Gestion conges',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Tous",
-        link: "/pages/vacations/all",
+        title: 'Tous',
+        link: '/pages/vacations/all',
       },
       {
-        title: "Demandes",
-        link: "/pages/vacations/pending",
+        title: 'Demandes',
+        link: '/pages/vacations/en attente',
       },
       {
-        title: "Acceptee",
-        link: "/pages/vacations/accepted",
+        title: 'Acceptee',
+        link: '/pages/vacations/acceptee',
       },
       {
-        title: "Refused",
-        link: "/pages/vacations/refused",
+        title: 'Refused',
+        link: '/pages/vacations/refusee',
       },
     ],
   },
   {
-    title: "Gestion formation collaborateur",
-    icon: "layout-outline",
+    title: 'Formations & Experiences',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Tous",
-        link: "/pages/formations/all",
+        title: 'Tous',
+        link: '/pages/formations/all',
       },
       {
-        title: "Demandes",
-        link: "/pages/formations/pending",
+        title: 'Demandes en attente',
+        link: '/pages/formations/non approuvee',
       },
       {
-        title: "Acceptee",
-        link: "/pages/formations/accepted",
+        title: 'Approuvees',
+        link: '/pages/formations/approuvee',
       },
       {
-        title: "Refused",
-        link: "/pages/formations/refused",
+        title: 'Refusees',
+        link: '/pages/formations/refusee',
       },
     ],
   },
-
   {
-    title: "Gestion experience collaborateur",
-    icon: "layout-outline",
+    title: 'Gesion des roles users',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Tous",
-        link: "/pages/experiences/all",
+        title: 'ajout d\'un role',
+        link: '/pages/missions/new',
       },
       {
-        title: "Demandes",
-        link: "/pages/experiences/pending",
-      },
-      {
-        title: "Acceptee",
-        link: "/pages/experiences/accepted",
-      },
-      {
-        title: "Refused",
-        link: "/pages/experiences/refused",
+        title: 'la liste des roles',
+        link: '/pages/missions/all',
       },
     ],
   },
 
   {
-    title: "Users Role Management",
-    icon: "layout-outline",
+    title: 'Gestion des offres missions',
+    icon: 'layout-outline',
     children: [
       {
-        title: "ajout d'un role",
-        link: "/pages/missions/new",
+        title: 'Ajout mission',
+        link: '/pages/missions/new',
+      },
+
+      {
+        title: ' Toutes les missions',
+        link: '/pages/missions/all',
       },
       {
-        title: "la liste des roles",
-        link: "/pages/missions/all",
+        title: 'Libres',
+        link: '/pages/missions/libre',
+      },
+      {
+        title: 'En option',
+        link: '/pages/missions/en option',
+      },
+      {
+        title: 'Bloquées',
+        link: '/pages/missions/blocker',
+      },
+
+      {
+        title: 'Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'Annulées',
+        link: '/pages/missions/annuler',
       },
     ],
   },
 
   {
-    title: "Gestion des offres missions",
-    icon: "layout-outline",
+    title: 'Gestion d'offres d\'emploi',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Add new mission",
-        link: "/pages/missions/new",
+        title: 'ajout offre d\'emploi',
+        link: '/pages/jobs/new',
       },
       {
-        title: " All mission",
-        link: "/pages/missions/all",
+        title: ' list d\'offres d\'emploi',
+        link: '/pages/jobs/all',
       },
     ],
   },
 
   {
-    title: "Gestion d'offres d'emploi",
-    icon: "layout-outline",
+    title: 'Gestion commercial',
+    icon: 'layout-outline',
     children: [
       {
-        title: "ajout offre d'emploi",
-        link: "/pages/jobs/new",
+        title: 'Ajout nouveau Prospect',
+        link: '/pages/prospections/new',
       },
       {
-        title: " list d'offres d'emploi",
-        link: "/pages/jobs/all",
+        title: 'tous les prospects',
+        link: '/pages/prospections/all',
       },
     ],
   },
 
   {
-    title: "Gestion Document",
-    icon: "layout-outline",
+    title: 'Documentheque',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Tous",
-        link: "/pages/documents/new",
+        title: 'Nouveau document',
+        link: '/pages/documents/new',
       },
       {
-        title: "Demandes",
-        link: "/pages/documents/all",
+        title: 'tous les Documents',
+        link: '/pages/documents/all',
       },
     ],
   },
 
   {
-    title: "gestion des competences",
-    icon: "layout-outline",
+    title: 'gestion des competences',
+    icon: 'layout-outline',
     children: [
       {
-        title: "ajout d'une competence",
-        link: "/pages/skills/new",
+        title: 'ajout d\'une competence',
+        link: '/pages/skills/new',
       },
       {
-        title: "Liste des competences",
-        link: "/pages/skills/all",
+        title: 'Liste des competences',
+        link: '/pages/skills/all',
       },
     ],
   },
 
   {
-    title: "gestion des certifications",
-    icon: "layout-outline",
+    title: 'gestion des certifications',
+    icon: 'layout-outline',
     children: [
       {
-        title: "ajout d'une certification",
-        link: "/pages/certifs/new",
+        title: 'ajout d\'une certification',
+        link: '/pages/certifs/new',
       },
       {
-        title: "Liste des certifications",
-        link: "/pages/certifs/all",
+        title: 'Liste des certifications',
+        link: '/pages/certifs/all',
       },
     ],
   },
 
   {
-    title: "gestion questionnaires",
-    icon: "layout-outline",
+    title: 'gestion questionnaires',
+    icon: 'layout-outline',
     children: [
       {
-        title: "quiz",
-        link: "/pages/quiz/new",
+        title: 'quiz',
+        link: '/pages/quiz/new',
       },
       {
-        title: "Quiz List",
-        link: "/pages/quiz/all",
+        title: 'Quiz List',
+        link: '/pages/quiz/all',
       },
       {
-        title: "Session List",
-        link: "/pages/quiz/session",
+        title: 'Session List',
+        link: '/pages/quiz/session',
       },
     ],
   },
 
   {
-    title: "FEATURES",
+    title: 'FEATURES',
     group: true,
   },
   {
-    title: "Layout",
-    icon: "layout-outline",
+    title: 'Layout',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Stepper",
-        link: "/pages/layout/stepper",
+        title: 'Stepper',
+        link: '/pages/layout/stepper',
       },
       {
-        title: "List",
-        link: "/pages/layout/list",
+        title: 'List',
+        link: '/pages/layout/list',
       },
       {
-        title: "Infinite List",
-        link: "/pages/layout/infinite-list",
+        title: 'Infinite List',
+        link: '/pages/layout/infinite-list',
       },
       {
-        title: "Accordion",
-        link: "/pages/layout/accordion",
+        title: 'Accordion',
+        link: '/pages/layout/accordion',
       },
       {
-        title: "Tabs",
-        pathMatch: "prefix",
-        link: "/pages/layout/tabs",
+        title: 'Tabs',
+        pathMatch: 'prefix',
+        link: '/pages/layout/tabs',
       },
     ],
   },
   {
-    title: "Forms",
-    icon: "edit-2-outline",
+    title: 'Forms',
+    icon: 'edit-2-outline',
     children: [
       {
-        title: "Form Inputs",
-        link: "/pages/forms/inputs",
+        title: 'Form Inputs',
+        link: '/pages/forms/inputs',
       },
       {
-        title: "Form Layouts",
-        link: "/pages/forms/layouts",
+        title: 'Form Layouts',
+        link: '/pages/forms/layouts',
       },
       {
-        title: "Buttons",
-        link: "/pages/forms/buttons",
+        title: 'Buttons',
+        link: '/pages/forms/buttons',
       },
       {
-        title: "Datepicker",
-        link: "/pages/forms/datepicker",
+        title: 'Datepicker',
+        link: '/pages/forms/datepicker',
       },
     ],
   },
   {
-    title: "UI Features",
-    icon: "keypad-outline",
-    link: "/pages/ui-features",
+    title: 'UI Features',
+    icon: 'keypad-outline',
+    link: '/pages/ui-features',
     children: [
       {
-        title: "Grid",
-        link: "/pages/ui-features/grid",
+        title: 'Grid',
+        link: '/pages/ui-features/grid',
       },
       {
-        title: "Icons",
-        link: "/pages/ui-features/icons",
+        title: 'Icons',
+        link: '/pages/ui-features/icons',
       },
       {
-        title: "Typography",
-        link: "/pages/ui-features/typography",
+        title: 'Typography',
+        link: '/pages/ui-features/typography',
       },
       {
-        title: "Animated Searches",
-        link: "/pages/ui-features/search-fields",
+        title: 'Animated Searches',
+        link: '/pages/ui-features/search-fields',
       },
     ],
   },
   {
-    title: "Modal & Overlays",
-    icon: "browser-outline",
+    title: 'Modal & Overlays',
+    icon: 'browser-outline',
     children: [
       {
-        title: "Dialog",
-        link: "/pages/modal-overlays/dialog",
+        title: 'Dialog',
+        link: '/pages/modal-overlays/dialog',
       },
       {
-        title: "Window",
-        link: "/pages/modal-overlays/window",
+        title: 'Window',
+        link: '/pages/modal-overlays/window',
       },
       {
-        title: "Popover",
-        link: "/pages/modal-overlays/popover",
+        title: 'Popover',
+        link: '/pages/modal-overlays/popover',
       },
       {
-        title: "Toastr",
-        link: "/pages/modal-overlays/toastr",
+        title: 'Toastr',
+        link: '/pages/modal-overlays/toastr',
       },
       {
-        title: "Tooltip",
-        link: "/pages/modal-overlays/tooltip",
+        title: 'Tooltip',
+        link: '/pages/modal-overlays/tooltip',
       },
     ],
   },
   {
-    title: "Extra Components",
-    icon: "message-circle-outline",
+    title: 'Extra Components',
+    icon: 'message-circle-outline',
     children: [
       {
-        title: "Calendar",
-        link: "/pages/extra-components/calendar",
+        title: 'Calendar',
+        link: '/pages/extra-components/calendar',
       },
       {
-        title: "Progress Bar",
-        link: "/pages/extra-components/progress-bar",
+        title: 'Progress Bar',
+        link: '/pages/extra-components/progress-bar',
       },
       {
-        title: "Spinner",
-        link: "/pages/extra-components/spinner",
+        title: 'Spinner',
+        link: '/pages/extra-components/spinner',
       },
       {
-        title: "Alert",
-        link: "/pages/extra-components/alert",
+        title: 'Alert',
+        link: '/pages/extra-components/alert',
       },
       {
-        title: "Calendar Kit",
-        link: "/pages/extra-components/calendar-kit",
+        title: 'Calendar Kit',
+        link: '/pages/extra-components/calendar-kit',
       },
       {
-        title: "Chat",
-        link: "/pages/extra-components/chat",
+        title: 'Chat',
+        link: '/pages/extra-components/chat',
       },
     ],
   },
   {
-    title: "Maps",
-    icon: "map-outline",
+    title: 'Maps',
+    icon: 'map-outline',
     children: [
       {
-        title: "Google Maps",
-        link: "/pages/maps/gmaps",
+        title: 'Google Maps',
+        link: '/pages/maps/gmaps',
       },
       {
-        title: "Leaflet Maps",
-        link: "/pages/maps/leaflet",
+        title: 'Leaflet Maps',
+        link: '/pages/maps/leaflet',
       },
       {
-        title: "Bubble Maps",
-        link: "/pages/maps/bubble",
+        title: 'Bubble Maps',
+        link: '/pages/maps/bubble',
       },
       {
-        title: "Search Maps",
-        link: "/pages/maps/searchmap",
+        title: 'Search Maps',
+        link: '/pages/maps/searchmap',
       },
     ],
   },
   {
-    title: "Charts",
-    icon: "pie-chart-outline",
+    title: 'Charts',
+    icon: 'pie-chart-outline',
     children: [
       {
-        title: "Echarts",
-        link: "/pages/charts/echarts",
+        title: 'Echarts',
+        link: '/pages/charts/echarts',
       },
       {
-        title: "Charts.js",
-        link: "/pages/charts/chartjs",
+        title: 'Charts.js',
+        link: '/pages/charts/chartjs',
       },
       {
-        title: "D3",
-        link: "/pages/charts/d3",
+        title: 'D3',
+        link: '/pages/charts/d3',
       },
     ],
   },
   {
-    title: "Editors",
-    icon: "text-outline",
+    title: 'Editors',
+    icon: 'text-outline',
     children: [
       {
-        title: "TinyMCE",
-        link: "/pages/editors/tinymce",
+        title: 'TinyMCE',
+        link: '/pages/editors/tinymce',
       },
       {
-        title: "CKEditor",
-        link: "/pages/editors/ckeditor",
+        title: 'CKEditor',
+        link: '/pages/editors/ckeditor',
       },
     ],
   },
   {
-    title: " & Data",
-    icon: "grid-outline",
+    title: ' & Data',
+    icon: 'grid-outline',
     children: [
       {
-        title: "Smart Table",
-        link: "/pages//smart-table",
+        title: 'Smart Table',
+        link: '/pages//smart-table',
       },
       {
-        title: "Tree Grid",
-        link: "/pages//tree-grid",
+        title: 'Tree Grid',
+        link: '/pages//tree-grid',
       },
     ],
   },
   {
-    title: "Miscellaneous",
-    icon: "shuffle-2-outline",
+    title: 'Miscellaneous',
+    icon: 'shuffle-2-outline',
     children: [
       {
-        title: "404",
-        link: "/pages/miscellaneous/404",
+        title: '404',
+        link: '/pages/miscellaneous/404',
       },
     ],
   },
   {
-    title: "Auth",
-    icon: "lock-outline",
+    title: 'Auth',
+    icon: 'lock-outline',
     children: [
       {
-        title: "Login",
-        link: "/auth/login",
+        title: 'Login',
+        link: '/auth/login',
       },
       {
-        title: "Register",
-        link: "/auth/register",
+        title: 'Register',
+        link: '/auth/register',
       },
       {
-        title: "Request Password",
-        link: "/auth/request-password",
+        title: 'Request Password',
+        link: '/auth/request-password',
       },
       {
-        title: "Reset Password",
-        link: "/auth/reset-password",
+        title: 'Reset Password',
+        link: '/auth/reset-password',
       },
     ],
   },
 ];
 
-export const MENU_ITEMS_CLIENT: NbMenuItem[] = [
+export const MENU_ITEMS_RH: NbMenuItem[] = [
   {
-    title: "Management of missions",
-    icon: "layout-outline",
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+  {
+    title: 'Ressource humaine Freelance Provider',
+    group: true,
+  },
+
+  {
+    title: 'Gestion Users ',
+    icon: 'layout-outline',
     children: [
       {
-        title: " My mission",
-        link: "/pages/missions/all",
+        title: 'Ajout Utilisateur',
+        link: '/pages/users/new',
+      },
+      {
+        title: 'Tous les utlisateurs',
+        link: '/pages/users/ALL',
+      },
+      {
+        title: 'RH',
+        link: '/pages/users/Rh',
+      },
+      {
+        title: 'Employee',
+        link: '/pages/users/Employee',
+      },
+      {
+        title: 'Provider',
+        link: '/pages/users/Provider',
+      },
+      {
+        title: 'Operational',
+        link: '/pages/users/Operational',
+      },
+      {
+        title: 'Commercial',
+        link: '/pages/users/Commercial',
+      },
+      {
+        title: 'Clients',
+        link: '/pages/users/Client',
       },
     ],
   },
   {
-    title: "Management Conges",
-    icon: "layout-outline",
+    title: 'Gestion conges',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Ajout Conjes",
-        link: "/pages/vacations/new",
+        title: 'Tous',
+        link: '/pages/vacations/all',
       },
       {
-        title: "Tous",
-        link: "/pages/vacations/all",
+        title: 'Demandes',
+        link: '/pages/vacations/en attente',
       },
       {
-        title: "Demandes",
-        link: "/pages/vacations/en attente",
+        title: 'Acceptee',
+        link: '/pages/vacations/acceptee',
       },
       {
-        title: "Acceptee",
-        link: "/pages/vacations/acceptee",
-      },
-      {
-        title: "Refused",
-        link: "/pages/vacations/refusee",
+        title: 'Refused',
+        link: '/pages/vacations/refusee',
       },
     ],
   },
   {
-    title: "Gestion de mes formations",
-    icon: "layout-outline",
+    title: 'Formations & Experiences',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Ajout nouvelle formation",
-        link: "/pages/formations/new",
+        title: 'Tous',
+        link: '/pages/formations/all',
       },
       {
-        title: "Tous",
-        link: "/pages/formations/all",
+        title: 'En attente',
+        link: '/pages/formations/non approuvee',
       },
       {
-        title: "Demandes",
-        link: "/pages/formations/EN ATTENTE",
+        title: 'Approuvees',
+        link: '/pages/formations/approuvee',
       },
       {
-        title: "Acceptee",
-        link: "/pages/formations/ACCEPTEE",
-      },
-      {
-        title: "Refused",
-        link: "/pages/formations/REFUSEE",
+        title: 'Refusees',
+        link: '/pages/formations/refusee',
       },
     ],
   },
 
   {
-    title: "Gestion mes experiences",
-    icon: "layout-outline",
+    title: 'Gesion des roles users',
+    icon: 'layout-outline',
     children: [
       {
-        title: "Ajout",
-        link: "/pages/experiences/new",
+        title: 'ajout d\'un role',
+        link: '/pages/missions/new',
       },
       {
-        title: "Tous",
-        link: "/pages/experiences/all",
+        title: 'la liste des roles',
+        link: '/pages/missions/all',
+      },
+    ],
+  },
+
+  {
+    title: 'Gestion des offres missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout mission',
+        link: '/pages/missions/new',
+      },
+
+      {
+        title: ' Toutes les missions',
+        link: '/pages/missions/all',
       },
       {
-        title: "Demandes",
-        link: "/pages/experiences/pending",
+        title: 'Missions Libres',
+        link: '/pages/missions/libre',
       },
       {
-        title: "Acceptee",
-        link: "/pages/experiences/accepted",
+        title: 'Missions En option',
+        link: '/pages/missions/en option',
       },
       {
-        title: "Refused",
-        link: "/pages/experiences/refused",
+        title: 'Missions dates Bloquées',
+        link: '/pages/missions/blocker',
+      },
+
+      {
+        title: 'Missions Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'Missions En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'Missions Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'Missions Annulées',
+        link: '/pages/missions/annuler',
+      },
+    ],
+  },
+
+  {
+    title: 'Gestion d\'offres d\'emploi',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'ajout offre d\'emploi',
+        link: '/pages/jobs/new',
+      },
+      {
+        title: ' list d\'offres d\'emploi',
+        link: '/pages/jobs/all',
+      },
+    ],
+  },
+
+  {
+    title: 'Documentheque',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Nouveau document',
+        link: '/pages/documents/new',
+      },
+      {
+        title: 'tous les Documents',
+        link: '/pages/documents/all',
+      },
+    ],
+  },
+
+  {
+    title: 'gestion des competences',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'ajout d\'une competence',
+        link: '/pages/skills/new',
+      },
+      {
+        title: 'Liste des competences',
+        link: '/pages/skills/all',
+      },
+    ],
+  },
+
+  {
+    title: 'gestion des certifications',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'ajout d\'une certification',
+        link: '/pages/certifs/new',
+      },
+      {
+        title: 'Liste des certifications',
+        link: '/pages/certifs/all',
+      },
+    ],
+  },
+
+  {
+    title: 'gestion questionnaires',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'quiz',
+        link: '/pages/quiz/new',
+      },
+      {
+        title: 'Liste quiz',
+        link: '/pages/quiz/all',
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_EMPLOYEE: NbMenuItem[] = [
+  {
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+
+  {
+    title: 'Employee Freelance Provider',
+    group: true,
+  },
+  {
+    title: 'Gestion mes missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Tous mes missions',
+        link: '/pages/missions/all',
+      },
+      {
+        title: 'missions Libres',
+        link: '/pages/missions/libre',
+      },
+      {
+        title: 'missions En option',
+        link: '/pages/missions/en option',
+      },
+      {
+        title: 'missions dates Bloquées',
+        link: '/pages/missions/blocker',
+      },
+
+      {
+        title: 'missions Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'missions En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'missions Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'missions Annulées',
+        link: '/pages/missions/annuler',
+      },
+    ],
+  },
+  {
+    title: 'Gestion mes Conges',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout Conjes',
+        link: '/pages/vacations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/vacations/all',
+      },
+      {
+        title: 'Demandes',
+        link: '/pages/vacations/en attente',
+      },
+      {
+        title: 'Acceptee',
+        link: '/pages/vacations/acceptee',
+      },
+      {
+        title: 'Refused',
+        link: '/pages/vacations/refusee',
+      },
+    ],
+  },
+
+  {
+    title: 'Mes Formations & Experiences',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout formation & experience',
+        link: '/pages/formations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/formations/all',
+      },
+      {
+        title: 'En attentes',
+        link: '/pages/formations/non approuvee',
+      },
+      {
+        title: 'Approuvees',
+        link: '/pages/formations/approuvee',
+      },
+      {
+        title: 'Refusees',
+        link: '/pages/formations/REFUSEE',
+      },
+    ],
+  },
+];
+export const MENU_ITEMS_COMMERCIAL: NbMenuItem[] = [
+  {
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+  {
+    title: 'Commercial Freelance Provider',
+    group: true,
+  },
+  {
+    title: 'Gestion mes Conges',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout Conjes',
+        link: '/pages/vacations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/vacations/all',
+      },
+      {
+        title: 'Demandes',
+        link: '/pages/vacations/en attente',
+      },
+      {
+        title: 'Acceptee',
+        link: '/pages/vacations/acceptee',
+      },
+      {
+        title: 'Refused',
+        link: '/pages/vacations/refusee',
+      },
+    ],
+  },
+
+  {
+    title: 'Gestion prospection',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'cree prospect',
+        link: '/pages/prospections/new',
+      },
+      {
+        title: 'tous les prospects',
+        link: '/pages/documents/all',
+      },
+    ],
+  },
+
+  {
+    title: 'Gestion mes offres missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Creation d\'une mission',
+        link: '/pages/missions/new',
+      },
+      {
+        title: 'Tous mes missions',
+        link: '/pages/missions/all',
+      },
+      {
+        title: 'Missions Libres',
+        link: '/pages/missions/libre',
+      },
+      {
+        title: 'Missions En option',
+        link: '/pages/missions/en option',
+      },
+      {
+        title: 'Missions dates Bloquées',
+        link: '/pages/missions/blocker',
+      },
+
+      {
+        title: 'Missions Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'Missions En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'Missions Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'Missions Annulées',
+        link: '/pages/missions/annuler',
+      },
+    ],
+  },
+
+  {
+    title: 'Mes Formations & Experiences',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout formation & experience',
+        link: '/pages/formations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/formations/all',
+      },
+      {
+        title: 'En attente',
+        link: '/pages/formations/non approuvee',
+      },
+      {
+        title: 'Acceptee',
+        link: '/pages/formations/approuvee',
+      },
+      {
+        title: 'Refused',
+        link: '/pages/formations/REFUSEE',
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_OPERATIONAL: NbMenuItem[] = [
+  {
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+  {
+    title: 'Commercial Freelance Provider',
+    group: true,
+  },
+  {
+    title: 'Gestion mes Conges',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout Conjes',
+        link: '/pages/vacations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/vacations/all',
+      },
+      {
+        title: 'Demandes',
+        link: '/pages/vacations/en attente',
+      },
+      {
+        title: 'Acceptee',
+        link: '/pages/vacations/acceptee',
+      },
+      {
+        title: 'Refused',
+        link: '/pages/vacations/refusee',
+      },
+    ],
+  },
+
+  {
+    title: 'Gestion des missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Creation d\'une mission',
+        link: '/pages/missions/new',
+      },
+      {
+        title: 'Tous les missions',
+        link: '/pages/missions/all',
+      },
+      {
+        title: 'Missions Libres',
+        link: '/pages/missions/libre',
+      },
+      {
+        title: 'Missions En option',
+        link: '/pages/missions/en option',
+      },
+      {
+        title: 'Missions dates Bloquées',
+        link: '/pages/missions/blocker',
+      },
+    ],
+  },
+
+  {
+    title: 'Gestion planning missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Missions Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'Missions En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'Missions Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'Missions Annulées',
+        link: '/pages/missions/annuler',
+      },
+    ],
+  },
+
+  {
+    title: 'Mes Formations & Experiences',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout formation & experience',
+        link: '/pages/formations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/formations/all',
+      },
+      {
+        title: 'En attente',
+        link: '/pages/formations/non approuvee',
+      },
+      {
+        title: 'Acceptee',
+        link: '/pages/formations/approuvee',
+      },
+      {
+        title: 'Refused',
+        link: '/pages/formations/REFUSEE',
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_PROVIDER: NbMenuItem[] = [
+  {
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+  {
+    title: 'Fournisseur Freelance Providerp',
+    group: true,
+  },
+
+  {
+    title: 'Gestion mes missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Tous mes missions',
+        link: '/pages/missions/all',
+      },
+      {
+        title: 'Mes missions Libres',
+        link: '/pages/missions/libre',
+      },
+      {
+        title: 'Mes missions En option',
+        link: '/pages/missions/en option',
+      },
+      {
+        title: 'missions dates Bloquées',
+        link: '/pages/missions/blocker',
+      },
+
+      {
+        title: 'Mes missions Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'Mes missions En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'Mes missions Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'Mes missions Annulées',
+        link: '/pages/missions/annuler',
+      },
+    ],
+  },
+  {
+    title: 'Mes Formations & Experiences',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Ajout formation & experience & projets',
+        link: '/pages/formations/new',
+      },
+      {
+        title: 'Tous',
+        link: '/pages/formations/all',
+      },
+      {
+        title: 'En attente',
+        link: '/pages/formations/non approuvee',
+      },
+      {
+        title: 'Approuvee',
+        link: '/pages/formations/approuvee',
+      },
+      {
+        title: 'Refusee',
+        link: '/pages/formations/REFUSEE',
       },
     ],
   },

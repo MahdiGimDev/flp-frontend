@@ -16,7 +16,15 @@ export const UsersSettings = {
     deleteButtonContent: '<i class="nb-trash"></i>',
     confirmDelete: true,
   },
+  
   columns: {
+    
+    
+    file: {
+      title: "Picture",
+      type: "html",
+      valuePrepareFunction: (file:string) => { return `<img width="50px" src="${file}" />`; },
+    },
     firstName: {
       title: "First Name",
       type: "string",
@@ -25,18 +33,12 @@ export const UsersSettings = {
       title: "Last Name",
       type: "string",
     },
-    yearsExperience: {
-      title: "years Experience",
-      type: "number",
-    },
-    phonenumber: {
-      title: "phone Number",
+  
+    email: {
+      title: "Email",
       type: "string",
     },
-    dateBirth: {
-      title: "Date of birth",
-      type: "Date",
-    },
+    
     skills: {
       title: "Skills",
       type: "string",

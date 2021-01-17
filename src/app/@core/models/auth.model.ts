@@ -83,8 +83,11 @@ export interface JobModel {
 
 export interface DocumentCreateModel {
   id?: number;
+  clientId?: number;
+
   title: string;
   type: string;
+  version: string;
   sujet: string;
   file: string;
   startDate: string;
@@ -95,6 +98,13 @@ export interface DocumentCreateModel {
 }
 
 export interface MissionCreateModel {
+  description: string;
+  //  user?: UserModel;
+  // client?: UserModel;
+  // clientId?: number;
+}
+
+/*export interface MissionCreateModel {
   id?: number;
   title: string;
   type: string;
@@ -112,7 +122,7 @@ export interface MissionCreateModel {
   suggestion?: Array<UserModel>;
   user?: UserModel;
   client?: UserModel;
-}
+}*/
 
 export interface prospectCreateModel {
   id?: number;
@@ -121,6 +131,7 @@ export interface prospectCreateModel {
   secteur: string;
   sujet: string;
   startDate: string;
+  endDate: string;
   addresse: string;
   file: string;
   email: string;
@@ -132,14 +143,27 @@ export interface prospectCreateModel {
   yearsExperience: number;
 }
 
+export interface tarifModel {
+  tva: number;
+  tarifc: number;
+  totalttc: number;
+}
+
 export interface MissionCreateModel {
   id?: number;
   title: string;
   type: string;
+  planfile: string;
   technologies: string;
   level: string;
+  categorie: string;
   startDate: string;
   endDate: string;
+  bonfile?: string;
+  devise?: string;
+  visa?: string;
+  logement?: string;
+  transport?: string;
   period: number;
   clientId?: number;
   address: string;
@@ -177,6 +201,20 @@ export interface skillsModel {
 }
 
 export interface missionModel {
+  id: number;
+  titre: string;
+  profil: string;
+  type: string;
+  technologies: string;
+  niveauEx: string;
+  dateDebut: string;
+  durée: string;
+  emplacement: string;
+  description: string;
+  statusMission: string;
+}
+
+export interface mission2Model {
   id: number;
   titre: string;
   profil: string;

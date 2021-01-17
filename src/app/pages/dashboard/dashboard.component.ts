@@ -20,17 +20,17 @@ export class DashboardComponent implements OnDestroy {
 
   solarValue: number;
   lightCard: CardSettings = {
-    title: 'Light',
+    title: 'RH',
     iconClass: 'nb-lightbulb',
     type: 'primary',
   };
   rollerShadesCard: CardSettings = {
-    title: 'Roller Shades',
-    iconClass: 'nb-roller-shades',
+    title: 'vente commercial',
+    iconClass: 'nb-sale-shades',
     type: 'success',
   };
   wirelessAudioCard: CardSettings = {
-    title: 'Wireless Audio',
+    title: 'Planning',
     iconClass: 'nb-audio',
     type: 'info',
   };

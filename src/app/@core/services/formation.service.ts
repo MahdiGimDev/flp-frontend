@@ -15,11 +15,11 @@ import { FormationModel } from '../models/entity.model';
 
 
     
-    createVacationRequest(model: FormationModel) {
+    createFormationRequest(model: FormationModel) {
       return this.http.put(this.baseUrl + "/save", model);
     }
   
-    getAllVacations() {
+    getAllFormations() {
       return this.http.get(this.baseUrl + `/all`);
     }
   
@@ -37,7 +37,7 @@ import { FormationModel } from '../models/entity.model';
       return this.http.get(this.baseUrl + `/get/${vacationID}`);
     }
   
-    getVacationsByUser(userID: number) {
+    getFormationsByUser(userID: number) {
       return this.http.get(this.baseUrl + `/user/${userID}`);
     }
     acceptVacation(vacationID: number) {

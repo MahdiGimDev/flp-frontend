@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-
+    Liste Missions  : {{status | uppercase}}
   </nb-card-header>
   <nb-card-body>
     <ng2-smart-table (userRowSelect)="onClickRow($event)" [settings]="settings" [source]="source"

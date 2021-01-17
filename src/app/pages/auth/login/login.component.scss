@@ -1,0 +1,25 @@
+.jumbotron {
+    background: url('../../../../assets/images/imageFLP2.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: 1000;
+ }
+
+ .jumbotron {
+    background: url('../../../../assets/images/imageFLP3.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+ }
+
+ .bgSizeCover {
+    height: 200px;
+    background-image: url('../../../../assets/images/imageFLP2.png');
+    background-size: cover;
+    border: 2px solid darkgray;
+    color: #000; text-shadow: 1px 1px 0 #fff;
+ }  
+
+ 

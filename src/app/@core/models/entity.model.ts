@@ -1,4 +1,4 @@
-import { skillsModel } from "./auth.model";
+import { certifsModel, skillsModel } from "./auth.model";
 
 export interface BaseEntityModel {
   id?: number;
@@ -18,6 +18,8 @@ export interface UserModel extends BaseEntityModel {
     | "Operational"
     | "Client";
   username: string;
+  typep:string;
+  
   firstName: string;
   lastName: string;
   salaire: number;
@@ -27,12 +29,17 @@ export interface UserModel extends BaseEntityModel {
   yearsExperience: number;
   phonenumber: string;
   dateBirth: string;
+  situation:string;
+  paysd:string;
+  ville:string;
+  pays:string;
+  adress: string;
   activated?: boolean;
   verified?: boolean;
   subscription?: SubscriptionModel;
-  certif?: string;
   cv?: string;
   file?: string;
+  certifs?: Array<certifsModel>;
   skills?: Array<skillsModel>;
   createdAt?: Date;
   formation?: string;
@@ -79,6 +86,16 @@ export interface VacationModel extends BaseEntityModel {
   period: number;
 }
 
+export interface AdministrativeModel extends BaseEntityModel {
+  bonfile: string;
+  logement: string;
+  visa: string;
+  transport: string;
+  devise: string;
+  mission?: UserModel;
+ 
+}
+
 
 export interface ExperienceModel extends BaseEntityModel {
   title: string;
@@ -111,11 +128,15 @@ export interface ApiKeyModel extends BaseEntityModel {
 export interface FormationModel extends BaseEntityModel {
   title: string;
   speciality:string;
+  categorie:string;
   description:string;
   startDate: string;
   endDate: string;
   status?: string;
   type: string;
+  post:string;
+  type2:string;
+  establishment:string;
   file?: string;
   user?: UserModel;
   period: number;
