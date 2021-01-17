@@ -56,6 +56,8 @@ export class UserListComponent implements OnInit {
     });
     this.loadUsers();
   }
+
+
   async loadUsers() {
     let data: any = [];
     this.source.load(data);

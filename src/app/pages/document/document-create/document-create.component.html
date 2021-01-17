@@ -11,13 +11,32 @@
         </span>
         <form (submit)="createDocument()" [formGroup]=" documentForm" class="form-horizontal">
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Title</label>
+                <label class="col-md-3 col-form-label" for="text-input">Titre</label>
                 <div class="col-md-9">
                     <input formControlName="title" type="text" name="text-input" class="form-control"
-                        placeholder="Document Title ">
+                        placeholder=" Titre  Document">
                     <div style="color: red" *ngIf="title.hasError('required')">
                         * Titre est obligatoire
                     </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Type Document</label>
+
+                <div class="col-md-9">
+                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
+                        <option [selected]="currentType==0" [value]="0">selected please</option>
+                        <option [selected]="currentType==1" [value]="1">FACTURE CLIENT</option>
+                        <option [selected]="currentType==2" [value]="2">BON DE COMMANDE CLIENT</option>
+                        <option [selected]="currentType==3" [value]="3">BON DE COMMANDE FOURNISSEUR</option>
+                        <option [selected]="currentType==4" [value]="4"> CONTRAT EMPLOYEE</option>
+                        <option [selected]="currentType==5" [value]="5">CONTRAT FOURNISSEUR PHYSIQUE</option>
+                        <option [selected]="currentType==6" [value]="6">CONTRAT FOURNISSEUR MORAL</option>
+                        <option [selected]="currentType==7" [value]="7">CONTRAT CLIENT</option>
+                        <option [selected]="currentType==8" [value]="8">DOCUMENT COMPTABILITE</option>
+                        <option [selected]="currentType==9" [value]="9"> DOCUMENT DE PAIE</option>
+                        <option [selected]="currentType==10" [value]="10">AUTRE</option>
+                    </select>
                 </div>
             </div>
 
@@ -32,19 +51,20 @@
                 </div>
             </div>
 
-
+            
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
+                <label class="col-md-3 col-form-label" for="select2">version document</label>
                 <div class="col-md-9">
-                    <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
-                        <option [selected]="currentType==0" value="0">selected please</option>
-                        <option [selected]="currentType==1" value="1">FACTURE</option>
-                        <option [selected]="currentType==2" value="2">BON DE COMMANDE</option>
-                        <option [selected]="currentType==3" value="3">COMPTABILITE</option>
-                        <option [selected]="currentType==4" value="4">AUTRE</option>
+                    <select (change)="onChange2($event.target.value)" id="select2" name="select2" class="form-control">
+                        <option [selected]="currentVersion==0" value="0">selected please</option>
+                        <option [selected]="currentVersion==1" value="1">VERSION REMPLIE</option>
+                        <option [selected]="currentVersion==2" value="2">VERSION BASIQUE</option>
+                        
                     </select>
                 </div>
             </div>
+
+
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
@@ -67,23 +87,11 @@
                     <input formControlName="sujet" type="text" name="text-input" class="form-control"
                         placeholder="sujet">
                     <div style="color: red" *ngIf="sujet.hasError('required')">
-                        * sujet is required!
+                       
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+           
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="textarea">
@@ -92,11 +100,31 @@
                     <textarea rows="5" formControlName="description" class="form-control" type="textarea"
                         name="textarea" placeholder="Description of mission"></textarea>
                     <div style="color: red" *ngIf="description.hasError('required')">
-                        * description is required!
+                       
                     </div>
                 </div>
             </div>
-
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                   Utilisateur en relation</label>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        <ng-container *ngIf="!selectedUser">
+                            N/A
+                        </ng-container>
+                        <ng-container *ngIf="selectedUser">
+                            <dt> {{selectedUser.firstName}} {{selectedUser.lastName}} ({{selectedUser.email}}) </dt>
+                        </ng-container>
+                    </div>
+                    <div style="color: red" *ngIf="!selectedUser">
+                        * User Is is required!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <ng2-smart-table (userRowSelect)="onSelectUser($event)" [settings]="settings" [source]="userSource">
+                </ng2-smart-table>
+            </div>
 
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 create document</button>

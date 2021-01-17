@@ -1,6 +1,8 @@
 <nb-card>
     <nb-card-header>
-        ajout d'une formation
+        Ajout nouveau Projet
+        Ajout nouvelle expériences professionnelles 
+        Ajout nouvelle Formations 
         <ng-container *ngIf="user">
         </ng-container>
 
@@ -23,9 +25,43 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select3">Type</label>
+                <div class="col-md-9">
+                    <select (change)="onChangeType2($event.target.value)" id="select3" name="select3" class="form-control">
+                        <option [selected]="currentType2==0" value="0">selected please</option>
+                        <option [selected]="currentType2==1" value="1">Experience</option>
+                        <option [selected]="currentType2==2" value="2">Formation</option>
+                        <option [selected]="currentType2==3" value="3">Projet</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Poste occupé</label>
+                <div class="col-md-9">
+                    <input formControlName="post" type="text" name="text-input" class="form-control"
+                        placeholder="specailité de la formation ">
+                    <div style="color: red" *ngIf="post.hasError('required')">
+                        * Poste obligatoire!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Etablissement</label>
+                <div class="col-md-9">
+                    <input formControlName="establishment" type="text" name="text-input" class="form-control"
+                        placeholder="nom de l'Etablissement">
+                    <div style="color: red" *ngIf="establishment.hasError('required')">
+                        * Etablissement obligatoire!
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Titre</label>
+                <label class="col-md-3 col-form-label" for="text-input">specailité</label>
                 <div class="col-md-9">
                     <input formControlName="speciality" type="text" name="text-input" class="form-control"
                         placeholder="specailité de la formation ">
@@ -36,6 +72,8 @@
             </div>
 
 
+
+       
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">Description</label>
                 <div class="col-md-9">
@@ -48,16 +86,29 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Type de demande</label>
+                <label class="col-md-3 col-form-label" for="select1">categorie</label>
                 <div class="col-md-9">
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
                         <option [selected]="currentType==0" value="0">selected please</option>
-                        <option [selected]="currentType==1" value="1">universitaire</option>
-                        <option [selected]="currentType==2" value="2">pro</option>
+                        <option [selected]="currentType==1" value="1">Academique</option>
+                        <option [selected]="currentType==2" value="2">Professionnelle</option>
                         <option [selected]="currentType==3" value="3">autre type</option>
                     </select>
                 </div>
             </div>
+            
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select2">Situation</label>
+                <div class="col-md-9">
+                    <select (change)="onChangeCategorie($event.target.value)" id="select2" name="select2" class="form-control">
+                        <option [selected]="currentCategorie==0" value="0">selected please</option>
+                        <option [selected]="currentCategorie==1" value="1">En cours</option>
+                        <option [selected]="currentCategorie==2" value="2">Accomplie</option>
+                     
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Date debut </label>
@@ -77,21 +128,11 @@
                     <input class="form-control" formControlName="endDate" nbInput placeholder=" Date fin de congé"
                         [nbDatepicker]="formpicker1">
                     <nb-datepicker #formpicker1></nb-datepicker>
-                    <div style="color: red" *ngIf=" endDate.hasError('required')">
+                    <div style="color: red" *ngIf="endDate.hasError('required')">
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">
-                    durée</label>
-                <div class="col-md-9">
-                    <input formControlName="period" type="number" name="text-input" class="form-control"
-                        placeholder="Period">
-                    <div style="color: red" *ngIf=" period.hasError('required')">
-                        * Nombre de jours obligatoire!
-                    </div>
-                </div>
-            </div>
+            
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 Ajout formation</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>

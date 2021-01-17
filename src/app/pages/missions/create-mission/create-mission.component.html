@@ -21,14 +21,25 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Type of mission</label>
+                <label class="col-md-3 col-form-label" for="select1">Categorie de mission</label>
                 <div class="col-md-9">
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
-                        <option [selected]="currentType==0" value="0">selected please</option>
+                        <option [selected]="currentType==0" value="0">Choisir</option>
                         <option [selected]="currentType==1" value="1">FORMATION</option>
                         <option [selected]="currentType==2" value="2">AUDIT</option>
                         <option [selected]="currentType==3" value="3">CONSULTING</option>
                         <option [selected]="currentType==4" value="4">AUTRE</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select3">Type</label>
+                <div class="col-md-9">
+                    <select (change)="onChangeCategorie($event.target.value)" id="select3" name="select3" class="form-control">
+                        <option [selected]="currentCategorie==0" value="0">Choisir</option>
+                        <option [selected]="currentCategorie==1" value="1">EN DISTANCIEL</option>
+                        <option [selected]="currentCategorie==2" value="2">EN PRESENTIEL</option>
+                    
                     </select>
                 </div>
             </div>
@@ -109,7 +120,7 @@
                 <div class="col-md-9">
                     <input formControlName="address" type="text" name="text-input" class="form-control"
                         placeholder=" emplacement">
-                    <div style="color: red" *ngIf=" address.hasError('required')">
+                    <div style="color: red" *ngIf="address.hasError('required')">
                         * Address is required!
                     </div>
                 </div>
@@ -118,13 +129,29 @@
                 <label class="col-md-3 col-form-label" for="textarea">
                     Description</label>
                 <div class="col-md-9">
-                    <textarea rows="5" formControlName="description" class="form-control" type="textarea"
+                    
+                    <textarea rows="5" cols="30" wrap="soft|hard" formControlName="description" class="form-control" type="textarea"
                         name="textarea" placeholder="Description of mission"></textarea>
                     <div style="color: red" *ngIf="description.hasError('required')">
                         * description is required!
                     </div>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Telecharger le plan de mission</label>
+                <div class="col-md-9">
+                    <input style="width: 300px;" type="file" name="file" class="form-control" 
+                        (change)="onFileChanged($event)" />
+                    <div style="color: red" *ngIf="!selectedFile">
+                      
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
                     Selected Client</label>

@@ -105,69 +105,117 @@
                       </ng-container>
                     </dd>
                   </div>
+
+                
+                
+
+                  <div  class="col-6">
+                    <dt>Pays de naissance</dt>
+                    <dd>
+                      <ng-container *ngIf="!editable">
+                        {{ user.paysd }}
+                      </ng-container>
+                      <ng-container *ngIf="editable">
+                        <input name="paysd" [(ngModel)]="userEdit.paysd" type="text" class="form-control"
+                          placeholder="pays de naissance" />
+                      </ng-container>
+                    </dd>
+                  </div>
+                  <div  class="col-6">
+                    <dt>Pays de residence</dt>
+                    <dd>
+                      <ng-container *ngIf="!editable">
+                        {{ user.pays }}
+                      </ng-container>
+                      <ng-container *ngIf="editable">
+                        <input name="pays" [(ngModel)]="userEdit.pays" type="text" class="form-control"
+                          placeholder="pays de residence" />
+                      </ng-container>
+                    </dd>
+                  </div>
+
+                
+                  <div class="col-6">
+                    <dt>ville de residence</dt>
+                    <dd>
+                      <ng-container *ngIf="!editable">
+                        {{ user.ville }}
+                      </ng-container>
+                      <ng-container *ngIf="editable">
+                        <input name="ville" [(ngModel)]="userEdit.ville" type="text" class="form-control"
+                          placeholder="ville de residence" />
+                      </ng-container>
+                    </dd>
+                  </div>
+
+                  <div class="col-6" *ngIf="user.role!='CLIENT'">
+                    <dt>situation social</dt>
+                    <ng-container *ngIf="!editable">
+                      <dd>{{ user.situation }}</dd>
+                    </ng-container>
+                    <ng-container *ngIf="editable">
+                      <textarea name="situation" [(ngModel)]="userEdit.situation" type="text" class="form-control"
+                        placeholder="situation social"> </textarea>
+                    </ng-container>
+                  </div>
+    
+                  <div class="col-6" >
+                    <dt>adresse</dt>
+                    <ng-container *ngIf="!editable">
+                      <dd>{{ user.adress}}</dd>
+                    </ng-container>
+                    <ng-container *ngIf="editable">
+                      <textarea name="adress" [(ngModel)]="userEdit.adress" type="text" class="form-control"
+                        placeholder="adresse"> </textarea>
+                    </ng-container>
+                  </div>
+
+
                 </div>
                 <div class="row">
                   <div class="col-6">
                     <dt>Photo</dt>
                     <dd *ngIf="!user.certif">
-                      Upload Photo
+                      Telecharger Photo
                     </dd>
                     <input style="overflow: hidden;" type="file" (change)="onImageChanged($event)" />
-                    <button (click)="onUploadImage()" class="btn btn-sm btn-info my-2"> Upload Photo</button>
+                    <button (click)="onUploadImage()" class="btn btn-sm btn-info my-2"> Telecharger photo</button>
                   </div>
-                  <div class="col-6">
+
+
+                  
+                  <div class="col-6" *ngIf="user.role!='CLIENT'">
                     <dt>CV</dt>
                     <dd *ngIf="user.cv">
-                      <a href="{{ user.cv }}" target="_blank">Preview</a>
+                      <a href="{{ user.cv }}" target="_blank">Afficher</a>
                     </dd>
                     <dd *ngIf="!user.cv">
                       pas de cv
                     </dd>
                     <input style="overflow: hidden;" type="file" name="files" (change)="onFileChanged($event)" />
-                    <button (click)="onUploadCv()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile"> Upload
+                    <button (click)="onUploadCv()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile"> Telecharger
                       Cv</button>
                   </div>
                 </div>
+
+           
+                <div class="row">
+                <div class="col-6" *ngIf="user.role!='CLIENT'">
+
                 <dt>Certif</dt>
                 <dd *ngIf="user.certif">
-                  <a href="{{ user.certif }}" target="_blank">Preview</a>
+                  <a href="{{ user.certif }}" target="_blank">Afficher</a>
                 </dd>
                 <dd *ngIf="!user.certif">
                   pas de certif
                 </dd>
-                <input style="overflow: hidden;" style="width: 300px;" type="file" class="form-control" name="files"
+                <input style="overflow: hidden;" style="width: 300px;" type="file" class="form-control" name="file"
                   (change)="onFileChangedC($event)" />
                 <button (click)="onUploadCertif()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFileC"> Upload
                   Certif</button>
-
-
-                <div class="row">
-                  <div class="col-6">
-                    <dt>Nombre d'année d'experience</dt>
-                    <dd>
-                      <ng-container *ngIf="!editable">
-                        {{ user.yearsExperience }} ans
-                      </ng-container>
-                      <ng-container *ngIf="editable">
-                        <input name="yearsExperience" [(ngModel)]="userEdit.yearsExperience" type="text"
-                          class="form-control" placeholder="nombre d'année d'experience" />
-                      </ng-container>
-                    </dd>
-                  </div>
-                  <div class="col-6">
-                    <dt>salaire</dt>
-                    <dd>
-                      <ng-container *ngIf="!editable">
-                        {{ user.salaire }} Dinars
-                      </ng-container>
-                      <ng-container *ngIf="editable">
-                        <input name="yearsExperience" [(ngModel)]="userEdit.salaire" type="text" class="form-control"
-                          placeholder="salaire" />
-                      </ng-container>
-                    </dd>
-                  </div>
                 </div>
-                <div class="form-group row" *ngIf="user.role=='PROVIDER'">
+
+                <div class="col-6" *ngIf="user.role=='PROVIDER'">
                   <dt>TJM en presentiel</dt>
                   <dd>
                     <ng-container *ngIf="!editable">
@@ -180,20 +228,49 @@
                   </dd>
                 </div>
 
-                <div class="form-group row" *ngIf="user.role=='PROVIDER'">
-                  <dt>TJM en distanciel</dt>
-                  <dd>
-                    <ng-container *ngIf="!editable">
-                      {{ user.tjmd }} Dinars
-                    </ng-container>
-                    <ng-container *ngIf="editable">
-                      <input name="tjmd" [(ngModel)]="userEdit.tjmd" type="text" class="form-control"
-                        placeholder="tjmd" />
-                    </ng-container>
-                  </dd>
+             
 
-                </div>
-                <div class="form-group row" *ngIf="user.role!='PROVIDER'"> </div>
+              
+                  <div class="col-6" *ngIf="user.role!='ADMIN'" >
+                    <dt>Nombre d'année d'experience</dt>
+                    <dd>
+                      <ng-container *ngIf="!editable">
+                        {{ user.yearsExperience }} ans
+                      </ng-container>
+                      <ng-container *ngIf="editable">
+                        <input name="yearsExperience" [(ngModel)]="userEdit.yearsExperience" type="text"
+                          class="form-control" placeholder="nombre d'année d'experience" />
+                      </ng-container>
+                    </dd>
+                  </div>
+                  <div class="col-6" *ngIf="user.role!='PROVIDER'&&user.role!='CLIENT' && user.role!='ADMIN'">
+                    <dt>salaire</dt>
+                    <dd>
+                      <ng-container *ngIf="!editable">
+                        {{ user.salaire }} Dinars
+                      </ng-container>
+                      <ng-container *ngIf="editable">
+                        <input name="yearsExperience" [(ngModel)]="userEdit.salaire" type="text" class="form-control"
+                          placeholder="salaire" />
+                      </ng-container>
+                    </dd>
+                  </div>
+                
+                  <div class="col-6" *ngIf="user.role=='PROVIDER'">
+                    <dt>TJM en distanciel</dt>
+                    <dd>
+                      <ng-container *ngIf="!editable">
+                        {{ user.tjmd }} Dinars
+                      </ng-container>
+                      <ng-container *ngIf="editable">
+                        <input name="tjmd" [(ngModel)]="userEdit.tjmd" type="text" class="form-control"
+                          placeholder="tjmd" />
+                      </ng-container>
+                    </dd>
+  
+                  </div>
+              </div>
+                <div class="form-group row" *ngIf="user.role!='PROVIDER' && user.role!='CLIENT'">
                 <dt>Solde de congé valide</dt>
                 <ng-container *ngIf="!editable">
                   <dd>{{ user.vacations }} Days</dd>
@@ -202,7 +279,9 @@
                   <input name="vacations" [(ngModel)]="userEdit.vacations" type="text" class="form-control"
                     placeholder="Solde de congé" />
                 </ng-container>
-                <dt>competence Title</dt>
+               </div>
+                <div *ngIf="user.role!='CLIENT'">
+                <dt>competence:</dt>
                 <ng-container *ngFor="let skill of user.skills">
                   <span class="m-1 btn btn-sm btn-primary"> {{skill.label}} </span>
                 </ng-container>
@@ -216,20 +295,44 @@
                       placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
                     </ngx-select>
                   </dt>
-                </ng-container>
+                </ng-container></div>
+                <div *ngIf="user.role!='CLIENT'">
+                  <dt>certifié:</dt>
+                  <ng-container *ngFor="let cert of user.certifs">
+                    <span class="m-1 btn btn-sm btn-primary"> {{cert.label}} </span>
+                  </ng-container>
+                  <ng-container *ngIf="!user?.certifs?.length">
+                    <span class="m-1 btn btn-sm btn-primary"> pas de certifs</span>
+                  </ng-container>
+                  <ng-container *ngIf="editable">
+                    <dd> Ajout Certification</dd>
+                    <dt>
+                      <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
+                        placeholder="Certifs non selectionné" name="test2" (selectionChanges)="doSelectOptionsCertif($event)">
+                      </ngx-select>
+                    </dt>
+                  </ng-container></div>
+  
 
+               <div  *ngIf="user.role!='CLIENT'">
                 <dt>Formation</dt>
-                <ng-container *ngIf="!editable">
+                <mat-form-field appearance="outline" >
+                <ng-container class="textarea-text" *ngIf="!editable">
                   <dd>{{ user.formation }}</dd>
                 </ng-container>
-                <ng-container *ngIf="editable">
-                  <textarea name="formation" [(ngModel)]="userEdit.formation" type="text" class="form-control"
+                
+               </mat-form-field>
+                <ng-container class="textarea-text" *ngIf="editable">
+                  
+                  <textarea name="formation" [(ngModel)]="userEdit.formation" type="textarea"  rows="3" class="form-control"
                     placeholder="Formation"> </textarea>
+ 
                 </ng-container>
-              </div>
-            </div>
-          </div>
-        </ng-container>
+               </div>
+               </div>
+                </div>
+               </div>
+                 </ng-container>
 
         <div *ngIf="!user">
           <p class="text-center">
@@ -239,6 +342,25 @@
       </div>
     </div>
 
+
+
+
+    <nb-card>
+      <nb-card-header>Experiences & formations</nb-card-header>
+      <nb-card-body>
+        <nb-card>
+          <nb-card-header>
+          </nb-card-header>
+          <nb-card-body>
+            <ng2-smart-table (userRowSelect)="onClickRow2($event)" [settings]="settings2" [source]="source2">
+            </ng2-smart-table>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-body>
+    </nb-card>
+
+
+    
     <nb-card>
       <nb-card-header>Repos</nb-card-header>
       <nb-card-body>
@@ -252,6 +374,7 @@
         </nb-card>
       </nb-card-body>
     </nb-card>
+  
   </div>
 
 </div>

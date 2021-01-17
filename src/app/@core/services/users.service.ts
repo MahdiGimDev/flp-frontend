@@ -16,6 +16,21 @@ export class UsersService {
   getUsersByRole(role: string) {
     return this.http.get(this.baseUrl + "/get/" + role.toUpperCase());
   }
+  getUsersByType(typep: string) {
+    return this.http.get(this.baseUrl + "/gettype/" + typep.toUpperCase());
+  }
+
+  ///////optionnel
+
+  getUsersByRoleE(role: string) {
+    return this.http.get(this.baseUrl + "/getE/" + role.toUpperCase());
+  }
+
+
+  getUsersByRoleP(role: string) {
+    return this.http.get(this.baseUrl + "/getP/" + role.toUpperCase());
+  }
+
 
   getUsersByRoleProvider(role: string) {
     return this.http.get(this.baseUrl + "/get/" + role.toUpperCase());

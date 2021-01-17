@@ -2,6 +2,7 @@
   <div class="card-header" style="border: none;background: white;">
     <div class="text-muted text-center mt-2 mb-3">
       <small>Sign in with</small>
+
     </div>
   </div>
   <div class="card-body">
@@ -11,14 +12,16 @@
       </div>
     </div>
     <div class="text-center text-muted mb-4">
-      <small>Or sign in with credentials</small>
+
     </div>
     <form role="form">
-      <div class="form-group mb-3">
+
+      <div class="form-group mb-3 text-center">
+        <img src="../../../../assets/images/imageFLP3.png" alt="">
         <div class="input-group input-group-alternative">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <nb-icon icon="phone-outline" pack="eva"></nb-icon>
+              <nb-icon icon="email" pack="eva"></nb-icon>
             </span>
           </div>
           <input [(ngModel)]="loginModel.email" class="form-control" placeholder="Email" name="email" type="email" />
@@ -39,9 +42,7 @@
         <a [routerLink]="['/auth/forgot-password']">click here</a>
       </small>
       <br>
-      <small class="text-muted">You don't have account?
-        <a [routerLink]="['/auth/register']">Create new account</a>
-      </small>
+
       <div class="text-center">
         <button (click)="onLogin()" type="button" class="btn btn-primary my-4">
           Sign in

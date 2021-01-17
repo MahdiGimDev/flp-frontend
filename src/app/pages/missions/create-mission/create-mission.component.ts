@@ -22,24 +22,38 @@ import { UsersService } from "../../../@core/services/users.service";
 export class CreateMissionComponent {
   skills: Array<skillsModel> = [];
   selectedUser: UserModel = null;
+
+  public files: any;
+  selectedFile: File;
+
+
   mission: MissionCreateModel = {
     id: 0,
     clientId: 0,
     address: "",
     description: "",
+    planfile:"",
     period: 0,
+    //tva:0,
+    //tarifc:0,
     title: "",
     technologies: "",
     type: "",
     startDate: "",
     endDate: "",
     level: "",
+    categorie:"",
     skills: [],
     skillsIds: [],
   };
+
+
+
+
   missionForm: FormGroup;
   currentLevel = 1;
   currentType = 1;
+  currentCategorie=1;
   errorMessageMission = "";
   successMessageMission = "";
   selectedSkills = [];
@@ -77,18 +91,9 @@ export class CreateMissionComponent {
         title: "Last Name",
         type: "string",
       },
-      username: {
-        title: "username",
-        type: "string",
-      },
-      salaire: {
-        title: "salaire",
-        type: "number",
-      },
-      dateBirth: {
-        title: "Date of birth",
-        type: "Date",
-      },
+     
+      
+      
       email: {
         title: "E-mail",
         type: "string",
@@ -137,6 +142,7 @@ export class CreateMissionComponent {
       technologies: ["", Validators.required],
       startDate: ["", Validators.required],
       endDate: ["", Validators.required],
+      planfile: [""],
       period: ["", Validators.required],
       address: ["", Validators.required],
       description: ["", Validators.required],
@@ -164,6 +170,11 @@ export class CreateMissionComponent {
 
   onChange(value) {
     this.currentType = value;
+  }
+
+
+  onChangeCategorie(value) {
+    this.currentCategorie = value;
   }
 
   onSelectUser(event) {
@@ -210,6 +221,15 @@ export class CreateMissionComponent {
     } else {
       level = "JUNIOR";
     }
+
+    let categorie: any;
+    if (this.currentCategorie == 1) {
+      categorie = "EN DISTANCIEL";
+    } else if (this.currentCategorie == 2) {
+      categorie = "EN PRESENTIEL";
+    }
+
+
     let type: any;
     if (this.currentType == 1) {
       type = "FORMATION";
@@ -221,7 +241,9 @@ export class CreateMissionComponent {
       type = "OTHER";
     }
     const d = new Date(this.missionForm.get("startDate").value);
+
     const d1 = new Date(this.missionForm.get("endDate").value);
+    
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
     const date1 = d1.getMonth() + 1 + "-" + d1.getDate() + "-" + d1.getFullYear();
     const diff = d1.getTime() - d.getTime();
@@ -246,8 +268,10 @@ export class CreateMissionComponent {
       clientId: this.selectedUser.id,
       skillsIds: this.selectedSkills,
       technologies: this.missionForm.get("technologies").value,
+      categorie,
       startDate: date,
       endDate: date1,
+      planfile:"",
       period,
       address: this.missionForm.get("address").value,
       description: this.missionForm.get("description").value,
@@ -255,7 +279,7 @@ export class CreateMissionComponent {
     };
     try {
       const data: any = await this.missionService
-        .createMission(this.mission)
+        .createMission(this.mission,this.selectedFile)
         .toPromise();
         if (window.confirm('mission ajoutée avec succés'))
       if (data.id) {
@@ -273,6 +297,16 @@ export class CreateMissionComponent {
     }
     console.log({ mission: this.mission });
   }
+
+
+
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+  }
+
+
+
 
   get id() {
     return this.missionForm.get("id");
@@ -314,6 +348,10 @@ get endDate (){
 
   get status() {
     return this.missionForm.get("status");
+  }
+
+  get planfile() {
+    return this.missionForm.get("planfile");
   }
 
   uploadFile($event) {

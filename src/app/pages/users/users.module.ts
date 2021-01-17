@@ -13,8 +13,8 @@ import { NgxSelectModule } from "ngx-select-ex";
 import { ThemeModule } from "../../@theme/theme.module";
 import { SharedModule } from "../../shared/shared.module";
 import { ProfileDetailComponent } from "./profile-detail/profile-detail.component";
-import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
-
+import { EditorModule} from "@tinymce/tinymce-angular";
+//import {  TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
 const routes: Routes = [
   {
     path: "profile",

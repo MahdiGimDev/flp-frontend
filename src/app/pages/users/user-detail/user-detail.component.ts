@@ -3,7 +3,9 @@ import { Route, ActivatedRoute, Router } from "@angular/router";
 import { User } from "app/@core/data/users";
 import { certifsModel, skillsModel } from "app/@core/models/auth.model";
 import { CertifsService } from "app/@core/services/certifs.service";
+import { FormationService } from 'app/@core/services/formation.service';
 import { SkillsService } from "app/@core/services/skills.service";
+import { th } from 'date-fns/locale';
 import { LocalDataSource } from "ng2-smart-table";
 import { INgxSelectOption } from "ngx-select-ex";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -24,6 +26,8 @@ export class UserDetailComponent implements OnInit {
   certifs: Array<certifsModel> = [];
   id = -1;
   source: LocalDataSource = new LocalDataSource();
+  source2: LocalDataSource = new LocalDataSource();
+
   settings = {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -82,13 +86,82 @@ export class UserDetailComponent implements OnInit {
             selected: [
               { value: "PENDING", title: "En Attente" },
               { value: "ACCEPTED", title: "ACCEPTER" },
-              { value: "REFUSED", title: "REFUSE" },
+              { value: "REFUSED", title:  "REFUSE" },
             ],
           },
         },
       },
     },
   };
+
+
+
+  settings2 = {
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: false,
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: false,
+    },
+    display: {
+      editButtonContent: '<i class="nb-trash"></i>',
+    },
+    columns: {
+      id: {
+        title: "ID",
+        type: "number",
+      },
+      title: {
+        title: "Titre experience",
+        type: "string",
+      },
+      type: {
+        title: "Type",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "SICKNESS", title: "Maladie" },
+              { value: "VACATION", title: "Repos" },
+            ],
+          },
+        },
+      },
+      startDate: {
+        title: "Date Debut",
+        type: "string",
+      },
+  
+      status: {
+        title: "Status",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "PENDING", title: "En Attente" },
+              { value: "ACCEPTED", title: "ACCEPTER" },
+              { value: "REFUSED", title:  "REFUSE" },
+            ],
+          },
+        },
+      },
+    },
+  };
+
+ 
+
+
   user: UserModel = null;
   userEdit: UserModel = null;
   updateSuccessMsg = "";
@@ -110,6 +183,7 @@ export class UserDetailComponent implements OnInit {
     private router: Router,
     private userService: UsersService,
     private vacationService: VacationService,
+    private formationService : FormationService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -131,24 +205,27 @@ export class UserDetailComponent implements OnInit {
   }
 
   async loadCertifs() {
-    let data: any = [];
+    let datac: any = [];
     try {
-      data = await this.certifsService.getAllCertifs().toPromise();
-      this.certifs = data;
+      datac = await this.certifsService.getAllCertifs().toPromise();
+      this.certifs = datac;
     } catch (error) {
       console.log({ error });
     }
   }
 
   public doSelectOptions = (options: INgxSelectOption[]) => {
-    this.selectedSkills = [];
+    this.selectedSkills = [this.userEdit.skills];
+    this.selectedSkills= this.userEdit.skills
     options.map((option) => {
       this.selectedSkills.push(option.data?.id);
     });
+
   };
 
   public doSelectOptionsCertif = (options: INgxSelectOption[]) => {
-    this.selectedCertifs = [];
+    this.selectedCertifs = [this.userEdit.certifs];
+    this.selectedCertifs= this.userEdit.certifs;
     options.map((option) => {
       this.selectedCertifs.push(option.data?.id);
     });
@@ -162,6 +239,7 @@ export class UserDetailComponent implements OnInit {
       this.user = data;
       this.userEdit = { ...data };
       this.loadVacations();
+      this.loadFormations();
     } catch (error) {
       console.log({ error });
     }
@@ -177,6 +255,22 @@ export class UserDetailComponent implements OnInit {
         .getVacationsByUser(this.user.id)
         .toPromise();
       this.source.load(data);
+    } catch (error) {
+      console.log({ error });
+    }
+    this.spinner.hide();
+  }
+
+
+  async loadFormations() {
+    let data2: any = [];
+    this.source2.load(data2);
+    try {
+      this.spinner.show();
+      data2 = await this.formationService
+        .getFormationsByUser(this.user.id)
+        .toPromise();
+      this.source2.load(data2);
     } catch (error) {
       console.log({ error });
     }
@@ -224,12 +318,12 @@ export class UserDetailComponent implements OnInit {
 
   showUpdateMessage() {
     this.updateErrorMsg = "";
-    this.updateSuccessMsg = "User Updated Successfully";
+    this.updateSuccessMsg = "Utilisateur modifié avec succes";
     this.hideMessages();
   }
   showErrorMessage() {
     this.updateSuccessMsg = "";
-    this.updateErrorMsg = "Error on updating User";
+    this.updateErrorMsg = "Erreur de modification du profil";
     this.hideMessages();
   }
 
@@ -264,9 +358,25 @@ export class UserDetailComponent implements OnInit {
     const vacationID = event?.data?.id;
     this.router.navigate(["/pages/vacations/detail", vacationID]);
   }
+  onClickRow2(event) {
+    const formationID = event?.data?.id;
+    this.router.navigate(["/pages/formations/detail", formationID]);
+  }
   async onSaveChanges() {
+
+
     try {
-      const payload = { ...this.userEdit, skillsIds: this.selectedSkills };
+     
+      const payload = { ...this.userEdit, skillsIds: this.selectedSkills.length!=0
+      && this.selectedSkills!=this.userEdit.skills ? this.selectedSkills :
+      this.userEdit.skills ,certifsIds: this.selectedCertifs.length!=0 && 
+      this.selectedCertifs!= this.userEdit.certifs? this.selectedCertifs : this.userEdit.certifs
+      
+      
+      
+      };
+      console.log(this.userEdit.skills);
+     
       await this.userService.updateProfileUser(payload).toPromise();
       this.loadUser(this.userEdit.id);
     } catch (error) {

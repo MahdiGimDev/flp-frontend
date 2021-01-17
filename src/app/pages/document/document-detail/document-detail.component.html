@@ -1,1 +1,154 @@
-<p>document-detail works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="card shadow">
+      <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
+        <p class="text-white">Loading...</p>
+      </ngx-spinner>
+      <div class="card-header">
+        Document Detail
+      </div>
+      <div class="card-body">
+        <div class="bd-example">
+          <div class="row">
+            <div class="col">
+              <div class="text-center p-4">
+                <div class="update-message card p-2" *ngIf="updateSuccessMsg">
+                  <p class="success-msg">
+                    {{ updateSuccessMsg }}
+                  </p>
+                  <button (click)="hideSuccessMsg()" class="btn btn-message">
+                    &times;
+                  </button>
+                </div>
+                <div class="update-message card p-2" *ngIf="updateErrorMsg">
+                  <p class="error-msg">
+                    {{ updateErrorMsg }}
+                  </p>
+                  <button (click)="hideErrorMsg()" class="btn btn-message">
+                    &times;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="document">
+            <div class="row">
+                <div class="col-md-5 col-sm-4 col-lg-4">
+                    <div style="text-align: center;">
+                      <div style="margin-bottom: 20px; height: 150px;">
+                        <img class="profile-img"
+                          src="{{ 'https://www.clipartmax.com/png/full/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png'}}"
+                          alt="" />
+                      </div>
+                      <a class="btn btn-block btn-light" (click)="toggleEdit()" target="_self">
+                        {{ editable ? 'Cancel Edit' : 'Edit' }}
+                      </a>
+                      <a class="btn btn-block btn-light" (click)="onSaveChanges()" *ngIf="editable" target="_self">
+                        Save Changes
+                      </a>
+                    </div>
+                  </div>
+            <div class="col-md-7 col-sm-8 col-lg-8">
+                <div style="margin-top: 30px;">
+                  <h3>{{ document.title |titlecase}} </h3>
+                  <ng-container *ngIf="editable">
+                    <div class="row">
+                      <div class="col-6">
+                        <dt>Titre</dt>
+                        <input name="title" [(ngModel)]="documentEdit.title" type="text" class="form-control"
+                          placeholder="title" />
+                      </div>
+                      
+                    </div>
+                  </ng-container>
+                </div>
+                <div style="margin-top: 15px;">
+                  <dt>Type Document</dt>
+                  <span>
+                    {{ document.type }}
+                  </span>
+                </div>
+                <div style="margin-top: 15px;">
+                  <div class="row">
+                    <div class="col-6">
+                      <dt>sujet</dt>
+                      <dd>
+                        <ng-container *ngIf="!editable">
+                          {{ document.sujet }}
+                        </ng-container>
+                        <ng-container *ngIf="editable">
+                          <input name="sujet" [(ngModel)]="documentEdit.sujet" type="text" class="form-control"
+                            placeholder="sujet" />
+                        </ng-container>
+                      </dd>
+                    </div>
+                    <div class="col-6">
+                      <dt>version</dt>
+                      <dd>
+                        <ng-container *ngIf="!editable">
+                          {{ document.version }}
+                        </ng-container>
+                        <ng-container *ngIf="editable">
+                          <input name="version" [(ngModel)]="documentEdit.version" type="text" class="form-control"
+                            placeholder=" version" />
+                        </ng-container>
+                      </dd>
+                    </div>
+                    <div class="col-6">
+                        <dt>Description</dt>
+                        <dd>
+                          <ng-container *ngIf="!editable">
+                            {{ document.description }}
+                          </ng-container>
+                          <ng-container *ngIf="editable">
+                            <input name="description" [(ngModel)]="documentEdit.description" type="text" class="form-control"
+                              placeholder=" description" />
+                          </ng-container>
+                        </dd>
+                      </div>
+                    <div class="col-6">
+                      <dt>Date</dt>
+                      <dd>
+                        <ng-container *ngIf="!editable">
+                          {{ document.startDate }}
+                        </ng-container>
+                        <ng-container *ngIf="editable">
+                          <input name="startDate" [(ngModel)]="documentEdit.startDate" type="text" class="form-control"
+                            placeholder=" date" />
+                        </ng-container>
+                      </dd>
+                    </div>
+                    <div class="col-6" >
+                        <dt>CV</dt>
+                        <dd *ngIf="document.file">
+                          <a href="{{ document.file }}" target="_blank">Preview</a>
+                        </dd>
+                        <dd *ngIf="!document.file">
+                          pas de document
+                        </dd>
+                        <input style="overflow: hidden;" type="file" name="files" (change)="onFileChanged($event)" />
+                        <button (click)="onUploadDocument()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile"> Upload
+                          Document file</button>
+                      </div>
+                    
+
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </ng-container>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                  

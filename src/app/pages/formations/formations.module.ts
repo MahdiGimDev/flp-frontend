@@ -9,6 +9,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormationCreateComponent } from './formation-create/formation-create.component';
 import { FormationListComponent } from './formation-list/formation-list.component';
+import { FormationDetailComponent } from './formation-detail/formation-detail.component';
 
 
 
@@ -23,6 +24,10 @@ const routes: Routes = [
       path: ":status",
       component: FormationListComponent,
     },
+    {
+      path: ":detail/:id",
+      component: FormationDetailComponent,
+    },
  
   ];
   
@@ -30,6 +35,7 @@ const routes: Routes = [
     declarations: [
         FormationCreateComponent,
         FormationListComponent,
+        FormationDetailComponent,
       
     ],
     imports: [

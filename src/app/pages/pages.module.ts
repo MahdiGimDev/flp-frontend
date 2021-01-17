@@ -11,6 +11,7 @@ import { DoughnutChartComponent } from './chartFolder/doughnut-chart/doughnut-ch
 import { CreateProspectComponent } from './prospection/create-prospect/create-prospect.component';
 import { ListProspectComponent } from './prospection/list-prospect/list-prospect.component';
 import { DetailProspectComponent } from './prospection/detail-prospect/detail-prospect.component';
+import { CreateAdministrativeComponent } from './administrativeMission/create-administrative/create-administrative.component';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { DetailProspectComponent } from './prospection/detail-prospect/detail-pr
     NbCardModule,
     Ng2SmartTableModule
   ],
-  declarations: [ PagesComponent, DoughnutChartComponent],
+  declarations: [ PagesComponent, DoughnutChartComponent, CreateAdministrativeComponent],
 })
 export class PagesModule {
 }

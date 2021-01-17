@@ -103,13 +103,14 @@ export class UserCreateComponent implements OnInit {
   createForm() {
     this.userForm = this.fb.group(
       {
-        firstName: ["aaa", Validators.required],
-        lastName: ["bbb", Validators.required],
+        firstName: ["Samir", Validators.required],
+        lastName: ["provider", Validators.required],
         dateBirth: [new Date(), Validators.required],
-        pays: ["sss", Validators.required],
-        paysd: ["ddd", Validators.required],
-        ville: ["asdasd", Validators.required],
+        pays: ["Algérie", Validators.required],
+        paysd: ["Tunisie", Validators.required],
+        ville: ["Tunis", Validators.required],
         salaire: [10],
+        imageFile: [""],
         maxvacation: [10],
         vacationmaladie: [10],
         maxmaladie: [10],
@@ -118,11 +119,11 @@ export class UserCreateComponent implements OnInit {
         tjmd: [10],
         vacations: [10],
         yearsExperience: [10],
-        adress: ["1111"],
-        phonenumber: ["123456", Validators.required],
-        cv: ["dddd"],
+        adress: ["Tunis"],
+        phonenumber: ["0033", Validators.required],
+        cv: [""],
         email: [
-          "test@email.com",
+          "test-flp@email.com",
           Validators.compose([
             Validators.required,
             Validators.minLength(5),
@@ -305,7 +306,7 @@ export class UserCreateComponent implements OnInit {
       pays: this.userForm.get("pays").value,
       paysd: this.userForm.get("paysd").value,
       cv: this.userForm.value.cv,
-      certif: this.userForm.value.cv,
+      file: this.userForm.value.imageFile,
       tjme: this.userForm.value.tjme,
       tjmd: this.userForm.value.tjmd,
       vacations: this.userForm.value.vacations,
@@ -450,6 +451,10 @@ export class UserCreateComponent implements OnInit {
   get cv() {
     return this.userForm.get("cv");
   }
+
+  get file() {
+    return this.userForm.get("file");
+  }
   get startDate() {
     return this.userForm.get("startDate");
   }
@@ -475,6 +480,12 @@ export class UserCreateComponent implements OnInit {
   get confirmPassword() {
     return this.userForm.get("confirmPassword");
   }
+
+
+
+
+
+
 
   //////////image fonction not work ///////////
 

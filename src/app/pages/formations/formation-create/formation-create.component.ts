@@ -19,18 +19,22 @@ export class FormationCreateComponent implements OnInit {
   errorMessageMission = "";
   successMessageMission = "";
   currentType = 0;
-
+  currentType2 = 0;
+  currentCategorie = 0;
   formation: FormationModel = {
     id: 0,
     title: "",
     startDate: "",
     endDate: "",
+    establishment: "",
+    categorie:"",
     period: 0,
+    post:"",
     speciality:"",
     description:"",
     file: "",
-    status: "",
     type: "",
+    type2:"",
   };
   user: UserModel;
   currentUser: JwtPayload;
@@ -56,14 +60,22 @@ export class FormationCreateComponent implements OnInit {
       speciality: ["", Validators.required],
       startDate: ["", Validators.required],
       endDate: [""],
-      period: [""],
       description: [""],
+      post: [""],
+      establishment: [""],
 
     });
   }
 
   onChange(value) {
     this.currentType = value;
+  }
+
+  onChangeType2(value) {
+    this.currentType2 = value;
+  }
+  onChangeCategorie(value) {
+    this.currentCategorie = value;
   }
 
 
@@ -74,7 +86,7 @@ export class FormationCreateComponent implements OnInit {
       this.errorMessageMission = "Fill Required Fields";
       return false;
     }
-    if (this.currentType === 0) {
+    if (this.currentType2 === 0 || this.currentType === 0 || this.currentCategorie===0) {
       this.errorMessageMission = "Invalid Type";
       return false;
     }
@@ -85,34 +97,70 @@ export class FormationCreateComponent implements OnInit {
     if (this.currentType == 1) {
       type = "universitaire";
     } else if (this.currentType == 2) {
-      type = "pro";
+      type = "professionnelle";
     }
 
     else if (this.currentType == 3) {
       type = "autre type";
     }
+    let type2: any;
+    if (this.currentType2 == 1) {
+      type2 = "EXPERIENCE";
+    } 
+    
+    
+    
+    else if (this.currentType2 == 2) {
+      type2 = "FORMATION";
+    }
+
+    else if (this.currentType2 == 3) {
+      type2 = "PROJET";
+    }
+
+
+
+let categorie :any;
+if (this.currentCategorie ==1){
+
+  categorie = "En cours"
+
+
+
+}
+else if (this.currentCategorie ==2){
+
+  categorie = "Accomplie "
+
+
+}
+
     const d = new Date(this.formationForm.get("startDate").value);
     const df = new Date(this.formationForm.get("endDate").value);
 
     const date = d.getMonth() + 1 + "-" + d.getDate() + "-" + d.getFullYear();
     const dateE = df.getMonth() + 1 + "-" + df.getDate() + "-" + df.getFullYear();
 
-    const period = +this.formationForm.get("period").value;
 
     this.formation = {
       id: 0,
       title: this.formationForm.get("title").value,
       speciality: this.formationForm.get("speciality").value,
       description: this.formationForm.get("description").value,
+      post: this.formationForm.get("post").value,
+
+      categorie,
       type,
+      type2,
+      establishment: this.formationForm.get("establishment").value,
       startDate: date,
       endDate: dateE,
-      period,
+      period:0,
       file: "",
     };
     try {
       const data: any = await this.vacationService
-        .createVacationRequest(this.formation)
+        .createFormationRequest(this.formation)
         .toPromise();
       if (window.confirm("Demande ajoutée avec succés"))
         if (data.id) {
@@ -148,14 +196,17 @@ export class FormationCreateComponent implements OnInit {
     return this.formationForm.get("endDate");
   }
 
-  get period() {
-    return this.formationForm.get("period");
-  }
+  
 
 
 get speciality() {
   return this.formationForm.get("speciality");
 }
+
+get categorie() {
+  return this.formationForm.get("categorie");
+}
+
 
 
 
@@ -164,8 +215,21 @@ get description() {
 }
 
 
+get type() {
+  return this.formationForm.get("type");
+}
 
 
+get type2() {
+  return this.formationForm.get("type2");
+}
 
+
+get post() {
+  return this.formationForm.get("post");
+}
+get establishment() {
+  return this.formationForm.get("establishment");
+}
 
 }

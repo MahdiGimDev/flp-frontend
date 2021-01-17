@@ -1,9 +1,12 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { JwtPayload, missionModel } from "app/@core/models/auth.model";
+import { JwtPayload, missionModel,mission2Model } from "app/@core/models/auth.model";
 import { MissionsService } from "app/@core/services/missions.service";
+import { StatusCardComponent } from 'app/pages/dashboard/status-card/status-card.component';
 import { LocalDataSource } from "ng2-smart-table";
 import { NgxSpinnerService } from "ngx-spinner";
+import { filter } from 'rxjs/operators';
 import { AuthService } from "../../../@core/auth/auth.service";
 
 @Component({
@@ -12,6 +15,9 @@ import { AuthService } from "../../../@core/auth/auth.service";
   styleUrls: ["./mission-list.component.scss"],
 })
 export class MissionListComponent implements OnInit {
+  statusList = ["all","en option","libre", "confirmer", "blocker", "realiser","en cours","annuler"];
+  status = "all";
+  statusP="confirmer";
   types = ["formation", "audit", "consulting", "autre"];
   settings = {
     add: {
@@ -27,7 +33,7 @@ export class MissionListComponent implements OnInit {
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: false,
+      confirmDelete: true,
     },
 
     display: {
@@ -41,6 +47,24 @@ export class MissionListComponent implements OnInit {
       title: {
         title: "Titre Mission",
         type: "string",
+      },
+      status: {
+        title: "Status",
+        type: "html",
+        editor: {
+          type: "selected",
+          config: {
+            selected: [
+              { value: "LIBRE", title: "LIBRE" },
+              { value: "EN OPTION", title: "EN OPTION" },
+              { value: "BLOCKER", title: "BLOCKER" },
+              { value: "CONFIRMER", title: "CONFIRMER" },
+              { value: "EN COURS", title: "EN COURS" },
+              { value: "REALISER", title: "REALISER" },
+              { value: "ANNULER", title: "ANNULER" },
+            ],
+          },
+        },
       },
       type: {
         title: "Type",
@@ -65,28 +89,38 @@ export class MissionListComponent implements OnInit {
         title: "Nombre de jours",
         type: "string",
       },
-      status: {
-        title: "Status",
-        type: "string",
-      },
+      
     },
   };
 
   missions: Array<missionModel> = [];
+  mission:mission2Model;
   source: LocalDataSource = new LocalDataSource();
   currentUser: JwtPayload;
+  
   constructor(
     private spinner: NgxSpinnerService,
     private authService: AuthService,
     private router: Router,
-    private missionService: MissionsService
+    private missionService: MissionsService,
+    private route: ActivatedRoute,
+
   ) {
     this.currentUser = this.authService.getTokenData();
   }
 
   async ngOnInit() {
-    this.loadMissions();
+    this.route.params.subscribe(async (params) => {
+      const status = `${params.status}`.toLowerCase();
+      const statusP = `${params.role}`.toLowerCase();
+
+      this.status = this.statusList.includes(status) ? status : "all";
+       console.log({status});
+       this.loadMissions();
   }
+  );
+  this.loadMissions();
+}
 
   async loadMissions() {
     let data: any = [];
@@ -100,12 +134,38 @@ export class MissionListComponent implements OnInit {
         data = await this.missionService
           .getAllEmployeeMissions(this.currentUser.id)
           .toPromise();
-      } else if (
-        this.currentUser.role == "RH" ||
-        this.currentUser.role == "ADMIN"
-      ) {
-        data = await this.missionService.getAllMissions().toPromise();
+          
+      } else if ( this.currentUser.role =="COMMERCIAL"){
+        if(   this.status.toLowerCase() === "all" )
+        {
+          data = await this.missionService.getAllUserOwnerMissions(this.currentUser.id).toPromise();
+          console.log("my mission is"+this.mission)
+        }
+        else {
+          data =await this.missionService.getAllMissions().toPromise();
+          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          console.log(this.status.toLocaleLowerCase());
+        }
+     
+
       }
+      else if (this.currentUser.role == "RH" ||this.currentUser.role == "ADMIN") 
+       {
+        if(this.status.toLowerCase() === "all")
+        {
+          data = await this.missionService.getAllMissions().toPromise();
+        }
+        else {
+          data =await this.missionService.getAllMissions().toPromise();
+          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          console.log(this.status.toLocaleLowerCase());
+        }
+        
+      }
+      
+    
+      
+
       this.missions = data;
       this.source.load(data);
     } catch (error) {
@@ -116,7 +176,12 @@ export class MissionListComponent implements OnInit {
 
   onClickRow(event) {
     const missionID = event?.data?.id;
+
+
     this.router.navigate(["/pages/missions/detail", missionID]);
+  
+    
+  
   }
 
   async onDeleteConfirm(event) {

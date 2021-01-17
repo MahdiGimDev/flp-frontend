@@ -2,7 +2,9 @@
     <nb-card-header>
         Creation une demande de congé 
         <ng-container *ngIf="user">
-            || Available Days : {{user.vacations}}
+            || Solde des conges: {{user.vacations}}
+            
+
         </ng-container>
 
     </nb-card-header>
@@ -62,12 +64,24 @@
                     Nombre de jours</label>
                 <div class="col-md-9">
                     <input formControlName="period" type="number" name="text-input" class="form-control"
-                        placeholder="Period">
-                    <div style="color: red" *ngIf="period.hasError('required')">
+                        placeholder="Att:Samedi&Diamnce non inclus!exemple:7 jours inclus samedi dimanche tapez 5 jours ">
+                    <div style="color: rgb(199, 192, 192)" *ngIf="period.hasError('required')">
                         * Nombre de jours obligatoire!
                     </div>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Telecharger Document de preuve</label>
+                <div class="col-md-9">
+                    <input style="width: 300px;" type="file" class="form-control" name="dde"
+                        (change)="onFileChanged($event)" />
+                    <div style="color: red" *ngIf="!selectedFile">
+                    *Vous pouvez l'ajouter a travers le détail
+                    </div>
+                </div>
+            </div>
+
+
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
                 Ajout Repos</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>

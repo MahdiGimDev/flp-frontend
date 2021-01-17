@@ -4,26 +4,46 @@
             <h5>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
             <p><strong>About: </strong> {{user.role}} </p>
             <p><strong>Experience: </strong> {{user.yearsExperience}} ans </p>
+          
+
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
-                <p><strong>Created: </strong> {{user.createdAt | date}} </p>
+                <p><strong>Date collaboration: </strong> {{user.startDate | date}} </p>
                 <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>
+                <p *ngIf="user.role=='PROVIDER'"><strong>Tjm en presentiel: </strong> {{user.tjme}} Dinars </p>
+                <p *ngIf="user.role=='PROVIDER'"><strong>Tjm en distanciel: </strong> {{user.tjmd}} Dinars </p>
+                <p><strong>Salaire: </strong> {{user.salaire}} Dinars </p>
+                <p *ngIf="user.role=='EMPLOYEE'"><strong>Solde des congés: </strong> {{user.vacations}} Jours </p>
+
+                <p><strong>situation: </strong> {{user.situation}}  </p>
+
             </ng-container>
-            <p><strong>Skills: </strong>
+            <p>
+                <strong>Skills: </strong>
                 <ng-container *ngFor="let skill of user.skills">
                     <span class="tags">{{skill.label}}</span>
+                </ng-container>
+            </p>
+            <p>
+                <strong>Certifié: </strong>
+                <ng-container *ngFor="let skill2 of user.certifs">
+                    <span class="tags">{{skill2.label}}</span>
                 </ng-container>
             </p>
         </div>
         <div class="col-4 text-center">
             <figure>
-                <img src="{{user.file || 'https://randomuser.me/api/portraits/men/81.jpg'}}" alt=""
+                <img src="{{user.file || 'https://www.clipartmax.com/png/full/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png'}}" alt=""
                     class="img-circle img-responsive">
             </figure>
+            <div class="col-md-9">
+                
+                <button (click)="onClickRow()" class="btn btn-info btn-sm mx-2">Detail</button>
+            </div>
         </div>
     </div>
     <div class="col-xs-12 divider text-center row px-3">
-        <h5>Resume</h5>
+        <h5>Formations & Experiences </h5>
         <div class="col-12 emphasis text-left">
             <p [innerHTML]="user.formation"> </p>
         </div>

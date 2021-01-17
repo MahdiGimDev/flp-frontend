@@ -6,7 +6,7 @@ import { UserModel, VacationModel } from "../models/entity.model";
 @Injectable({
   providedIn: "root",
 })
-export class VacationService {
+export class  VacationService {
   baseUrl = `${environment.backend}/vacations`;
   constructor(private http: HttpClient) {}
   createVacationRequest(model: VacationModel) {

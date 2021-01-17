@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { UserModel } from 'app/@core/models/entity.model';
 import { delay, takeWhile } from 'rxjs/operators';
 import { LayoutService } from '../../../../@core/utils/layout.service';
 
@@ -14,6 +15,7 @@ export class ECommerceVisitorsStatisticsComponent implements AfterViewInit, OnDe
   private alive = true;
 
   @Input() value: number;
+  user : UserModel;
 
   option: any = {};
   chartLegend: { iconColor: string; title: string }[];

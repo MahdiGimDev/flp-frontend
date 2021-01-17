@@ -135,7 +135,7 @@
                 <dd *ngIf="!user.certif">
                   pas de certif
                 </dd>
-                <input style="overflow: hidden;" style="width: 300px;" type="file" class="form-control" name="files"
+                <input style="overflow: hidden;" style="width: 300px;" type="file" class="form-control" name="file"
                   (change)="onFileChangedC($event)" />
                 <button (click)="onUploadCertif()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFileC"> Upload
                   Certif</button>
@@ -202,7 +202,10 @@
                   <input name="vacations" [(ngModel)]="userEdit.vacations" type="text" class="form-control"
                     placeholder="Solde de congé" />
                 </ng-container>
-                <dt>competence Title</dt>
+
+
+
+                <dt>competence:</dt>
                 <ng-container *ngFor="let skill of user.skills">
                   <span class="m-1 btn btn-sm btn-primary"> {{skill.label}} </span>
                 </ng-container>
@@ -213,7 +216,22 @@
                   <dd> Ajout Competence</dd>
                   <dt>
                     <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
-                      placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
+                      placeholder="Competence non selectionné" name="test" (selectionChanges)="doSelectOptionsSkills($event)">
+                    </ngx-select>
+                  </dt>
+                </ng-container>
+                <dt>certification:</dt>
+                <ng-container *ngFor="let certif of user.certifs">
+                  <span class="m-1 btn btn-sm btn-primary"> {{certif.label}} </span>
+                </ng-container>
+                <ng-container *ngIf="!user?.certifs?.length">
+                  <span class="m-1 btn btn-sm btn-primary"> Pas de Certif </span>
+                </ng-container>
+                <ng-container *ngIf="editable">
+                  <dd> Ajout Certification</dd>
+                  <dt>
+                    <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
+                      placeholder="Certification non selectionné" name="test1" (selectionChanges)="doSelectOptionsCertif($event)">
                     </ngx-select>
                   </dt>
                 </ng-container>

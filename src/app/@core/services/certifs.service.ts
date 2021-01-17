@@ -24,5 +24,7 @@ import { CertifsCreateModel } from '../models/auth.model';
       const params: HttpParams = new HttpParams().set("id", `${id}`);
       return this.http.delete(`${this.baseUrl}`, { params });
     }
+
+  
   }
   

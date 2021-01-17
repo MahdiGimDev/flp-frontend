@@ -1,0 +1,132 @@
+<nb-card *ngIf="vacation">
+    <nb-card-header>
+        Détail formation || Experience
+        <button *ngIf="vacation.status=='PENDING'" (click)="onDeleteConfirm()"
+            class="btn btn-danger btn-sm ml-2">Supprimer demande</button>
+        <ng-container *ngIf="errorLogin">
+            <small style="color: red;">{{ errorLogin }}</small>
+        </ng-container>
+    </nb-card-header>
+    <nb-card-body>
+        <span *ngIf="errorMessageMission" style="color: red;">
+            {{ errorMessageMission }}
+        </span>
+        <span *ngIf="successMessageMission" style="color: green;">
+            {{ successMessageMission }}
+        </span>
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Title : </label>
+                <div class="col-md-9">
+                    {{vacation.title}}
+                </div>
+            </div>
+
+            <div class="form-group row" *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN'">
+                <label class="col-md-3 col-form-label" for="text-input">Profile : </label>
+                <div class="col-md-9">
+                    {{vacation?.user?.firstName}}  {{vacation?.user?.lastName}}
+                    <button (click)="viewProfile()" class="btn btn-info btn-sm mx-2">View Profile</button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Categorie :</label>
+                <div class="col-md-9">
+                    {{vacation.type}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Specialité :</label>
+                <div class="col-md-9">
+                    {{vacation.speciality}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Sitution :</label>
+                <div class="col-md-9">
+                    {{vacation.categorie}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Poste occupé :</label>
+                <div class="col-md-9">
+                    {{vacation.post}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Etablissement :</label>
+                <div class="col-md-9">
+                    {{vacation.establishment}}
+                </div>
+            </div>
+
+          
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Type :</label>
+                <div class="col-md-9">
+                    {{vacation.type2}}
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Date Debut </label>
+                <div class="col-md-9">
+                    {{vacation.startDate | date : 'dd-MM-yyyy'}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">
+                    Date fin </label>
+                <div class="col-md-9">
+                    {{vacation.endDate | date : 'dd-MM-yyyy'}}
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Description :</label>
+                <div class="col-md-9">
+                    {{vacation.description}}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Fichier de justification</label>
+                <div class="col-md-9">
+                    <ng-container *ngIf="vacation.file else noFile">
+                        <a href="{{vacation.file}}"></a>
+                    </ng-container>
+                    <ng-template #noFile>
+                       Pas de fichier de justification 
+                    </ng-template>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="textarea">
+                    Status</label>
+                <div class="col-md-9">
+                    <span class="mr-2 px-4 py-2 pending" *ngIf="vacation.status=='NON APPROUVEE'"> {{vacation.status}}</span>
+                    <span class="mr-2 px-4 py-2 accepted" *ngIf="vacation.status=='APPROUVEE'">
+                        {{vacation.status}}</span>
+                        <span class="mr-2 px-4 py-2 accepted" *ngIf="vacation.status=='REFUSEE'">
+                            {{vacation.status}}</span>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="currentUser.role=='RH'">
+                <ng-container>
+                    <div class="d-flex flex-wrap justify-content-start">
+                        <button *ngIf="vacation.status=='NON APPROUVEE'" (click)="onAccept()"
+                            class="btn btn-success btn-sm mx-3">Approuver</button>
+                        <button *ngIf="vacation.status=='NON APPROUVEE'" (click)="onRefuse()"
+                            class="btn btn-dark btn-sm mx-3">Refuser</button>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

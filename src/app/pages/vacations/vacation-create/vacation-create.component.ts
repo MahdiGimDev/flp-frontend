@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {  FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../@core/auth/auth.service";
 import { UserService } from "../../../@core/mock/users.service";
@@ -18,6 +18,7 @@ export class VacationCreateComponent implements OnInit {
   errorMessageMission = "";
   successMessageMission = "";
   currentType = 0;
+ selectedFile : File;
 
   vacation: VacationModel = {
     id: 0,
@@ -51,6 +52,7 @@ export class VacationCreateComponent implements OnInit {
       title: ["", Validators.required],
       startDate: ["", Validators.required],
       endDate: [""],
+      file: [""],
       period: ["", Validators.required],
     });
   }
@@ -59,11 +61,16 @@ export class VacationCreateComponent implements OnInit {
     this.currentType = value;
   }
 
+  
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];}
+  
+
   async createMission() {
     this.errorMessageMission = "";
     console.log({ form: this.vacationForm });
     if (this.vacationForm.status == "INVALID") {
-      this.errorMessageMission = "Fill Required Fields";
+      this.errorMessageMission = "veuillez Verifier la saisie!";
       return false;
     }
     if (this.currentType === 0) {
@@ -73,12 +80,22 @@ export class VacationCreateComponent implements OnInit {
     this.errorMessageMission = "";
     this.successMessageMission = "";
 
+
+    
     let type: any;
     if (this.currentType == 1) {
       type = "VACATION";
     } else if (this.currentType == 2) {
       type = "SICKNESS";
     }
+
+
+if (this.vacation.period>this.user.vacations)
+{
+  window.alert("Attention :le nombre de jours superieur a votre solde sera suspendu de votre salaire!")
+
+}
+
     const d = new Date(this.vacationForm.get("startDate").value);
     const df = new Date(this.vacationForm.get("endDate").value);
 
@@ -100,7 +117,10 @@ export class VacationCreateComponent implements OnInit {
       const data: any = await this.vacationService
         .createVacationRequest(this.vacation)
         .toPromise();
-      if (window.confirm("Demande ajoutée avec succés"))
+      if (
+        window.alert("Attention :solde des congés< nombre de jours qui sera suspendu !"),
+        window.confirm("Demande ajoutée avec succés")
+        )
         if (data.id) {
           this.router.navigate(["/pages/vacations/all"]);
           this.successMessageMission = "Created successfully";
@@ -136,5 +156,9 @@ export class VacationCreateComponent implements OnInit {
 
   get period() {
     return this.vacationForm.get("period");
+  }
+
+  get file() {
+    return this.vacationForm.get("file");
   }
 }
