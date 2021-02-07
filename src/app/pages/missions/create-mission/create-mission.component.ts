@@ -31,11 +31,11 @@ export class CreateMissionComponent {
     id: 0,
     clientId: 0,
     address: "",
+    invoice: "",
+    purchase: "",
     description: "",
     planfile:"",
     period: 0,
-    //tva:0,
-    //tarifc:0,
     title: "",
     technologies: "",
     type: "",
@@ -172,6 +172,9 @@ export class CreateMissionComponent {
     this.currentType = value;
   }
 
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+  }
 
   onChangeCategorie(value) {
     this.currentCategorie = value;
@@ -273,6 +276,8 @@ export class CreateMissionComponent {
       endDate: date1,
       planfile:"",
       period,
+      purchase:"false",
+      invoice:"false",
       address: this.missionForm.get("address").value,
       description: this.missionForm.get("description").value,
       level,
@@ -301,9 +306,6 @@ export class CreateMissionComponent {
 
 
 
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
-  }
 
 
 

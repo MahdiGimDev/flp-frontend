@@ -20,6 +20,11 @@ export interface QuizQuestionModel extends BaseEntityModel {
 export interface QuizSessionModel extends BaseEntityModel {
   email: string;
   name: string;
+  niveau:string;
+  adress:string;
+  profil:string;
+  cv:string;
+  experience:number;
   phone: string;
   quiz?: QuizModel;
   responses?: Array<QuizResponseModel>;
@@ -109,6 +114,7 @@ export const QuizDataTableSettings = {
   },
 };
 
+
 export const QuizSessionDataTableSettings = {
   actions: {
     add: false,
@@ -138,6 +144,8 @@ export const QuizSessionDataTableSettings = {
       title: "Email",
       type: "string",
     },
+
+    
     phone: {
       title: "Mobile",
       type: "string",
@@ -184,10 +192,12 @@ export const QuizSessionDataTableSettings = {
       valuePrepareFunction: (cell: any, row: any) => {
         let score = 0;
         let total = 0;
+     
         const resp: Array<QuizResponseModel> = row.responses;
         if (resp) {
           score = resp.reduce((sum, value) => sum + value.result, 0);
           total = resp.reduce((sum, value) => sum + value.score, 0);
+          
         }
         return `${total > 0 ? ((score / total) * 100).toFixed(1) : 0}%`;
       },
@@ -195,6 +205,7 @@ export const QuizSessionDataTableSettings = {
         let result = false;
         let score = 0;
         let total = 0;
+        
         const resp: Array<QuizResponseModel> = data;
         if (resp) {
           score = resp.reduce((sum, value) => sum + value.result, 0);
@@ -204,6 +215,9 @@ export const QuizSessionDataTableSettings = {
         if (totalCh.toLowerCase().includes(search.toLowerCase())) {
           result = true;
         }
+
+
+
         return result;
       },
     },

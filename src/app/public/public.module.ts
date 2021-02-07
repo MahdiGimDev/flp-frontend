@@ -9,6 +9,8 @@ import { NgxSelectModule } from "ngx-select-ex";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ThemeModule } from "../@theme/theme.module";
 import { SharedModule } from "../shared/shared.module";
+import { CountdownModule } from 'ngx-countdown';
+
 import { PublicLayoutComponent } from "./public-layout/public-layout.component";
 import { StartQuizSessionComponent } from "./jobs/start-quiz-session/start-quiz-session.component";
 
@@ -37,6 +39,7 @@ const routes: Routes = [
   declarations: [JobOfferViewComponent, StartQuizSessionComponent],
   imports: [
     CommonModule,
+    CountdownModule,
     ThemeModule,
     SharedModule,
     NgxSpinnerModule,

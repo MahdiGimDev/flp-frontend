@@ -13,7 +13,7 @@ import {
 })
 export class QuizService {
   baseUrl = `${environment.backend}/quiz`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllQuiz() {
     return this.http.get(this.baseUrl + "/all");
@@ -31,11 +31,26 @@ export class QuizService {
     return this.http.get(this.baseUrl + "/session/job/" + jobID);
   }
 
+
+  findSessionsByMission(jobID) {
+    return this.http.get(this.baseUrl + "/sessionmission/mission/" + jobID);
+  }
   addQuiz(quiz: QuizModel) {
     return this.http.put(this.baseUrl + `/save`, quiz);
   }
-  addSessionQuiz(quizID, session: QuizSessionModel) {
-    return this.http.post(this.baseUrl + `/session/${quizID}`, session);
+
+
+  ///start quiz service methode
+  addSessionQuiz(quizID, session: QuizSessionModel, cv) {
+    const form = new FormData();
+    for (const [key, value] of Object.entries(session)) {
+      form.append(`${key}`, value);
+    }
+    if (cv) {
+      form.append("cv", cv);
+    }
+
+    return this.http.put(this.baseUrl + `/session/${quizID}`,session);
   }
   submitProposition(responseID, responses: Array<any>) {
     const propositions = responses;

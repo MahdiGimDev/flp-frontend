@@ -6,7 +6,9 @@ import { QuizService } from "../../../@core/services/quizz.service";
 import {
   QuizDataTableSettings,
   QuizModel,
+  QuizResponseModel,
   QuizSessionDataTableSettings,
+  QuizSessionModel,
 } from "../quizz.model";
 
 @Component({
@@ -17,15 +19,16 @@ import {
 export class SessionListComponent implements OnInit {
   settings = QuizSessionDataTableSettings;
   source: LocalDataSource = new LocalDataSource();
-
+  quizSess:QuizSessionModel;
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
     private quizService: QuizService
   ) {}
 
-  ngOnInit(): void {
+   ngOnInit():void {
     this.loadSessions();
+//await this.mentionMethode;
   }
 
   async loadSessions() {
@@ -33,6 +36,7 @@ export class SessionListComponent implements OnInit {
     this.source.load(data);
     this.spinner.show();
     try {
+     
       const quizList: any = await this.quizService.getAllSessions().toPromise();
       this.source.load(quizList);
     } catch (error) {
@@ -40,6 +44,27 @@ export class SessionListComponent implements OnInit {
     }
     this.spinner.hide();
   }
+
+
+
+  /*async mentionMethode(mention:string){
+
+    if( this.quizSess.result <50)
+    {
+       mention=="non resussi";
+      this.quizSess.mention=mention;
+    }
+    else if(this.quizSess.result >50)
+    {
+       mention=="resussi";
+      this.quizSess.mention=mention;
+    }
+    return mention;
+
+
+    
+  }
+*/
 
   onClickRow(event) {
     const quiz: QuizModel = event?.data;

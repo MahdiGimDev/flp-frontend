@@ -2,13 +2,14 @@
     <div class="col-sm-12 row">
         <div class="col-8">
             <h5>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
-            <p><strong>About: </strong> {{user.role}} </p>
+            <p><strong>A propos: </strong> {{user.role}} </p>
             <p><strong>Experience: </strong> {{user.yearsExperience}} ans </p>
           
 
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
                 <p><strong>Date collaboration: </strong> {{user.startDate | date}} </p>
+
                 <p><strong>Date Of Birth: </strong> {{user.dateBirth | date}} </p>
                 <p *ngIf="user.role=='PROVIDER'"><strong>Tjm en presentiel: </strong> {{user.tjme}} Dinars </p>
                 <p *ngIf="user.role=='PROVIDER'"><strong>Tjm en distanciel: </strong> {{user.tjmd}} Dinars </p>
@@ -26,8 +27,8 @@
             </p>
             <p>
                 <strong>Certifié: </strong>
-                <ng-container *ngFor="let skill2 of user.certifs">
-                    <span class="tags">{{skill2.label}}</span>
+                <ng-container *ngFor="let certif of user.certifs">
+                    <span class="tags">{{certif.label}}</span>
                 </ng-container>
             </p>
         </div>

@@ -5,12 +5,12 @@ import { missionModel } from "../models/mission.model";
 import { MissionCreateModel } from "../models/auth.model";
 import { Observable } from "rxjs";
 
-  @Injectable({
+@Injectable({
   providedIn: "root",
 })
 export class MissionsService {
   baseUrl = `${environment.backend}/missions`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
 
@@ -44,8 +44,8 @@ export class MissionsService {
 
 
 
-  getAllUserOwnerMissions(idClient) {
-    return this.http.get(this.baseUrl + `/userc/${idClient}`);
+  getAllUserOwnerMissions() {
+    return this.http.get(this.baseUrl + `/userc`);
   }
 
 
@@ -59,7 +59,7 @@ export class MissionsService {
   }
 
   getMyMissions() {
-    return this.http.get(this.baseUrl +`/me`);
+    return this.http.get(this.baseUrl + `/me`);
   }
 
   getMissions(page = 1, limit = 10) {
@@ -114,51 +114,58 @@ export class MissionsService {
   }
 
   getMissionByStatus(status: string) {
-    return this.http.get(this.baseUrl + "/status/"+status.toUpperCase());
+    return this.http.get(this.baseUrl + "/status/" + status.toUpperCase());
+  }
+  assignQuizToMission(id: number, idQuiz: number) {
+    return this.http.patch(`${this.baseUrl}/quiz/${id}/${idQuiz}`, {});
+  }
+
+  removeQuizFromMission(id: number) {
+    return this.http.patch(`${this.baseUrl}/quiz/${id}`, {});
   }
 
 
-uploadPlanFileMission(userID, file: any) {
-  const form = new FormData();
-  form.set("planfile", file);
-  return this.http.post(`${this.baseUrl}/uploadplan/${userID}`, form);
-}
-/////////////Upload files of situation administrative /////
+  uploadPlanFileMission(userID, file: any) {
+    const form = new FormData();
+    form.set("planfile", file);
+    return this.http.post(`${this.baseUrl}/uploadplan/${userID}`, form);
+  }
+  /////////////Upload files of situation administrative /////
 
 
 
-uploadDeviseMission(userID, file: any) {
-  const form = new FormData();
-  form.set("devise", file);
-  return this.http.post(`${this.baseUrl}/uploaddevise/${userID}`, form);
-}
+  uploadDeviseMission(userID, file: any) {
+    const form = new FormData();
+    form.set("devise", file);
+    return this.http.post(`${this.baseUrl}/uploaddevise/${userID}`, form);
+  }
 
-uploadBonfileMission(userID, file: any) {
-  const form = new FormData();
-  form.set("file", file);
-  return this.http.post(`${this.baseUrl}/uploadbon/${userID}`, form);
-}
+  uploadBonfileMission(userID, file: any) {
+    const form = new FormData();
+    form.set("file", file);
+    return this.http.post(`${this.baseUrl}/uploadbon/${userID}`, form);
+  }
 
-uploadVisaMission(userID, file: any) {
-  const form = new FormData();
-  form.set("visa", file);
-  return this.http.post(`${this.baseUrl}/uploadvisa/${userID}`, form);
-}
-
-
-
-uploadTransportMission(userID, file: any) {
-  const form = new FormData();
-  form.set("transport", file);
-  return this.http.post(`${this.baseUrl}/uploadtransport/${userID}`, form);
-}
+  uploadVisaMission(userID, file: any) {
+    const form = new FormData();
+    form.set("visa", file);
+    return this.http.post(`${this.baseUrl}/uploadvisa/${userID}`, form);
+  }
 
 
-uploadLogementMission(userID, file: any) {
-  const form = new FormData();
-  form.set("logement", file);
-  return this.http.post(`${this.baseUrl}/uploadlogement/${userID}`, form);
-}
+
+  uploadTransportMission(userID, file: any) {
+    const form = new FormData();
+    form.set("transport", file);
+    return this.http.post(`${this.baseUrl}/uploadtransport/${userID}`, form);
+  }
+
+
+  uploadLogementMission(userID, file: any) {
+    const form = new FormData();
+    form.set("logement", file);
+    return this.http.post(`${this.baseUrl}/uploadlogement/${userID}`, form);
+  }
 
 
 

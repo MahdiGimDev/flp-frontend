@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    <input type="text" placeholder="Title" class="form-control" [(ngModel)]="selectedQuiz.title">
+                    <input type="text" placeholder="Titre" class="form-control" [(ngModel)]="selectedQuiz.title">
                 </div>
                 <div class="col-6">
                     <input type="text" placeholder="Type" class="form-control" [(ngModel)]="selectedQuiz.type">
@@ -14,7 +14,7 @@
             </div>
             <div class="row">
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="select1">Experience level</label>
+                    <label class="col-md-3 col-form-label" for="select1">Niveau</label>
                     <div class="col-md-9">
                         <select [(ngModel)]="selectedLevel" id="select1" name="select1" class="form-control">
                             <option [selected]="selectedLevel==0" value="0">Select level</option>
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">
-                        Skills</label>
+                        Competence :</label>
                     <div class="col-md-9">
                         <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'"
                             [autoClearSearch]="true" placeholder="No skills selected" name="test"

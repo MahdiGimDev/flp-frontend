@@ -68,6 +68,7 @@
     "ng-angular9-datatable": "^0.9.13",
     "ng2-ckeditor": "^1.2.9",
     "ng2-smart-table": "^1.6.0",
+    "ngx-countdown": "^11.0.1",
     "ngx-echarts": "^4.2.2",
     "ngx-select-ex": "^4.0.0",
     "ngx-spinner": "^10.0.1",

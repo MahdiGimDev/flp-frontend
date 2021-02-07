@@ -1,7 +1,7 @@
 <ng-container *ngIf="!start">
     <div class="card">
         <div class="card-header">
-            Start Quiz
+            Postuler candidature <br> <span style="color: red;">{{errorMessage}}</span>
         </div>
         <div class="card-body">
             <div class="row">
@@ -9,15 +9,52 @@
                     <input type="tel" placeholder="Full Name" class="form-control" [(ngModel)]="session.name">
                 </div>
                 <div class="col-4">
-                    <input type="email" placeholder="Email" class="form-control" [(ngModel)]="session.email">
+                    <input type="email"  placeholder="Email" class="form-control" [(ngModel)]="session.email">
+                </div>
+
+                <div class="col-4">
+                    <input type="text" placeholder="Adresse" class="form-control" [(ngModel)]="session.adress">
+                </div>
+
+                <div class="col-4">
+                    <input type="text" placeholder="profil" class="form-control" [(ngModel)]="session.profil">
+                </div>
+
+                <div class="col-4">
+                    <input type="text" placeholder="niveau" class="form-control" [(ngModel)]="session.niveau">
+                </div>
+
+                <div class="col-4">
+                    <input type="number" placeholder="Nombre d'année d'experience" class="form-control"
+                        [(ngModel)]="session.experience">
                 </div>
                 <div class="col-4">
                     <input type="text" placeholder="Phone" class="form-control" [(ngModel)]="session.phone">
                 </div>
+
+
+
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Telecharger cv</label>
+                    <div class="col-md-9">
+                        <input style="width: 300px;" type="file" name="cv" class="form-control"
+                            (change)="onFileChanged($event)" [(ngModel)]="session.cv" />
+                        <div style="color: red" *ngIf="!selectedFile">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
             </div>
         </div>
         <div class="card-footer">
-            <button (click)="startQuiz()" class="btn btn-success float-right">Add Quiz</button>
+            <button (click)="startQuiz()" class="btn btn-success float-right">Demarrer le quiz</button>
         </div>
     </div>
 </ng-container>
@@ -38,7 +75,8 @@
                                     <div class="d-flex flex-row justify-content-between align-items-center mcq">
                                         <h5>Question {{indexQuestion+1}}</h5>
                                         <span>
-                                            Duration: {{question.duration}} seconds
+                                            <countdown [config]="{leftTime:question.duration}"></countdown>
+                                           
                                             ({{indexQuestion+1}} of {{responses.length}})
                                         </span>
                                     </div>
@@ -69,7 +107,7 @@
                                     <button (click)="onSubmit()"
                                         class="btn btn-primary border-success align-items-center btn-success"
                                         type="button">
-                                        {{this.indexQuestion == this.responses.length - 1 ? 'Finish' : 'Submit'}}
+                                        {{this.indexQuestion == this.responses.length - 1 ? 'Finish'  : 'Submit'}}
                                         <i class="fa fa-angle-right ml-2"></i>
                                     </button>
                                 </div>
@@ -78,7 +116,7 @@
                         <div class="border" *ngIf="finish">
                             <div class="text-center p-5">
                                 <p>
-                                    Merci d'avoir passer le test
+                                    Merci d'avoir passé le test
                                 </p>
                             </div>
                         </div>

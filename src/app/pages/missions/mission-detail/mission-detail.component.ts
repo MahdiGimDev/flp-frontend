@@ -27,6 +27,9 @@ import { UserProfileComponent } from "../../../shared/components/user-profile/us
 import { url } from 'inspector';
 import { table } from 'console';
 import { format, getDate, getDay, getMonth } from 'date-fns';
+import { QuizDataTableSettings, QuizModel, QuizSessionDataTableSettings } from 'app/pages/quizz/quizz.model';
+import { environment } from 'environments/environment';
+import { QuizService } from 'app/@core/services/quizz.service';
 
 @Component({
   selector: "ngx-mission-detail",
@@ -51,7 +54,10 @@ export class MissionDetailComponent implements OnInit {
   
 
   
-  
+  link = environment.baseUrl;
+  quizSource2: LocalDataSource = new LocalDataSource();
+  responseSettings2 = QuizSessionDataTableSettings;
+  responseSource2: LocalDataSource = new LocalDataSource();
 
 
   skills: Array<skillsModel> = [];
@@ -59,6 +65,24 @@ export class MissionDetailComponent implements OnInit {
 
   users: Array<UserModel> = [];
   userSource: LocalDataSource = new LocalDataSource();
+  settings2 = {
+    ...QuizDataTableSettings,
+    actions: {
+      add: false,
+      delete: false,
+      edit: false,
+      custom: [
+        {
+          name: "view",
+          title: '<span class="btn btn-sm btn-info">View</span>',
+        },
+        {
+          name: "assign",
+          title: '<span class="btn btn-sm btn-success">Assign</span>',
+        },
+      ],
+    },
+  };
   settings = {
     ...UsersSettings,
     actions: {
@@ -86,6 +110,8 @@ export class MissionDetailComponent implements OnInit {
     status: "",
     planfile:"",
     bonfile:"",
+    purchase:"",
+    invoice:"",
     visa:"",
     logement:"",
     categorie:"",
@@ -94,7 +120,6 @@ export class MissionDetailComponent implements OnInit {
     technologies: "",
     type: "",
     startDate: "",
-    
     endDate: "",
     level: "",
     skills: [],
@@ -107,11 +132,15 @@ export class MissionDetailComponent implements OnInit {
   currentType = 1;
   errorMessageMission = "";
   successMessageMission = "";
+  id = -1;
+  errorLogin = "";
+  currentUser: JwtPayload;
   selectedSkills = [];
   
  Date2 = new Date();
 date= Date.now();
 
+private router: Router;
 
   private fb: FormBuilder;
 
@@ -124,8 +153,9 @@ date= Date.now();
     private authService: AuthService,
     private skillsService: SkillsService,
     private certifsService:CertifsService,
-    private spinner: NgxSpinnerService
-   
+    private spinner: NgxSpinnerService,
+    private quizService: QuizService
+
     
 
   ) {
@@ -133,7 +163,22 @@ date= Date.now();
 
   }
 
-  
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params["id"];
+    this.currentUser = this.authService.getTokenData();
+    this.route.params.subscribe(async (params) => {
+      const id = params.id;
+      await this.loadMission(id);
+      if (this.currentUser.role == "RH" || this.currentUser.role == "ADMIN") {
+        this.loadUsers();
+        this.loadSkills();
+        this.loadCertifs();
+       
+
+
+      }
+    });
+  }
   
  
  myFunction():string{
@@ -154,15 +199,19 @@ return date;
 ////////////////////////////////////calcule des total ttc && total Hors taxe
   tva : string;
   tvaf : string;
+  tvafm:string;
   tarifclient:string;
   totalttcf:number;
   totalhtf:number;
   totalttc:number;
   totalht:number;
   tjm:number;
+  numFacture:string;
+  designation:string;
   
+//methode calcul Tjm:
 
-  tjmMethode (tjm:number,){
+  tjmMethode (tjm:number){
     tjm:0;
 if(this.mission.categorie=='EN DISTANCIEL'){
 this.tjm=this.mission.user.tjmd;
@@ -172,7 +221,10 @@ this.tjm=this.mission.user.tjmd;
 
 return this.tjm;
 }
-  tarifMethode(){
+
+
+///methode Total facture 
+tarifMethode(){
   this.totalht=(parseInt(this.tarifclient)*this.mission.period);
 
     this.totalttc = 
@@ -184,24 +236,25 @@ return this.tjm;
 
 
 }
-  
+
+//methode total bon commande
 totalttcMethodeFournisseur(){
 
 
-if (this.mission.categorie=='EN PRESENTIEL'){
+if (this.mission.categorie=='EN PRESENTIEL' ){
   this.totalhtf=((this.mission.user.tjme)*(this.mission.period));
   this.totalttcf = (
       
-    (  ( parseInt(this.tvaf) * (this.mission.user.tjme) * (this.mission.period) ) /100 )+
-    ((this.mission.user.tjme) * (this.mission.period ))
+    (  ( parseInt(this.tva) * (this.totalhtf))  /100 )+
+      (this.totalhtf)
   );
 
 }
 else {
   this.totalhtf=((this.mission.user.tjmd)*(this.mission.period));
-  this.totalttcf = (
+  this.totalttcf=(
       
-    (  ( parseInt(this.tvaf) * (this.mission.user.tjmd) * (this.mission.period) ) /100 )+
+    (  ( parseInt(this.tva) * (this.mission.user.tjmd) * (this.mission.period) ) /100 )+
     ((this.mission.user.tjmd) * (this.mission.period ))
   );
 
@@ -226,31 +279,16 @@ else {
 
 
 
-    ///////////////////////
+    
+ 
+ 
+  ///////////////////////
   public doSelectOptions = (options: INgxSelectOption[]) => {
     this.selectedSkills = [];
     options.map((option) => {
       this.selectedSkills.push(option.data?.id);
     });
   };
-  id = -1;
-  errorLogin = "";
-  currentUser: JwtPayload;
-  ngOnInit(): void {
-    this.id = this.route.snapshot.params["id"];
-    this.currentUser = this.authService.getTokenData();
-    this.route.params.subscribe(async (params) => {
-      const id = params.id;
-      await this.loadMission(id);
-      if (this.currentUser.role == "RH" || this.currentUser.role == "ADMIN") {
-        this.loadUsers();
-        this.loadSkills();
-        this.loadCertifs();
-       
-
-      }
-    });
-  }
 
   onChange(value) {
     this.currentType = value;
@@ -274,6 +312,9 @@ else {
         .getUsersBySkills(skills, this.mission.id)
         .toPromise();
 
+
+        
+
       this.users = users.filter(
         (u) => !this.mission.suggestion.find((user) => user.id === u.id)
       );
@@ -294,11 +335,90 @@ else {
     try {
      
       data = await this.missionService.getMissionById(id).toPromise();
+      this.link = environment.baseUrl + "/missions/" + id;
+
       this.mission = data;
+      await this.loadQuiz();
+      await this.loadSessions();
     } catch (error) {
       console.log({ error });
     }
   }
+  
+
+  async loadSessions() {
+    let data: any = [];
+    this.responseSource2.load(data);
+    try {
+      const quizList: any = await this.quizService
+        .findSessionsByJob(this.mission.id)
+        .toPromise();
+      this.responseSource2.load(quizList);
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+  async loadQuiz() {
+    let quiz: any = [];
+    try {
+      let skills = "";
+      this.mission.skills.map((skill) => {
+        skills += skill.label + ",";
+      });
+      quiz = await this.quizService
+        .getQuizBySkills(skills, this.mission.level)
+        .toPromise();
+      console.log({ quiz });
+      this.quizSource2.load(quiz);
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+  async onUnAssign2() {
+    this.errorLogin = "";
+    try {
+      await this.missionService.removeQuizFromMission(this.mission.id).toPromise();
+      this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+  goToQuiz2(quiz: QuizModel) {
+    this.router.navigateByUrl("/pages/quiz/edit/" + quiz.id);
+  }
+
+  async onCustomAction2(event) {
+    const quiz: QuizModel = event.data;
+    if (event.action === "assign") {
+      this.onAssign2(quiz);
+    } else if (event.action === "view") {
+      this.goToQuiz2(quiz);
+    }
+  }
+  async onAssign2(quiz: QuizModel) {
+    this.errorLogin = "";
+    try {
+      await this.missionService.assignQuizToMission(this.mission.id, quiz.id).toPromise();
+      this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+
+
+
   async loadSkills() {
     let data: any = [];
     try {
@@ -542,6 +662,44 @@ else {
   onFileChangedTransport(event) {
     this.selectedFileTransport = event.target.files[0];
   }
+  currentInvoice = 1;
+  currentPurchase = 1;
+
+  onChangeInvoice(value) {
+    this.currentInvoice = value;
+  }
+  onChangePurchase(value) {
+    this.currentPurchase = value;
+  }
+
+async methodePurchaseInvoice(){
+  let invoice: any;
+  let purchase: any;
+  if (this.currentInvoice == 2){
+    invoice = 'true';
+  }
+ 
+  else if (this.currentInvoice == 1){
+
+    invoice = 'false';
+  }
+ 
+  if (this.currentPurchase == 2){
+    purchase = 'true';
+  }
+ 
+  else if (this.currentPurchase == 1){
+
+    purchase = 'false';
+  }
+
+
+
+}
+
+
+
+
 
   async onBlock() {
     this.errorLogin = "";
@@ -662,7 +820,7 @@ const tv =
             
           [
             {
-             text: 'Facture n° :',
+             text: 'Facture n° :'+this.numFacture,
              style: 'jobtitle',
              margin: [0, 20, 30, 10],
            },
@@ -1038,7 +1196,7 @@ getFactureObject2() {
           ],
         
           
-           [educations.period, educations.description, this.tarifclient,
+           [educations.period, this.designation, this.tarifclient,
              ((parseInt(this.tarifclient))*(educations.period))],
          
 
@@ -1158,31 +1316,7 @@ getFactureObject2() {
   
 
 
-    getBase64ImageFromURL(url) {
-      return new Promise((resolve, reject) => {
-        var img = new Image();
-        img.setAttribute("crossOrigin", "anonymous");
-  
-        img.onload = () => {
-          var canvas = document.createElement("canvas");
-          canvas.width = img.width;
-          canvas.height = img.height;
-  
-          var ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0);
-  
-          var dataURL = canvas.toDataURL("image/png");
-  
-          resolve(dataURL);
-        };
-  
-        img.onerror = error => {
-          reject(error);
-        };
-  
-        img.src = url;
-      });
-    }
+    
 
 
 
@@ -1219,19 +1353,42 @@ getFactureObject2() {
    
    sessionStorage.setItem('mission', JSON.stringify(this.mission));  
    const exs = []; 
+   exs.push(
+    [{
+        columns: [
+ 
+ 
+          [{
+            text: 'Bon de commande' ,
+            fillColor: 'red',
+            style: 'jobTitle10',
+            alignment:'center',
+            fontSize: 25,
+            margin: [0, 30, 0, 30] ,
+ 
+          },
+          
+        ],
+        ],
+ 
+ 
+ 
+ //////////////////// essaie 
+ 
+ 
+ 
+ 
+ 
+ 
+      }
+    ]
+    );
   
     return {
    
       content: [
        
-        {
-          
-         text: 'Bon de commande',
-          bold: true,
-          fontSize: 28,
-          alignment: 'center',
-          margin: [10, 10, 0, 20]
-        },         
+            
      {
         columns: [
          [
@@ -1240,12 +1397,13 @@ getFactureObject2() {
            
          [
            {
-            text: 'Bon de commande n° :',
-            style: 'jobtitle'
+            text: 'Bon de commande n° :'+this.numFacture,
+            style: 'jobtitle',
+             margin: [0, 20, 30, 10],
             
           },
           {
-           text: 'Date :',
+           text: 'Date :'+ this.myFunction(),
            style: 'facture'
          },
         
@@ -1323,96 +1481,124 @@ getFactureObject2() {
         
       },
    ],
-    styles: {
-         header: {
-           fontSize: 18,
-           bold: true,
-           margin: [0, 20, 0, 10],
-           decoration: 'underline'
-         },
-         name: {
-           fontSize: 16,
-           bold: true
-         },
-         name2: {
-           fontSize: 16,
-           bold: true,
-           margin: [0, 10, 0, 10],
-         },
-         tel: {
-           
-           margin: [0, 0, 0, 50],
-         },
-
-         tel2: {
-           
-           margin: [0, 0, 0, 20],
-         },
-
-
-         tel3: {
-           
-           margin: [0, 0, 0, 10],
-         },
-         tel4: {
-          color:'#696969',
-           margin: [0, 0, 0, 40],
-         },
+   styles: {
+    header: {
+      fontSize: 18,
+      bold: true,
+      margin: [0, 20, 0, 10],
+      decoration: 'underline'
+    },
+    name: {
+      fontSize: 16,
+      bold: true
+    },
+    name2: {
+      fontSize: 16,
+      bold: true,
+      margin: [0, 10, 0, 10],
+    },
+    tel: {
       
-         jobTitle10: {
-          fontSize: 25,
-          bold: true,
-          italics: true,
-          margin: [0, 50, 0, 30  ],
-          decoration: 'underline'
-        },
+      margin: [0, 0, 0, 50],
+    },
 
-        jobTitle4: {
-          fontSize: 14,
-          bold: true,
-          italics: true,
-          margin: [0, 0, 0, 0  ],
-          decoration: 'underline'
-        },
-         tel5: {
-           alignment: 'center',
-           margin: [0, 0, 0, 40],
-           
-         },
+    tel2: {
+      
+      margin: [0, 0, 0, 20],
+    },
 
-         jobTitle: {
-           fontSize: 14,
-           bold: true,
-           italics: true,
-           margin:[30,30,30,10]
-         },
-         jobTitle2: {
-           fontSize: 14,
-           bold: true,
-           italics: true,
-           margin: [0, 0, 0, 10  ],
-           decoration: 'underline'
-         },
-         facture: {
-           fontSize: 14,
-           bold: true,
-           italics: true,
-           margin: [0, 0, 0, 12],
-           
 
-         },
+    tel3: {
+      
+      margin: [0, 0, 0, 10],
+    },
+    tel4: {
+      
+      color:'#696969',
+      margin: [0, 0, 0, 40],
+    },
+    tel6: {
+      
+      margin: [0, 0, 0, 40],
+    },
+    tel5: {
+      alignment: 'center',
+      margin: [0, 0, 0, 40],
+    },
 
-         tableHeader: {
-           bold: true,
-           
-         },
-         tableHeader8: {
-          bold: true,
-          margin: [10, 10, 10, 10],
-        }
+    jobTitle: {
+      fontSize: 14,
+      bold: true,
+      italics: true
+    },
+    jobTitle2: {
+      fontSize: 14,
+      bold: true,
+      italics: true,
+      margin: [0, 0, 0, 10  ],
+      decoration: 'underline'
+    },
+    jobTitle4: {
+      fontSize: 14,
+      bold: true,
+      italics: true,
+      margin: [0, 0, 0, 0  ],
+      decoration: 'underline'
+    },
 
-         
-       }
+    jobTitle10: {
+      fontSize: 10,
+      bold: true,
+      italics: true,
+      margin: [0, 0, 0, 0  ],
+   
+    },
+    jobTitle3: {
+      fontSize: 30,
+      bold: true,
+      fillColor:'#4169E1',
+      italics: true,
+      margin: [0, 0, 0, 30],
+      
+    },
+    facture: {
+      fontSize: 14,
+      bold: true,
+      italics: true,
+      margin: [0, 0, 0, 12],
+      
+
+    },
+
+    tableHeader: {
+      bold: true,
+      fillColor: '#C71585',
+      color:'white'
+    }, 
+
+    tableHeader3: {
+      margin: [25, 10, 10, 5],
+      color:'black'
+    },
+
+
+    tableHeader6: {
+      bold:'true',
+      color:'black',
+      margin: [25, 10, 10, 5],
+
+    },
+
+    tableHeader2: {
+      bold: true,
+   
+     color:'blue'
+    },
+    tableHeader8: {
+      bold: true,
+      margin: [10, 10, 10, 10],
+    }
+  }
    };
  }
 
@@ -1450,6 +1636,7 @@ getFactureObject2() {
      
      table: {
        alignment: 'right',
+       fillColor:'red',
        widths: ['*'],
        body: [
          ...exs
@@ -1469,8 +1656,10 @@ getFactureObject2() {
 
  getDetailsObjectBonCommande(educations: MissionCreateModel) {
    return {
-     table: {
-       widths: ['*', '*', '*', '*'],
+    margin: [0, 0, 0, 35],
+    table: {
+      widths: ['*', '*', '*', '*'],
+      margin: [0, 0, 0, 30],
        body: [
          [{
            text: 'Qte',
@@ -1491,13 +1680,49 @@ getFactureObject2() {
          ],
        
          
-          [educations.period, educations.description, 
+          [educations.period, this.designation, 
             
             (this.tjmMethode(this.tjm)), 
             
-            (educations.period)* (this.tjmMethode(this.tjm))
+            (educations.period)* (this.tjmMethode(this.tjm))],
             
-          ]
+            [{
+              text: '',
+              style: 'tableHeader8'
+  
+            },
+            {
+              text: '',
+              style: 'tableHeader8'
+            },
+            {
+              text: '',
+              style: 'tableHeader8'
+            },
+            {
+              text: '',
+              style: 'tableHeader8'
+            },
+            ],
+            [{
+              text: '',
+              style: 'tableHeader8'
+  
+            },
+            {
+              text: '',
+              style: 'tableHeader8'
+            },
+            {
+              text: '',
+              style: 'tableHeader8'
+            },
+            {
+              text: '',
+              style: 'tableHeader8'
+            },
+            ],
+          
         
        ]
      }
@@ -1508,6 +1733,7 @@ getFactureObject2() {
       margin: [320, 0, 0, 0],
       table: {
         weights: ['*', '*'],
+       
        
         body: [
           [{
@@ -1521,11 +1747,11 @@ getFactureObject2() {
         
           ],
           [{
-            text: 'T.V.A'+''+ +this.tvaf+'' +'%',
+            text: 'T.V.A'+''+ +this.tva+'' +'%',
             style: 'tableHeader3'
           },
           {
-            text: [(parseInt(this.tvaf)*((this.tjmMethode(this.tjm))*(educations.period)))/100]+''+ '€',
+            text: [(parseInt(this.tva)*((this.tjmMethode(this.tjm))*(educations.period)))/100]+''+ '€',
             style: 'tableHeader3'
           },
         
@@ -1541,7 +1767,7 @@ getFactureObject2() {
                 (this.tjmMethode(this.tjm))*(educations.period)
                 )+
               (
-               ( (parseInt(this.tvaf)) *  ((this.tjmMethode(this.tjm))*(educations.period))) /100
+               ( (parseInt(this.tva)) *  ((this.tjmMethode(this.tjm))*(educations.period))) /100
               )
             ]+''+ '€',
             style: 'tableHeader6'

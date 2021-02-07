@@ -3,9 +3,10 @@
         détail de l'offre d'emploi
         <!-- AddToAny BEGIN -->
         <div>
-            <li><a href="https://www.facebook.com/sharer.php?u={{link}}">Share on Facebook</a></li>
-            <li><a href="https://twitter.com/intent/tweet?url={{link}}">Share on Twitter</a></li>
-            <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=google.com">Share on LinkedIn</a></li>
+            <div><a class="btn btn-sm btn-primary text-white"  href="https://www.facebook.com/sharer.php?u={{link}}">Partager sur Facebook</a></div>
+            <div><a class="btn btn-sm btn-info text-white" href="https://twitter.com/intent/tweet?url={{link}}">Partager sur Twitter</a></div>
+            <div><a class="btn btn-sm btn-warning text-white" href="https://www.linkedin.com/shareArticle?mini=true&url=google.com">Partager sur LinkedIn</a></div>
+
         </div>
     </nb-card-header>
     <nb-card-body>
@@ -100,6 +101,9 @@
                     <span class="mr-2"> {{job.status}}</span>
                 </div>
             </div>
+
+
+            
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="textarea">
                     Quiz</label>

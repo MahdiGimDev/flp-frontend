@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        User Create
+        Creation d'un utilisateur
      </nb-card-header>
      <nb-card-body>
         <span *ngIf="errorMessageUser" style="color: red;">
@@ -12,10 +12,12 @@
         <form (submit)="createUser()" [formGroup]="userForm" class="form-horizontal">
 
             <h1>Données personelles</h1>
-                <div class="row">
-                    
-               
-            <article class="col-md-5">
+
+
+               <div class="row">
+           
+      
+   <div class="col-md-5">
 
 
          
@@ -23,14 +25,14 @@
             <div class="form-group row">
 
 
-                <label class="col-md-3 col-form-label" for="text-input">First Name</label>
+                <label class="col-md-3 col-form-label" for="text-input">Prenom:</label>
 
 
                 <div class="col-md-9">
                     <input formControlName="firstName" type="text" name="text-input" class="form-control"
                         placeholder="First Name">
                     <div style="color: red" *ngIf="firstName.hasError('required') && firstName.touched">
-                        * First Name is required!
+                        * Prenom obligatoire!
                     </div>
                 </div>
              </div>
@@ -38,12 +40,12 @@
 
 
              <div class="form-group row" >
-                <label class="col-md-3 col-form-label" for="text-input">Last Name</label>
+                <label class="col-md-3 col-form-label" for="text-input">Nom:</label>
                 <div class="col-md-9">
                     <input formControlName="lastName" type="text" name="text-input" class="form-control"
                         placeholder="Last Name">
                     <div style="color: red" *ngIf="lastName.hasError('required') && lastName.touched">
-                        * Last Name is required!
+                        * Nom obligatoire!
                     </div>
                 </div>
              </div>
@@ -52,7 +54,7 @@
 
 
              <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Role</label>
+                <label class="col-md-3 col-form-label" for="select1">Role:</label>
                 <div class="col-md-9">
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
                         <option [selected]="currentRole==0" value="0">Please select</option>
@@ -62,12 +64,14 @@
                         <option [selected]="currentRole==4" value="4">Operational</option>
                         <option [selected]="currentRole==5" value="5">Commercial</option>
                         <option [selected]="currentRole==6" value="6">CLIENT</option>
+                      <option  [selected]="currentRole==7"  [hidden]="currentUser.role!='ADMIN'" value="7">ADMIN</option>
+
                     </select>
                 </div>
              </div>
 
              <div *ngIf="currentRole==3" class="form-group row">
-                <label class="col-md-3 col-form-label" for="select12">Type fournisseur</label>
+                <label class="col-md-3 col-form-label" for="select12">Type fournisseur:</label>
                 <div class="col-md-9">
                     <select (change)="onChangeProvider($event.target.value)" id="select12" name="select12"
                         class="form-control">
@@ -81,11 +85,11 @@
              
 
              <div *ngIf="currentRole!=6" class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Sex</label>
+                <label class="col-md-3 col-form-label" for="select1">Genre:</label>
                 <div class="col-md-9">
                     <select (change)="onChangeGender($event.target.value)" id="select1" name="select1"
                         class="form-control">
-                        <option [selected]="currentGender==0" value="0">choisir un sex</option>
+                        <option [selected]="currentGender==0" value="0">choisir genre</option>
                         <option [selected]="currentGender==1" value="1">masculin</option>
                         <option [selected]="currentGender==2" value="2">feminin</option>
 
@@ -94,11 +98,11 @@
              </div>
 
              <div *ngIf="currentRole!=6" class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Situation social</label>
+                <label class="col-md-3 col-form-label" for="select1">Situation sociale:</label>
                 <div class="col-md-9">
                     <select (change)="onChangeSituation($event.target.value)" id="select1" name="select1"
                         class="form-control">
-                        <option [selected]="currentSituation==0" value="0">choisir un sex</option>
+                        <option [selected]="currentSituation==0" value="0">choisir</option>
                         <option [selected]="currentSituation==1" value="1">célibataire</option>
                         <option [selected]="currentSituation==2" value="2">marié(e)</option>
                         <option [selected]="currentSituation==3" value="3">divorcé(e)</option>
@@ -123,7 +127,7 @@
             </div>
 
              
-        </article>
+        </div>
 
 
 
@@ -131,13 +135,13 @@
 
     
 
-        <article class="col-md-5 col-md-offset-5">
+        <div class="col-md-5 col-md-offset-5">
 
 
            
 
   <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Pays</label>
+        <label class="col-md-3 col-form-label" for="text-input">Pays de naissance:</label>
         <div class="col-md-9">
             <input formControlName="paysd" type="text" name="text-input" class="form-control"
                 placeholder="Pays de naissance">
@@ -151,7 +155,7 @@
 
            
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Pays</label>
+        <label class="col-md-3 col-form-label" for="text-input">Pays de résidence:</label>
         <div class="col-md-9">
             <input formControlName="pays" type="text" name="text-input" class="form-control" placeholder="Pays">
             <div style="color: red" *ngIf="pays.hasError('required') && pays.touched">
@@ -163,7 +167,7 @@
 
 
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Ville</label>
+        <label class="col-md-3 col-form-label" for="text-input">Ville:</label>
         <div class="col-md-9">
             <input formControlName="ville" type="text" name="text-input" class="form-control"
                 placeholder="ville de résidence">
@@ -174,7 +178,7 @@
     </div>
             
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Adresse</label>
+        <label class="col-md-3 col-form-label" for="text-input">Adresse:</label>
         <div class="col-md-9">
             <input formControlName="adress" type="text" name="text-input" class="form-control"
                 placeholder="Adresse">
@@ -185,7 +189,7 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Phone Number</label>
+        <label class="col-md-3 col-form-label" for="text-input">Numéro de Telephone:</label>
         <div class="col-md-9">
             <input formControlName="phonenumber" type="text" name="text-input" class="form-control"
                 placeholder="phone Number">
@@ -204,7 +208,7 @@
 
 
     <div *ngIf="currentRole!=6 " class="form-group row">
-        <label class="col-md-3 col-form-label" for="select1">Formation</label>
+        <label class="col-md-3 col-form-label" for="select1">Formation:</label>
         <div class="col-md-9">
         
             <select (change)="onChangeFormation($event.target.value)" id="select1" name="select1"
@@ -220,47 +224,37 @@
             </select>
         
     </div>
-     </div>
-
-     
-
-    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
- 
-            
-       </article>   
-
-
-
-    </div>
-
-
-
-
-       <h1>Données pro</h1>
-       <div class="row">
+     </div>          
+    </div>   
+</div>
+ <h1>Données professionnelle</h1>
+<div class="row">
            
       
-   <article class="col-md-5">
+   <div class="col-md-5">
+
+    
 
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
+
+        <label class="col-md-3 col-form-label" for="email-input">Email:</label>
         <div class="col-md-9">
             <input formControlName="email" type="email" id="email-input" class="form-control"
                 placeholder="Enter Email">
             <div style="color: red" *ngIf="email.hasError('required') && email.touched">
                 * Email is required!</div>
             <div style="color: red" *ngIf="email.hasError('pattern') && email.touched">
-                * This email format is invalid!</div>
+                * This email format is invalid!
             <span class="help-block">Please enter your email</span>
         </div>
     </div>
 
- 
+</div>
 
 
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            years of experience</label>
+           Nombre d'année d'experience</label>
         <div class="col-md-9">
             <input formControlName="yearsExperience" type="number" name="text-input" class="form-control"
                 placeholder="years experience">
@@ -272,7 +266,7 @@
 
     <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            Salaire</label>
+            Salaire:</label>
         <div class="col-md-9">
             <input formControlName="salaire" type="number" name="text-input" class="form-control"
                 placeholder="dinar salary">
@@ -299,35 +293,38 @@
 
   
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="password-input">Password</label>
+        <label class="col-md-3 col-form-label" for="password-input">Password :</label>
         <div class="col-md-9">
             <input formControlName="password" type="password" class="form-control" placeholder="Password">
             <div style="color: red" *ngIf="password.hasError('required') && password.touched">
-                * Password is required!</div>
-            <span class="help-block">Please enter a complex password</span>
+                * Mot de passe est obligatoire!</div>
+            <span class="help-block">veuillez saisir mot de passe complexe</span>
         </div>
     </div>
+
+
+
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="password-input">Confirm Password</label>
+        <label class="col-md-3 col-form-label" for="password-input">Confirm password :</label>
         <div class="col-md-9">
             <input formControlName="confirmPassword" type="password" class="form-control"
                 placeholder="confirmPassword">
             <div style="color: red" *ngIf="confirmPassword.touched">
                 <div *ngIf="confirmPassword.hasError('required')">
-                    * Confirm Password is required!
+                    * confirmez Mot de passe!
                 </div>
                 <div *ngIf="confirmPassword.hasError('mustMatch')">
-                    * Password must Match!
+                    * Mot de passe n'est pas identique!
                 </div>
             </div>
-            <span class="help-block">Please repeat your password</span>
+            <span class="help-block">Resaisir  Mot de passe</span>
         </div>
     </div>
 
     
 
     
-</article>
+</div>
 
 
 
@@ -335,21 +332,21 @@
 
 
 
-<article class="col-md-5 col-md-offset-5">
+<div class="col-md-5 col-md-offset-5">
     <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            IMMATRICULE </label>
+            matricule : </label>
         <div class="col-md-9">
-            <input formControlName="maxvacation" type="number" name="text-input" class="form-control"
-                placeholder="Immatricule cnss || fical">
-            <div style="color: red" *ngIf=" maxvacation.hasError('required') &&  maxvacation.touched">
+            <input formControlName="immatricule" type="text" name="text-input" class="form-control"
+                placeholder="matricule fiscale  || cnss">
+            <div style="color: red" *ngIf=" immatricule.hasError('required') &&  immatricule.touched">
 
             </div>
         </div>
     </div>
     <div *ngIf="currentRole!=6 && currentRole!=3" class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            SOLDE DES CONGES</label>
+            Solde des congés :</label>
         <div class="col-md-9">
             <input formControlName="vacations" type="number" name="text-input" class="form-control"
                 placeholder="solde des conges valide par default 0">
@@ -362,11 +359,11 @@
 
     <div *ngIf="currentRole!=6 " class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            NUMERO CIN</label>
+            Numéro cin:</label>
         <div class="col-md-9">
-            <input formControlName="maxmaladie" type="number" name="text-input" class="form-control"
+            <input formControlName="cin" type="text" name="text-input" class="form-control"
                 placeholder="NUMERO CIN">
-            <div style="color: red" *ngIf=" maxmaladie.hasError('required') &&  maxmaladie.touched">
+            <div style="color: red" *ngIf=" cin.hasError('required') &&  cin.touched">
 
             </div>
         </div>
@@ -379,7 +376,7 @@
   
     <div *ngIf="currentRole==3" class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            TJM en Presenciel</label>
+            Tjm en Presenciel</label>
         <div class="col-md-9">
             <input formControlName="tjme" type="number" name="text-input" class="form-control"
                 placeholder="Tarif Jour homme en Presenciel">
@@ -390,7 +387,7 @@
     </div>
     <div *ngIf="currentRole==3" class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">
-            TJM en Distanciel</label>
+            Tjm en Distanciel</label>
         <div class="col-md-9">
             <input formControlName="tjmd" type="number" name="text-input" class="form-control"
                 placeholder="Tarif Jour homme en Distanciel">
@@ -412,11 +409,21 @@
             </div>
         </div>
     </div>
- 
 
-</article>   
+    <div *ngIf="currentRole!=6" class="form-group row">
+  
+        <label class="col-md-3 col-form-label" for="text-input">
+            Competence:</label>
+        <div class="col-md-9">
+            <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
+                placeholder="pas de competence selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
+            </ngx-select>
+        </div>
+    </div>
+
+</div>   
+
 </div>
-
 
 
 
@@ -432,7 +439,7 @@
 <div class="row">
 
 <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
-    creer</button>
+    Creation</button>
 <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
 
 
@@ -445,32 +452,6 @@
 
 
 
-<div *ngIf="currentRole !=6" class="form-group row">
-    <label class="col-md-3 col-form-label" for="text-input">
-        Competences</label>
-    <div class="col-md-9">
-        <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
-            placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
-        </ngx-select>
-    </div>
-</div>
 
-<div *ngIf="currentRole != 6" class="form-group row">
-    <label class="col-md-3 col-form-label" for="text-input">
-        Certifications</label>
-    <div class="col-md-9">
-        <ngx-select [multiple]="true" [items]="certifs" [optionTextField]="'label'" [autoClearSearch]="true"
-            placeholder="certifications non selectionné" name="test"
-            (selectionChanges)="doSelectOptionsC($event)">
-        </ngx-select>
-    </div>
-</div>
-<div>
-<ng-container>
-    <dd> Ajout Competence</dd>
-    <dt>
-      <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
-        placeholder="Skills non selectionné" name="test" (selectionChanges)="doSelectOptions($event)">
-      </ngx-select>
-    </dt>
-  </ng-container></div>
+
+

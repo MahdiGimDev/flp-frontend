@@ -10,11 +10,11 @@ import { prospectCreateModel } from '../models/auth.model';
     providedIn: "root",
   })
   export class ProspectService {
-    baseUrl = `${environment.backend}/prospetions`;
+    baseUrl = `${environment.backend}/prospections`;
     constructor(private http: HttpClient) {}
   
     createPros(pros: prospectCreateModel) {
-      return this.http.put(this.baseUrl + "/save", pros);
+      return this.http.post(this.baseUrl + "/save", pros);
     }
   
     getAllProspect() {

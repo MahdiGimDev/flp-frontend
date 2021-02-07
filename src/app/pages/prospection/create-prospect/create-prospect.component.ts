@@ -33,13 +33,20 @@ export class CreateProspectComponent implements OnInit {
 
   createForm() {
     this.prospForm = this.fb.group({
-      nom: ["Brain Consulting"],
-      secteur: ["IT"],
+      nom: ["aa"],
+      secteur: ["bb"],
+      phonenumber: ["cc"],
+      Type: ["dd"],
+      email: ["dede"],
+      pays: ["Tunisie"],
+
+      vile: ["Tunis"],
+      yearsExperience: [0],
       startDate: [new Date()],
       endDate:[new Date()],
-      sujet: ["consulting"],
-      addresse: ["Lac1,Tunis",],
-     description: ["n'importe",],
+      sujet: ["dede"],
+      addresse: ["dede"],
+     description: ["dede"],
     });
   }
 
@@ -101,31 +108,31 @@ export class CreateProspectComponent implements OnInit {
     }
     this.errorMessageMission = "";
     this.successMessageMission = "";
-    let stat: any;
+    let status: any;
     if (this.currentStatus==1){
 
-      stat=='non prospecté';
+      status=='non prospecté';
 
     }
     else if (this.currentStatus==2){
 
-      stat=='EN COURS DE PROSPECTION';
+      status=='EN COURS DE PROSPECTION';
 
       
     }
     else if (this.currentStatus==3){
 
-      stat=='Prospécté avec succés';
+      status=='Prospécté avec succés';
 
 
     }
     else if (this.currentStatus==4){
 
-      stat=='a recontacter';
+      status=='a recontacter';
      
     }
     else if (this.currentStatus==5){
-      stat=='prospécté avec refus';
+      status=='prospécté avec refus';
 
     }
 
@@ -146,12 +153,13 @@ export class CreateProspectComponent implements OnInit {
       startDate: date,
       endDate: dateE,
       file: this.prosp.file,
-      pays: this.prosp.pays,
-      type: this.prosp.type,
+      pays: this.prospForm.get("pays").value,
+      type: this.prospForm.get("type").value,
+      ville: this.prospForm.get("ville").value,
+      email: this.prospForm.get("email").value,
+      phonenumber: this.prospForm.get("phonenumber").value,
 
-      ville: this.prosp.ville,
-      email: this.prosp.email,
-      phonenumber: this.prosp.phonenumber,
+    
       sujet: this.prospForm.get("sujet").value,
       status,
       yearsExperience:0,

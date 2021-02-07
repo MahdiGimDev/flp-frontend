@@ -38,6 +38,13 @@ export class UsersService {
   getUsersBySkills(skills: string, missionId) {
     return this.http.get(`${this.baseUrl}/skills/${missionId}?skill=${skills}`);
   }
+
+
+  getAllSkillsByUser(skills: string, userID) {
+    return this.http.get(`${this.baseUrl}/skillsuser/${userID}?skill=${skills}`);
+  }
+
+
   getUsers(page = 1, limit = 10) {
     const params: HttpParams = new HttpParams()
       .set("page", `${page}`)

@@ -8,11 +8,11 @@ import { NgxSelectModule } from "ngx-select-ex";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CreateMissionComponent } from "./create-mission/create-mission.component";
 
-import { MissionConfirmedDetailComponent } from "./mission-confirmed-detail/mission-confirmed-detail.component";
 
 import { MissionListComponent } from "./mission-list/mission-list.component";
 import { MissionDetailComponent } from "./mission-detail/mission-detail.component";
 import { SharedModule } from '../../shared/shared.module';
+import { MissionOfferViewComponent } from './mission-offer-view/mission-offer-view.component';
 
 const routes: Routes = [
   {
@@ -24,10 +24,7 @@ const routes: Routes = [
     component: MissionDetailComponent,
   },
 
-  {
-    path: "detailConfirmed/:id",
-    component: MissionConfirmedDetailComponent,
-  },
+ 
   /*{
     path: "all",
     component: MissionListComponent,
@@ -43,8 +40,8 @@ const routes: Routes = [
   declarations: [
     CreateMissionComponent,
     MissionListComponent,
-    MissionConfirmedDetailComponent,
     MissionDetailComponent,
+    MissionOfferViewComponent,
   ],
   imports: [
     CommonModule,

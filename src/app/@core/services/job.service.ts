@@ -36,12 +36,15 @@ export class JobService {
   getJobById(id: number) {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
+
   assignUserToJob(id: number, idUser: number) {
     return this.http.patch(`${this.baseUrl}/assign/${id}/${idUser}`, {});
   }
+
   assignQuizToJob(id: number, idQuiz: number) {
     return this.http.patch(`${this.baseUrl}/quiz/${id}/${idQuiz}`, {});
   }
+  
   removeQuizFromJob(id: number) {
     return this.http.patch(`${this.baseUrl}/quiz/${id}`, {});
   }

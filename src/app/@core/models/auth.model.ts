@@ -25,8 +25,8 @@ export interface RegisterModel {
   typep: string;
   startDate: string;
   vacations: number;
-  maxvacation: number;
-  maxmaladie: number;
+  immatricule: string;
+  cin: string;
   vacationmaladie: number;
   dateBirth: string;
   email: string;
@@ -129,6 +129,7 @@ export interface prospectCreateModel {
   nom: string;
   type: string;
   secteur: string;
+
   sujet: string;
   startDate: string;
   endDate: string;
@@ -156,6 +157,8 @@ export interface MissionCreateModel {
   planfile: string;
   technologies: string;
   level: string;
+  purchase:string;
+  invoice:string;
   categorie: string;
   startDate: string;
   endDate: string;
@@ -174,6 +177,7 @@ export interface MissionCreateModel {
   suggestion?: Array<UserModel>;
   user?: UserModel;
   client?: UserModel;
+  quiz?: QuizModel;
 }
 
 export interface SkillsCreateModel {

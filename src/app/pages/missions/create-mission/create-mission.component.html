@@ -16,7 +16,7 @@
                     <input formControlName="title" type="text" name="text-input" class="form-control"
                         placeholder="Mission Title ">
                     <div style="color: red" *ngIf="title.hasError('required')">
-                        * Title is required!
+                        * Titre obligatoire!
                     </div>
                 </div>
             </div>
@@ -46,19 +46,19 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                   speciality</label>
+                   Specialité:</label>
                 <div class="col-md-9">
                     <input formControlName="technologies" type="text" name="text-input" class="form-control"
                         placeholder="technologies">
                     <div style="color: red" *ngIf="technologies.hasError('required')">
-                        * speciality is required!
+                        * Specialité!
                     </div>
                 </div>
             </div>
             
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    technologies</label>
+                    Competence</label>
                 <div class="col-md-9">
                     <ngx-select [multiple]="true" [items]="skills" [optionTextField]="'label'" [autoClearSearch]="true"
                         placeholder="No skills selected" name="test" (selectionChanges)="doSelectOptions($event)">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">experience level</label>
+                <label class="col-md-3 col-form-label" for="select1">Niveau d'experience</label>
                 <div class="col-md-9">
                     <select (change)="onChangeLevel($event.target.value)" id="select1" name="select1"
                         class="form-control">
@@ -86,7 +86,7 @@
                         [nbDatepicker]="formpicker">
                     <nb-datepicker #formpicker></nb-datepicker>
                     <div style="color: red" *ngIf=" startDate.hasError('required')">
-                        * Start Date is required!
+                        * Date Debut obligatoire!
                     </div>
                 </div>
             </div>
@@ -99,29 +99,29 @@
                         [nbDatepicker]="formpicker1">
                     <nb-datepicker #formpicker1></nb-datepicker>
                     <div style="color: red" *ngIf=" endDate.hasError('required')">
-                        * End Date is required!
+                        *Date Fin  obligatoire!
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Period</label>
+                    Jr-homme</label>
                 <div class="col-md-9">
                     <input formControlName="period" type="number" name="text-input" class="form-control"
-                        placeholder="Period">
+                        placeholder="Nombre de jours-homme de la mission">
                     <div style="color: red" *ngIf=" period.hasError('required')">
-                        * Period is required!
+                        * Nombre Jr-homme!
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Address</label>
+                    Adresse</label>
                 <div class="col-md-9">
                     <input formControlName="address" type="text" name="text-input" class="form-control"
                         placeholder=" emplacement">
                     <div style="color: red" *ngIf="address.hasError('required')">
-                        * Address is required!
+                        * Emplacement du client!
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                     <textarea rows="5" cols="30" wrap="soft|hard" formControlName="description" class="form-control" type="textarea"
                         name="textarea" placeholder="Description of mission"></textarea>
                     <div style="color: red" *ngIf="description.hasError('required')">
-                        * description is required!
+                        * description obligatoire!
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
 
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="text-input">
-                    Selected Client</label>
+                  Selectionnez Client</label>
                 <div class="col-md-9">
                     <div class="form-control">
                         <ng-container *ngIf="!selectedUser">
@@ -165,7 +165,7 @@
                         </ng-container>
                     </div>
                     <div style="color: red" *ngIf="!selectedUser">
-                        * User Is is required!
+                        * Client obligatoire!
                     </div>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                 </ng2-smart-table>
             </div>
             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-dot-circle-o"></i>
-                create mission</button>
+                creation</button>
             <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
          
 

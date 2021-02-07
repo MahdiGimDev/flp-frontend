@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (title === "Log out") {
       this.logout();
     } else if (title === "Profile") {
-      this.router.navigateByUrl("/pages/users/profile");
+      this.router.navigateByUrl("/pages/users/detail/"+this.authService.getTokenData().id);
     }
   }
 

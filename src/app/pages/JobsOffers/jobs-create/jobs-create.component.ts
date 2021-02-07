@@ -188,7 +188,8 @@ export class JobsCreateComponent {
     try {
       const data: any = await this.jobService.createJob(this.job).toPromise();
       if (data.id) {
-        this.router.navigate(["/pages/jobs/all"]);
+        const jobID = data.id;
+        this.router.navigate(["/pages/jobs/detail", jobID]);
         this.successMessageJob = "Created successfully";
       } else {
         this.errorMessageJob = data?.message?.message;

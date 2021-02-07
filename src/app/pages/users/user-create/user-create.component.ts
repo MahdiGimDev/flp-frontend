@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Countries } from "app/@core/data/consts";
 import {
   certifsModel,
+  JwtPayload,
   RegisterModel,
   skillsModel,
 } from "app/@core/models/auth.model";
@@ -106,17 +107,17 @@ export class UserCreateComponent implements OnInit {
         firstName: ["Samir", Validators.required],
         lastName: ["provider", Validators.required],
         dateBirth: [new Date(), Validators.required],
-        pays: ["Algérie", Validators.required],
+        pays: ["Tunisie", Validators.required],
         paysd: ["Tunisie", Validators.required],
         ville: ["Tunis", Validators.required],
-        salaire: [10],
+        salaire: [1000],
         imageFile: [""],
-        maxvacation: [10],
-        vacationmaladie: [10],
-        maxmaladie: [10],
-        tjme: [10],
+        immatricule: [""], 
+        vacationmaladie: [10], 
+        cin: [""], 
+        tjme: [200],
         startDate: [new Date()],
-        tjmd: [10],
+        tjmd: [100],
         vacations: [10],
         yearsExperience: [10],
         adress: ["Tunis"],
@@ -141,9 +142,13 @@ export class UserCreateComponent implements OnInit {
       }
     );
   }
+  id = -1;
+  currentUser: JwtPayload;
   ngOnInit() {
     this.loadSkills();
     this.loadCertifs();
+    this.id = this.route.snapshot.params["id"];
+    this.currentUser = this.authService.getTokenData();
   }
 
   onChange(value) {
@@ -207,6 +212,9 @@ export class UserCreateComponent implements OnInit {
 
     if (this.currentRole == 6) {
       role = "CLIENT";
+    }
+    if (this.currentRole == 7) {
+      role = "ADMIN";
     }
     if (this.currentFormation == 1) {
       formation = "BAC";
@@ -306,13 +314,15 @@ export class UserCreateComponent implements OnInit {
       pays: this.userForm.get("pays").value,
       paysd: this.userForm.get("paysd").value,
       cv: this.userForm.value.cv,
+      certif: this.userForm.value.certif,
+
       file: this.userForm.value.imageFile,
       tjme: this.userForm.value.tjme,
       tjmd: this.userForm.value.tjmd,
       vacations: this.userForm.value.vacations,
-      maxvacation: this.userForm.value.maxvacation,
+      immatricule: this.userForm.get("immatricule").value,
       vacationmaladie: this.userForm.value.vacationmaladie,
-      maxmaladie: this.userForm.value.maxmaladie,
+      cin: this.userForm.value.get("cin").value,
       salaire: this.userForm.value.salaire,
       dateBirth: date,
       startDate: dated,
@@ -337,10 +347,15 @@ export class UserCreateComponent implements OnInit {
     });
     this.authService
       .registerUser(this.user, this.imageFile, this.cvFile)
+      
       .subscribe(
+        
         (data) => {
+          const jobID = this.user;
           if (data.success) {
-            this.router.navigate(["/pages/users/all"]);
+            if (window.confirm('User ajoutée avec succés'))
+
+            this.router.navigate(["/pages/users/detail" ,jobID]);
             this.successMessageUser = "Created successfully";
           } else {
             this.errorMessageUser = data?.message?.message;
@@ -463,12 +478,12 @@ export class UserCreateComponent implements OnInit {
     return this.userForm.get("vacationmaladie");
   }
 
-  get maxmaladie() {
-    return this.userForm.get("maxmaladie");
+  get immatricule() {
+    return this.userForm.get("immatricule");
   }
 
-  get maxvacation() {
-    return this.userForm.get("maxvacation");
+  get cin() {
+    return this.userForm.get("cin");
   }
 
   get lastName() {

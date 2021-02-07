@@ -176,10 +176,10 @@
                   <div class="col-6">
                     <dt>Photo</dt>
                     <dd *ngIf="!user.certif">
-                      Telecharger Photo
+                       Photo
                     </dd>
-                    <input style="overflow: hidden;" type="file" (change)="onImageChanged($event)" />
-                    <button (click)="onUploadImage()" class="btn btn-sm btn-info my-2"> Telecharger photo</button>
+                    <input style="overflow: hidden;" type="file" (change)="onImageChanged($event)" [hidden]="!editable"/>
+                    <button (click)="onUploadImage()" class="btn btn-sm btn-info my-2" [hidden]="!editable"> Telacharger photo</button>
                   </div>
 
 
@@ -192,9 +192,11 @@
                     <dd *ngIf="!user.cv">
                       pas de cv
                     </dd>
-                    <input style="overflow: hidden;" type="file" name="files" (change)="onFileChanged($event)" />
-                    <button (click)="onUploadCv()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile"> Telecharger
+                   
+                    <input style="overflow: hidden;" type="file" name="files" (change)="onFileChanged($event)" [hidden]="!editable" />
+                    <button (click)="onUploadCv()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFile" [hidden]="!editable"> Telecharger
                       Cv</button>
+                
                   </div>
                 </div>
 
@@ -210,8 +212,8 @@
                   pas de certif
                 </dd>
                 <input style="overflow: hidden;" style="width: 300px;" type="file" class="form-control" name="file"
-                  (change)="onFileChangedC($event)" />
-                <button (click)="onUploadCertif()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFileC"> Upload
+                  (change)="onFileChangedC($event)" [hidden]="!editable"/>
+                <button (click)="onUploadCertif()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFileC" [hidden]="!editable"> Upload
                   Certif</button>
                 </div>
 

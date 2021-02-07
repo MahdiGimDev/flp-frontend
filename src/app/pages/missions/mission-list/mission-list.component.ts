@@ -1,7 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { JwtPayload, missionModel,mission2Model } from "app/@core/models/auth.model";
+import { JwtPayload, missionModel, mission2Model } from "app/@core/models/auth.model";
 import { MissionsService } from "app/@core/services/missions.service";
 import { StatusCardComponent } from 'app/pages/dashboard/status-card/status-card.component';
 import { LocalDataSource } from "ng2-smart-table";
@@ -15,9 +15,9 @@ import { AuthService } from "../../../@core/auth/auth.service";
   styleUrls: ["./mission-list.component.scss"],
 })
 export class MissionListComponent implements OnInit {
-  statusList = ["all","en option","libre", "confirmer", "blocker", "realiser","en cours","annuler"];
+  statusList = ["all", "en option", "libre", "confirmer", "blocker", "realiser", "en cours", "annuler"];
   status = "all";
-  statusP="confirmer";
+  statusP = "confirmer";
   types = ["formation", "audit", "consulting", "autre"];
   settings = {
     add: {
@@ -89,15 +89,15 @@ export class MissionListComponent implements OnInit {
         title: "Nombre de jours",
         type: "string",
       },
-      
+
     },
   };
 
   missions: Array<missionModel> = [];
-  mission:mission2Model;
+  mission: mission2Model;
   source: LocalDataSource = new LocalDataSource();
   currentUser: JwtPayload;
-  
+
   constructor(
     private spinner: NgxSpinnerService,
     private authService: AuthService,
@@ -115,12 +115,12 @@ export class MissionListComponent implements OnInit {
       const statusP = `${params.role}`.toLowerCase();
 
       this.status = this.statusList.includes(status) ? status : "all";
-       console.log({status});
-       this.loadMissions();
+      console.log({ status });
+      this.loadMissions();
+    }
+    );
+    this.loadMissions();
   }
-  );
-  this.loadMissions();
-}
 
   async loadMissions() {
     let data: any = [];
@@ -131,40 +131,47 @@ export class MissionListComponent implements OnInit {
         this.currentUser.role == "PROVIDER" ||
         this.currentUser.role == "EMPLOYEE"
       ) {
+      if(this.status.toLowerCase() === "all"){
+        data = await this.missionService
+        .getAllEmployeeMissions(this.currentUser.id)
+        .toPromise();
+      }
+      
+      else {
         data = await this.missionService
           .getAllEmployeeMissions(this.currentUser.id)
           .toPromise();
-          
-      } else if ( this.currentUser.role =="COMMERCIAL"){
-        if(   this.status.toLowerCase() === "all" )
-        {
-          data = await this.missionService.getAllUserOwnerMissions(this.currentUser.id).toPromise();
-          console.log("my mission is"+this.mission)
+          data = data.filter(e => e.status.toLocaleLowerCase() == this.status);
+          console.log(this.status.toLocaleLowerCase());
+
+      } 
+    }else if (this.currentUser.role == "COMMERCIAL" ) {
+        if (this.status.toLowerCase() === "all") {
+          data = await this.missionService.getAllUserOwnerMissions().toPromise();
+          console.log("my mission is" + this.mission)
         }
         else {
-          data =await this.missionService.getAllMissions().toPromise();
-          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          data = await this.missionService.getAllUserOwnerMissions().toPromise();
+          data = data.filter(e => e.status.toLocaleLowerCase() == this.status);
           console.log(this.status.toLocaleLowerCase());
         }
-     
+
 
       }
-      else if (this.currentUser.role == "RH" ||this.currentUser.role == "ADMIN") 
-       {
-        if(this.status.toLowerCase() === "all")
-        {
+      else if (this.currentUser.role == "RH" || this.currentUser.role == "ADMIN" || this.currentUser.role == "OPERATIONAL") {
+        if (this.status.toLowerCase() === "all") {
           data = await this.missionService.getAllMissions().toPromise();
         }
         else {
-          data =await this.missionService.getAllMissions().toPromise();
-          data=data.filter(e=>e.status.toLocaleLowerCase()==this.status);
+          data = await this.missionService.getAllMissions().toPromise();
+          data = data.filter(e => e.status.toLocaleLowerCase() == this.status);
           console.log(this.status.toLocaleLowerCase());
         }
-        
+
       }
-      
-    
-      
+
+
+
 
       this.missions = data;
       this.source.load(data);
@@ -179,9 +186,9 @@ export class MissionListComponent implements OnInit {
 
 
     this.router.navigate(["/pages/missions/detail", missionID]);
-  
-    
-  
+
+
+
   }
 
   async onDeleteConfirm(event) {

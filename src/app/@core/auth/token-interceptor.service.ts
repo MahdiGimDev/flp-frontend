@@ -7,7 +7,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ErrorIntercept implements HttpInterceptor {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) { }
+  // inject token to every request in angular and run in
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.authService.getToken();
     if (!!accessToken) {
