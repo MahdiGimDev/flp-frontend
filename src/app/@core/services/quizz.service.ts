@@ -13,7 +13,7 @@ import {
 })
 export class QuizService {
   baseUrl = `${environment.backend}/quiz`;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllQuiz() {
     return this.http.get(this.baseUrl + "/all");
@@ -31,26 +31,25 @@ export class QuizService {
     return this.http.get(this.baseUrl + "/session/job/" + jobID);
   }
 
-
-  findSessionsByMission(jobID) {
-    return this.http.get(this.baseUrl + "/sessionmission/mission/" + jobID);
+  findSessionsByMission(missionId) {
+    return this.http.get(this.baseUrl + "/session/mission/" + missionId);
   }
   addQuiz(quiz: QuizModel) {
     return this.http.put(this.baseUrl + `/save`, quiz);
   }
 
-
   ///start quiz service methode
-  addSessionQuiz(quizID, session: QuizSessionModel, cv) {
+  addSessionQuiz(quizID, session: QuizSessionModel, file) {
     const form = new FormData();
     for (const [key, value] of Object.entries(session)) {
       form.append(`${key}`, value);
     }
-    if (cv) {
-      form.append("cv", cv);
+    if (file) {
+      console.log({file});
+      form.append("file", file);
     }
-
-    return this.http.put(this.baseUrl + `/session/${quizID}`,session);
+    console.log({form});
+    return this.http.post(this.baseUrl + `/session/${quizID}`, form);
   }
   submitProposition(responseID, responses: Array<any>) {
     const propositions = responses;
