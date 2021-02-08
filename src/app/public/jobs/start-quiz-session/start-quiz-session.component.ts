@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
 import { QuizService } from "../../../@core/services/quizz.service";
 import {
   QuizModel,
@@ -42,14 +42,6 @@ export class StartQuizSessionComponent implements OnInit {
     profil: "",
     adress: "",
   };
-
-  
-   
-    
-
-
-
- 
   start = false;
   finish = false;
   responses: Array<QuizResponseModel> = [];
@@ -57,7 +49,7 @@ export class StartQuizSessionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       if (params.id) {
@@ -65,30 +57,6 @@ export class StartQuizSessionComponent implements OnInit {
       }
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   async loadQuiz(id) {
     try {
@@ -127,12 +95,11 @@ export class StartQuizSessionComponent implements OnInit {
       console.log({ error });
     }
   }
-  countDown:Subscription;
+  countDown: Subscription;
   counter = 1800;
   tick = 1000;
   async onSubmit() {
     try {
-      
       const response = this.responses[this.indexQuestion];
       const responses = this.currentQuestion.propositions
         .filter((q) => q.valid)
@@ -141,30 +108,28 @@ export class StartQuizSessionComponent implements OnInit {
         .submitProposition(response.id, responses)
         .toPromise();
       this.indexQuestion += 1;
-      if (this.indexQuestion <= this.responses.length - 1 ||this.currentQuestion.duration==0 ) {
+      if (
+        this.indexQuestion <= this.responses.length - 1 ||
+        this.currentQuestion.duration == 0
+      ) {
         const rsp = this.responses[this.indexQuestion];
         this.loadQuestion(rsp.questionId);
-      }   
-      else {
+      } else {
         this.finish = true;
       }
-
-
-
-
     } catch (error) {
       console.log({ error });
     }
   }
-  errorMessage = ''
+  errorMessage = "";
   async startQuiz() {
     try {
-      this.errorMessage = '';
+      this.errorMessage = "";
       console.log({ filecv: this.selectedFile });
       const session: any = await this.quizService
         .addSessionQuiz(this.selectedQuiz.id, this.session, this.selectedFile)
         .toPromise();
-      if (window.confirm('Vous etes sur de vouloir démarrer le test quiz?'))
+      if (window.confirm("Vous etes sur de vouloir démarrer le test quiz?"))
         this.loadSession(session.id);
     } catch (error) {
       if (error.error) {
@@ -175,6 +140,4 @@ export class StartQuizSessionComponent implements OnInit {
       console.log({ error });
     }
   }
-
-
 }

@@ -117,7 +117,7 @@ export class ProfileDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.auth.getTokenData().id;
-   this.loadUser(this.id);
+    this.loadUser(this.id);
     this.loadSkills();
     this.loadCertifs();
   }
@@ -144,7 +144,7 @@ export class ProfileDetailComponent implements OnInit {
 
   public doSelectOptionsSkills = (options: INgxSelectOption[]) => {
     this.selectedSkills = [this.userEdit.skills];
-    this.selectedSkills= this.userEdit.skills
+    this.selectedSkills = this.userEdit.skills;
     options.map((option) => {
       this.selectedSkills.push(option.data?.id);
     });
@@ -152,7 +152,7 @@ export class ProfileDetailComponent implements OnInit {
 
   public doSelectOptionsCertif = (options: INgxSelectOption[]) => {
     this.selectedCertifs = [this.userEdit.certifs];
-    this.selectedCertifs= this.userEdit.certifs;
+    this.selectedCertifs = this.userEdit.certifs;
     options.map((option) => {
       this.selectedCertifs.push(option.data?.id);
     });
@@ -270,8 +270,14 @@ export class ProfileDetailComponent implements OnInit {
   }
   async onSaveChanges() {
     try {
-      const payload = { ...this.userEdit, selectedSkills : this.selectedSkills.length!=0
-        && this.selectedSkills!=this.userEdit.skills ? this.selectedSkills :this.userEdit.skills };
+      const payload = {
+        ...this.userEdit,
+        selectedSkills:
+          this.selectedSkills.length != 0 &&
+          this.selectedSkills != this.userEdit.skills
+            ? this.selectedSkills
+            : this.userEdit.skills,
+      };
       await this.userService.updateProfileUser(payload).toPromise();
       this.loadUser(this.userEdit.id);
     } catch (error) {

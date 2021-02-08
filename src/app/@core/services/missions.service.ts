@@ -101,9 +101,6 @@ export class MissionsService {
     return this.http.patch(`${this.baseUrl}/cours/${id}`, {});
   }
 
-
-
-
   updateMission(model: missionModel) {
     return this.http.patch(`${this.baseUrl}/update`, model);
   }
@@ -121,7 +118,7 @@ export class MissionsService {
   }
 
   removeQuizFromMission(id: number) {
-    return this.http.patch(`${this.baseUrl}/quiz/${id}`, {});
+    return this.http.delete(`${this.baseUrl}/quiz/${id}`, {});
   }
 
 
@@ -130,9 +127,6 @@ export class MissionsService {
     form.set("planfile", file);
     return this.http.post(`${this.baseUrl}/uploadplan/${userID}`, form);
   }
-  /////////////Upload files of situation administrative /////
-
-
 
   uploadDeviseMission(userID, file: any) {
     const form = new FormData();

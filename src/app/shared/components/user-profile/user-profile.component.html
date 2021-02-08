@@ -4,7 +4,7 @@
             <h5>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
             <p><strong>A propos: </strong> {{user.role}} </p>
             <p><strong>Experience: </strong> {{user.yearsExperience}} ans </p>
-          
+
 
             <ng-container *ngIf="admin">
                 <p><strong>Email: </strong> {{user.email}} </p>
@@ -16,7 +16,7 @@
                 <p><strong>Salaire: </strong> {{user.salaire}} Dinars </p>
                 <p *ngIf="user.role=='EMPLOYEE'"><strong>Solde des congés: </strong> {{user.vacations}} Jours </p>
 
-                <p><strong>situation: </strong> {{user.situation}}  </p>
+                <p><strong>situation: </strong> {{user.situation}} </p>
 
             </ng-container>
             <p>
@@ -34,11 +34,11 @@
         </div>
         <div class="col-4 text-center">
             <figure>
-                <img src="{{user.file || 'https://www.clipartmax.com/png/full/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png'}}" alt=""
-                    class="img-circle img-responsive">
+                <img src="{{user.file || 'https://www.clipartmax.com/png/full/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png'}}"
+                    alt="" class="img-circle img-responsive">
             </figure>
             <div class="col-md-9">
-                
+
                 <button (click)="onClickRow()" class="btn btn-info btn-sm mx-2">Detail</button>
             </div>
         </div>

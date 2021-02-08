@@ -4,8 +4,6 @@
         <div class="row">
             <article class="col-md-5">
 
-
-
             </article>
             <article class="col-md-5">
                 <nb-card-header>
@@ -64,9 +62,6 @@
                         {{mission.categorie}}
                     </div>
                 </div>
-
-
-
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="select1">Categorie :</label>
                     <div class="col-md-9">
@@ -115,8 +110,6 @@
                         {{mission.period}}
                     </div>
                 </div>
-
-
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">
                         Emplacement du client</label>
@@ -124,8 +117,6 @@
                         {{mission.address}}
                     </div>
                 </div>
-
-
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="textarea">
                         Description</label>
@@ -143,11 +134,6 @@
                         </ng-container>
                     </div>
                 </div>
-
-
-
-
-
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="textarea">
                         Status</label>
@@ -159,20 +145,17 @@
                 <div *ngIf="mission.user" class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">Email collaborateur:</label>
                     <div>
-                        <span> {{mission.user.email}}</span></div>
+                        <span> {{mission.user.email}}</span>
+                    </div>
                 </div>
-
                 <div class="form-check">
                     <form class="md-form my-3">
-
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                             [checked]="mission.planfile">
                         <label class="form-check-label" for="flexCheckDefault">Plan mission </label>
                         <input style="overflow: hidden;" type="file" name="files"
                             (change)="onFileChangePlanfile($event)"
                             [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'" />
-
-
                         <dd>
                             <button (click)="onUploadPlanMission()" class="btn btn-sm btn-info my-2"
                                 [disabled]="!selectedPlanFile"
@@ -180,16 +163,9 @@
                                 Plan de la mission</button>
                             <a *ngIf="mission.planfile" href="{{ mission.planfile }}" target="_blank">Afficher le
                                 plan</a>
-
                         </dd>
-
-
-
                     </form>
                 </div>
-
-
-
                 <div class="form-group row" *ngIf="currentUser.role=='RH'">
                     <ng-container>
                         <div class="d-flex flex-wrap justify-content-start">
@@ -212,34 +188,17 @@
                             Invitation</button>
                     </div>
                 </div>
-
-
-
-
-
             </article>
-
-
-
             <article class=col-md-5
                 *ngIf="mission.status =='CONFIRMER'|| mission.status == 'REALISER'|| mission.status == 'BLOCKER'|| mission.status == 'EN COURS'">
-
-
-
                 <h4>Situation administrative</h4>
-
-
-
                 <div class="form-check">
-
                     <form class="md-form my-3">
-
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                             [checked]="mission.bonfile">
                         <label class="form-check-label" for="flexCheckDefault">Bon de commande </label>
                         <input style="overflow: hidden;" type="file" name="files" (change)="onFileChanged($event)"
                             [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'" />
-
 
                         <dd>
                             <button (click)="onUploadBonfile()" class="btn btn-sm btn-info my-2"
@@ -247,39 +206,25 @@
                                 [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'"> ajout
                                 Bon commande fichier</button>
                             <a *ngIf="mission.bonfile" href="{{ mission.bonfile }}" target="_blank">Afficher</a>
-
                         </dd>
-
-
-
                     </form>
                 </div>
                 <div class="form-check">
                     <form class="md-form my-3">
-
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                             [checked]="mission.visa">
                         <label class="form-check-label" for="flexCheckDefault">Visa </label>
                         <input style="overflow: hidden;" type="file" name="files" (change)="onFileChangedVisa($event)"
                             [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'" />
-
-
                         <dd>
                             <button (click)="onUploadBonVisa()" class="btn btn-sm btn-info my-2"
                                 [disabled]="!selectedFileVisa"
                                 [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'"> ajout
                                 Visa fichier</button>
                             <a *ngIf="mission.visa" href="{{ mission.visa }}" target="_blank">Afficher</a>
-
                         </dd>
-
-
-
                     </form>
                 </div>
-
-
-
                 <div class="form-check">
                     <form class="md-form my-3">
 
@@ -288,56 +233,34 @@
                         <label class="form-check-label" for="flexCheckDefault">Devise </label>
                         <input style="overflow: hidden;" type="file" name="files" (change)="onFileChangedDevise($event)"
                             [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'" />
-
-
                         <dd>
                             <button (click)="onUploadBonDevise()" class="btn btn-sm btn-info my-2"
                                 [disabled]="!selectedFileDevise"
                                 [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'"> ajout
                                 Devise fichier</button>
                             <a *ngIf="mission.devise" href="{{ mission.devise }}" target="_blank">Afficher</a>
-
                         </dd>
-
-
-
                     </form>
                 </div>
-
-
-
-
                 <div class="form-check">
                     <form class="md-form my-3">
-
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                             [checked]="mission.transport">
                         <label class="form-check-label" for="flexCheckDefault">Transport </label>
-
-
                         <input style="overflow: hidden;" type="file" name="files"
                             (change)="onFileChangedTransport($event)"
                             [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'" />
-
-
                         <dd>
                             <button (click)="onUploadBonTransport()" class="btn btn-sm btn-info my-2"
                                 [disabled]="!selectedFileTransport"
                                 [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'"> ajout
                                 Transport fichier</button>
                             <a *ngIf="mission.transport" href="{{ mission.transport }}" target="_blank">Afficher</a>
-
                         </dd>
-
-
-
                     </form>
                 </div>
-
-
                 <div class="form-check">
                     <form class="md-form my-3">
-
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                             [checked]="mission.logement">
                         <label class="form-check-label" for="flexCheckDefault">Logement </label>
@@ -345,36 +268,23 @@
                         <input style="overflow: hidden;" type="file" name="files"
                             (change)="onFileChangedLogement($event)"
                             [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'" />
-
-
                         <dd>
                             <button (click)="onUploadBonLogement()" class="btn btn-sm btn-info my-2"
                                 [disabled]="!selectedFileLogement"
                                 [hidden]="currentUser.role !='OPERATIONAL' && currentUser.role !='ADMIN'"> ajout
                                 Logement fichier</button>
                             <a *ngIf="mission.logement" href="{{ mission.logement }}" target="_blank">Afficher</a>
-
                         </dd>
-
-
-
                     </form>
                 </div>
-
-
             </article>
-
-
-
         </div>
-
         <nb-card>
-
             <nb-card-header>
                 Creation facture et bon de commande
             </nb-card-header>
             <nb-card-body>
-                <div *ngIf="mission.status=='REALISER' ">
+                <div *ngIf="mission.status=='REALISER' " class="row">
                     <div
                         *ngIf="currentUser.role=='OPERATIONAL' || currentUser.role=='ADMIN' || currentUser.role=='COMMERCIAL' ">
                         Numero facture :
@@ -404,36 +314,28 @@
                             </div>
                             <div>
                                 <br>
-                                <strong> le total Hors Taxe :</strong>
+                                le total Hors Taxe :
                                 {{totalht}}
                             </div>
                             <div>
                                 <br>
-                                <strong> le total TTC :</strong>
+                                le total TTC :
                                 {{totalttc}}
                             </div>
 
                         </div>
                     </div>
-                    <div>
-
-                    </div>
-
-
                 </div>
                 <div *ngIf="mission.status=='CONFIRMER'" class="row">
-
                     <div
                         *ngIf="currentUser.role=='OPERATIONAL' || currentUser.role=='ADMIN' || currentUser.role=='COMMERCIAL' ">
                         Numero bon de commande :
                         <br>
                         <input type="text" [(ngModel)]="numFacture">
                         <br>
-
                         Tva fournisseur :
                         <br>
                         <input type="text" [(ngModel)]="tva">
-
 
                         <br>
                         Designation:
@@ -441,161 +343,136 @@
                         <textarea rows="5" cols="30" wrap="soft|hard" type="textarea"
                             [(ngModel)]="designation"></textarea>
 
-
-
                         <br>
-
-
                         <div *ngIf="mission.status=='CONFIRMER'">
                             <button class="btn btn-info btn-sm mx-3" (click)="totalttcMethodeFournisseur()">Calculer
                                 Total HT&TTC</button>
-
                         </div>
                         <div>
                             <br>
                             le total Hors Taxe :
-                            {{totalhtf || 0}}
+                            {{totalhtf}}
                         </div>
                         <div>
                             <br>
                             le total TTC :
-                            {{totalttcf || 0}}
+                            {{totalttcf}}
                             <br>
                         </div>
-
-
-                        <div>
-
-                        </div>
-
                     </div>
-
-                    <div>
-
-                    </div>
-
-
                 </div>
                 <div
                     *ngIf="mission.status=='REALISER'&& currentUser.role !='EMPLOYEE' && currentUser.role !='PROVIDER' && currentUser.role !='COMMERCIAL'">
-                    <button class="btn btn-success btn-sm mt-2" (click)="generateFacturePdf()">Generer Facture
+
+                    <button class="btn btn-success btn-sm" (click)="generateFacturePdf()">Generer Facture
                         client</button>
                 </div>
                 <div>
                 </div>
                 <div *ngIf="mission.status=='CONFIRMER' && currentUser.role !='EMPLOYEE' && currentUser.role !='PROVIDER' && currentUser.role !='COMMERCIAL'  "
                     class="row">
-                    <button class="btn btn-success btn-sm mt-2" (click)="generatePdfboncommande()">Generer Bon de
+                    <button class="btn btn-success btn-sm " (click)="generatePdfboncommande()">Generer Bon de
                         commande fournisseur</button>
                 </div>
                 <button (click)="methodePurchaseInvoice()" class="btn btn-info btn-sm mt-2"> save
                 </button>
             </nb-card-body>
         </nb-card>
+    </nb-card-body>
+</nb-card>
 
-        <nb-card *ngIf="currentUser.role == 'RH'||currentUser.role == 'OPERATIONAL'|| currentUser.role == 'ADMIN'">
-            <nb-card-header>
-                Collaborateurs invités
-            </nb-card-header>
-            <nb-card-body>
-                <ng-container *ngIf="!mission?.suggestion?.length">
-                    pas de collaborateurs invités </ng-container>
-                <div *ngFor="let user of mission?.suggestion">
-                    <div>
-                        <span>{{user.firstName}} {{user.lastName}}</span>
-                        <ng-container *ngIf="mission.status == 'APPROVED'">
-                            <span *ngIf="user.id ==  mission.user?.id"
-                                class="mx-2 btn btn-sm btn-success">Approuver</span>
-                            <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Refuser</span>
-                        </ng-container>
-                        <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2"> Voir profile
-                        </button>
-                        <ng-container *ngIf="mission.status == 'LIBRE'">
-                            <button (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Annuler
-                                Invitation</button>
-                        </ng-container>
-                    </div>
-                    <hr>
-                </div>
-
-
-
-
-            </nb-card-body>
-        </nb-card>
+<nb-card *ngIf="currentUser.role == 'RH'||currentUser.role == 'OPERATIONAL'|| currentUser.role == 'ADMIN'">
+    <nb-card-header>
+        Collaborateurs invités
+    </nb-card-header>
+    <nb-card-body>
+        <ng-container *ngIf="!mission?.suggestion?.length">
+            pas de collaborateurs invités </ng-container>
+        <div *ngFor="let user of mission?.suggestion">
+            <div>
+                <span>{{user.firstName}} {{user.lastName}}</span>
+                <ng-container *ngIf="mission.status == 'APPROVED'">
+                    <span *ngIf="user.id ==  mission.user?.id" class="mx-2 btn btn-sm btn-success">Approuver</span>
+                    <span *ngIf="user.id != mission.user?.id" class="mx-2 btn btn-sm btn-danger">Refuser</span>
+                </ng-container>
+                <button (click)="viewProfile(user)" class="btn btn-info btn-sm mx-2"> Voir profile
+                </button>
+                <ng-container *ngIf="mission.status == 'LIBRE'">
+                    <button (click)="onRemoveInvite(user)" class="btn btn-danger btn-sm  mx-2">Annuler
+                        Invitation</button>
+                </ng-container>
+            </div>
+            <hr>
+        </div>
+    </nb-card-body>
+</nb-card>
 
 
+<nb-card
+    *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN' || currentUser.role == 'OPERATIONAL' && mission.status=='LIBRE'">
+    <nb-card-header>
+        quiz affecté
+    </nb-card-header>
+    <nb-card-body>
 
-        <nb-card
-            *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN' || currentUser.role == 'OPERATIONAL' && mission.status=='LIBRE'">
-            <nb-card-header>
-                quiz affecté
-            </nb-card-header>
-            <nb-card-body>
-
-                <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="textarea">
-                        Quiz</label>
-                    <div class="col-md-9">
-                        <span>
-                            <ng-container *ngIf="mission.quiz">
-                                <strong>{{mission.quiz.title}} </strong>
-                                <button class="m-1 btn btn-sm btn-info" (click)="goToQuiz2(mission.quiz)">View</button>
-                                <button class="m-1 btn btn-sm btn-danger" (click)="onUnAssign2()">Remove </button>
-                            </ng-container>
-                            <ng-container *ngIf="!mission.quiz"> N/A </ng-container>
-                        </span>
-                    </div>
-                </div>
-
-
-
-            </nb-card-body>
-        </nb-card>
-
-
-
-
-
-        <ng-container
-            *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN' || currentUser.role == 'OPERATIONAL' ">
-            <nb-card *ngIf="mission.status == 'LIBRE'">
-                <nb-card-header>
-                    Collaborateurs suggérés
-                </nb-card-header>
-                <nb-card-body>
-                    <ng-container *ngIf="errorLogin">
-                        <small style="color: red;">{{ errorLogin }}</small>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea">
+                Quiz</label>
+            <div class="col-md-9">
+                <span>
+                    <ng-container *ngIf="mission.quiz">
+                        <strong>{{mission.quiz.title}} </strong>
+                        <button class="m-1 btn btn-sm btn-info" (click)="goToQuiz2(mission.quiz)">View</button>
+                        <button class="m-1 btn btn-sm btn-danger" (click)="onUnAssign2()">Remove </button>
                     </ng-container>
-                    <ng2-smart-table (custom)="onCustomAction($event)" [settings]="settings" [source]="userSource">
-                    </ng2-smart-table>
-                </nb-card-body>
-            </nb-card>
-        </ng-container>
+                    <ng-container *ngIf="!mission.quiz"> N/A </ng-container>
+                </span>
+            </div>
+        </div>
 
-        <ng-container
-            *ngIf="(currentUser.role == 'RH' || currentUser.role == 'ADMIN'|| currentUser.role == 'OPERATIONAL')&&!mission.quiz && mission.status =='LIBRE'">
-            <nb-card>
-                <nb-card-header>
-                    Quiz suggérés
-                </nb-card-header>
-                <nb-card-body>
-                    <ng-container *ngIf="errorLogin">
-                        <small style="color: red;">{{ errorLogin }}</small>
-                    </ng-container>
-                    <ng2-smart-table (custom)="onCustomAction2($event)" [settings]="settings2" [source]="quizSource2">
-                    </ng2-smart-table>
-                </nb-card-body>
-            </nb-card>
-        </ng-container>
 
-        <nb-card
-            *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN' || currentUser.role == 'OPERATIONAL' && mission.status =='LIBRE' ">
-            <nb-card-header>
-                Liste des candidatures
-            </nb-card-header>
-            <nb-card-body>
-                <ng2-smart-table [settings]="responseSettings2" [source]="responseSource2">
-                </ng2-smart-table>
-            </nb-card-body>
-        </nb-card>
+
+    </nb-card-body>
+</nb-card>
+
+<ng-container *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN' || currentUser.role == 'OPERATIONAL' ">
+    <nb-card *ngIf="mission.status == 'LIBRE'">
+        <nb-card-header>
+            Collaborateurs suggérés
+        </nb-card-header>
+        <nb-card-body>
+            <ng-container *ngIf="errorLogin">
+                <small style="color: red;">{{ errorLogin }}</small>
+            </ng-container>
+            <ng2-smart-table (custom)="onCustomAction($event)" [settings]="settings" [source]="userSource">
+            </ng2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</ng-container>
+
+<ng-container
+    *ngIf="(currentUser.role == 'RH' || currentUser.role == 'ADMIN'|| currentUser.role == 'OPERATIONAL') && !mission.quiz">
+    <nb-card>
+        <nb-card-header>
+            Quiz suggérés
+        </nb-card-header>
+        <nb-card-body>
+            <ng-container *ngIf="errorLogin">
+                <small style="color: red;">{{ errorLogin }}</small>
+            </ng-container>
+            <ng2-smart-table (custom)="onCustomAction2($event)" [settings]="settings2" [source]="quizSource2">
+            </ng2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</ng-container>
+
+<nb-card
+    *ngIf="currentUser.role == 'RH' || currentUser.role == 'ADMIN' || currentUser.role == 'OPERATIONAL' && mission.status =='LIBRE' ">
+    <nb-card-header>
+        Liste des candidatures
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="responseSettings2" [source]="responseSource2">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

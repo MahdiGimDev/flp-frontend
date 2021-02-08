@@ -126,8 +126,11 @@ export class JobsDetailComponent implements OnInit {
     let quiz: any = [];
     try {
       let skills = "";
-      this.job.skills.map((skill) => {
-        skills += skill.label + ",";
+      this.job.skills.map((skill, i) => {
+        skills += skill.label;
+        if (i < this.job.skills.length - 1) {
+          skills += ",";
+        }
       });
       quiz = await this.quizService
         .getQuizBySkills(skills, this.job.level)
