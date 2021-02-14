@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Subscription } from "rxjs";
 import { JobService } from "../../../@core/services/job.service";
+import { MissionsService } from "../../../@core/services/missions.service";
 import { QuizService } from "../../../@core/services/quizz.service";
 import {
   QuizModel,
@@ -13,11 +14,11 @@ import {
 } from "../../../pages/quizz/quizz.model";
 
 @Component({
-  selector: "ngx-start-quiz-session",
+  selector: "ngx-mission-quiz-session",
   templateUrl: "./start-quiz-session.component.html",
   styleUrls: ["./start-quiz-session.component.scss"],
 })
-export class StartQuizSessionComponent implements OnInit {
+export class StartQuizSessionMissionComponent implements OnInit {
   selectedFile: File;
   selectedQuiz: QuizModel = {
     id: 0,
@@ -51,34 +52,25 @@ export class StartQuizSessionComponent implements OnInit {
   responses2: QuizResponseModel;
   constructor(
     private route: ActivatedRoute,
-    private jobService: JobService,
+    private missionService: MissionsService,
     private quizService: QuizService
   ) {}
   ngOnInit(): void {
     const params = this.route.snapshot.params;
     if (params.id) {
-      this.loadJob(params.id);
+      this.loadMission(params.id);
     }
   }
-  async loadJob(id) {
+  async loadMission(id) {
     let data: any = [];
     try {
-      data = await this.jobService.getJobById(id).toPromise();
+      data = await this.missionService.getMissionById(id).toPromise();
       this.selectedQuiz = data.quiz;
-      this.session.jobId = data.id;
+      this.session.missionId = data.id;
     } catch (error) {
       console.log({ error });
     }
   }
-
-  // async loadQuiz(id) {
-  //   try {
-  //     const quiz: any = await this.quizService.getQuiz(id).toPromise();
-  //     this.selectedQuiz = quiz;
-  //   } catch (error) {
-  //     console.log({ error });
-  //   }
-  // }
 
   async loadSession(id) {
     try {

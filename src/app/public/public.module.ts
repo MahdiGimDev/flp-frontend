@@ -9,16 +9,31 @@ import { NgxSelectModule } from "ngx-select-ex";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ThemeModule } from "../@theme/theme.module";
 import { SharedModule } from "../shared/shared.module";
-import { CountdownModule } from 'ngx-countdown';
+import { CountdownModule } from "ngx-countdown";
 
 import { PublicLayoutComponent } from "./public-layout/public-layout.component";
 import { StartQuizSessionComponent } from "./jobs/start-quiz-session/start-quiz-session.component";
-import { MissionOfferViewComponent } from 'app/pages/missions/mission-offer-view/mission-offer-view.component';
+import { StartQuizSessionMissionComponent } from "./missions/start-quiz-session/start-quiz-session.component";
+import { MissionOfferViewComponent } from "./missions/mission-offer-view/mission-offer-view.component";
 
 const routes: Routes = [
   {
     path: "",
     component: PublicLayoutComponent,
+  },
+  {
+    path: "missions",
+    component: PublicLayoutComponent,
+    children: [
+      {
+        path: ":id",
+        component: MissionOfferViewComponent,
+      },
+      {
+        path: "quiz/:id",
+        component: StartQuizSessionMissionComponent,
+      },
+    ],
   },
   {
     path: "jobs",
@@ -28,35 +43,16 @@ const routes: Routes = [
         path: ":id",
         component: JobOfferViewComponent,
       },
-     
       {
         path: "quiz/:id",
         component: StartQuizSessionComponent,
       },
     ],
   },
-
-  {
-    path: "mission",
-    component: PublicLayoutComponent,
-    children: [
-      {
-        path: ":id",
-        component: MissionOfferViewComponent,
-      },
-     
-      {
-        path: "quiz/:id",
-        component: StartQuizSessionComponent,
-      },
-    ],
-  },
-
-  
 ];
 
 @NgModule({
-  declarations: [JobOfferViewComponent, StartQuizSessionComponent],
+  declarations: [JobOfferViewComponent, StartQuizSessionComponent,StartQuizSessionMissionComponent,MissionOfferViewComponent],
   imports: [
     CommonModule,
     CountdownModule,

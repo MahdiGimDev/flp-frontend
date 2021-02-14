@@ -4,10 +4,10 @@
             Détail de l'offre de mission
         </div>
         <div *ngIf="mission.quiz">
-            <a [routerLink]="['/missions/quiz/',mission.quiz.id]" class="btn btn-success btn-sm">Postuler une
-                candidature</a>
+            <a [routerLink]="['/missions/quiz/',mission.id]" class="btn btn-success btn-sm">Postuler une candidature</a>
         </div>
     </div>
+
     <div class="card-body">
         <span *ngIf="errorMessageJob" style="color: red;">
             {{ errorMessageJob }}
