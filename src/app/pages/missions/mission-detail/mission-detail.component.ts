@@ -324,6 +324,7 @@ export class MissionDetailComponent implements OnInit {
 
   async onUnAssign2() {
     this.errorLogin = "";
+    console.log('onUnAssign2');
     try {
       await this.missionService
         .removeQuizFromMission(this.mission.id)

@@ -47,6 +47,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   async loadUser() {
+    console.log('loading user !!!!');
+    
     try {
       const data: any = await this.userService
         .getUser(this.user.id)

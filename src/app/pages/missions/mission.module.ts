@@ -23,7 +23,7 @@ const routes: Routes = [
     path: "detail/:id",
     component: MissionDetailComponent,
   },
-
+ 
  
   /*{
     path: "all",
@@ -41,7 +41,7 @@ const routes: Routes = [
     CreateMissionComponent,
     MissionListComponent,
     MissionDetailComponent,
-    MissionOfferViewComponent,
+    
   ],
   imports: [
     CommonModule,

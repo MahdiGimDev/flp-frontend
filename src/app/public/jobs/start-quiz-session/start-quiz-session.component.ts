@@ -84,8 +84,6 @@ export class StartQuizSessionComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  timer = 0;
-  timerSub;
   async loadQuestion(id) {
     try {
       const question: any = await this.quizService.getQuestion(id).toPromise();
@@ -93,31 +91,13 @@ export class StartQuizSessionComponent implements OnInit {
       this.currentQuestion.propositions.map((prop) => {
         prop.valid = false;
       });
-      this.updateCountDown(this.currentQuestion.duration);
     } catch (error) {
       console.log({ error });
     }
   }
-  updateCountDown(timer) {
-    if (timer <= 10) {
-      timer = 30;
-    }
-    console.log({ timer });
-    if (!this.timerSub) {
-      clearInterval(this.timerSub);
-    }
-    this.timer = timer;
-    // Update the count down every 1 second
-    this.timerSub = setInterval(() => {
-      console.log("updated");
-      this.timer -= 1;
-      if (this.timer <= 0) {
-        this.onSubmit();
-        console.log("submit !!");
-        clearInterval(this.timerSub);
-      }
-    }, 1000);
-  }
+  countDown: Subscription;
+  counter = 1800;
+  tick = 1000;
   async onSubmit() {
     try {
       const response = this.responses[this.indexQuestion];
@@ -128,7 +108,10 @@ export class StartQuizSessionComponent implements OnInit {
         .submitProposition(response.id, responses)
         .toPromise();
       this.indexQuestion += 1;
-      if (this.indexQuestion <= this.responses.length - 1) {
+      if (
+        this.indexQuestion <= this.responses.length - 1 ||
+        this.currentQuestion.duration == 0
+      ) {
         const rsp = this.responses[this.indexQuestion];
         this.loadQuestion(rsp.questionId);
       } else {
