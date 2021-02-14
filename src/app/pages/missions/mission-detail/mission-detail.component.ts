@@ -131,7 +131,6 @@ export class MissionDetailComponent implements OnInit {
     skillsIds: [],
     suggestion: [],
   };
-
   currentLevel = 1;
   currentType = 1;
   errorMessageMission = "";

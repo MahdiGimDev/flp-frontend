@@ -4,7 +4,7 @@
             Détail de l'offre d'emploi
         </div>
         <div *ngIf="job.quiz">
-            <a [routerLink]="['/jobs/quiz/',job.quiz.id]" class="btn btn-success btn-sm">Postuler une candidature</a>
+            <a [routerLink]="['/jobs/quiz/',job.id]" class="btn btn-success btn-sm">Postuler une candidature</a>
         </div>
     </div>
     <div class="card-body">

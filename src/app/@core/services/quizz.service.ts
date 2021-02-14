@@ -48,7 +48,6 @@ export class QuizService {
       console.log({file});
       form.append("file", file);
     }
-    console.log({form});
     return this.http.post(this.baseUrl + `/session/${quizID}`, form);
   }
   submitProposition(responseID, responses: Array<any>) {
