@@ -9,7 +9,7 @@
                     <input type="tel" placeholder="Full Name" class="form-control" [(ngModel)]="session.name">
                 </div>
                 <div class="col-4">
-                    <input type="email"  placeholder="Email" class="form-control" [(ngModel)]="session.email">
+                    <input type="email" placeholder="Email" class="form-control" [(ngModel)]="session.email">
                 </div>
 
                 <div class="col-4">
@@ -75,8 +75,9 @@
                                     <div class="d-flex flex-row justify-content-between align-items-center mcq">
                                         <h5>Question {{indexQuestion+1}}</h5>
                                         <span>
-                                            <countdown [config]="{leftTime:question.duration}"></countdown>
-                                           
+                                            {{timer}} seconds left
+                                        </span>
+                                        <span>
                                             ({{indexQuestion+1}} of {{responses.length}})
                                         </span>
                                     </div>
@@ -107,7 +108,7 @@
                                     <button (click)="onSubmit()"
                                         class="btn btn-primary border-success align-items-center btn-success"
                                         type="button">
-                                        {{this.indexQuestion == this.responses.length - 1 ? 'Finish'  : 'Submit'}}
+                                        {{this.indexQuestion == this.responses.length - 1 ? 'Finish' : 'Submit'}}
                                         <i class="fa fa-angle-right ml-2"></i>
                                     </button>
                                 </div>
