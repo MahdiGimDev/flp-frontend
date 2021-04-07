@@ -36,11 +36,10 @@ export class CreateProspectComponent implements OnInit {
       nom: ["aa"],
       secteur: ["bb"],
       phonenumber: ["cc"],
-      Type: ["dd"],
+      type: ["cc"],
       email: ["dede"],
       pays: ["Tunisie"],
-
-      vile: ["Tunis"],
+      ville: ["Tunis"],
       yearsExperience: [0],
       startDate: [new Date()],
       endDate:[new Date()],
@@ -52,8 +51,9 @@ export class CreateProspectComponent implements OnInit {
 
 
 
-
+  currentStatus=1;
    currentType=1;
+
   selectedUser: UserModel = null;
   prosp: prospectCreateModel = {
   id:0,
@@ -76,7 +76,7 @@ export class CreateProspectComponent implements OnInit {
   };
   prospForm: FormGroup;
 
-  currentStatus = 1;
+  
   errorMessageMission = "";
   successMessageMission = "";
   userSource: LocalDataSource = new LocalDataSource();
@@ -97,46 +97,6 @@ export class CreateProspectComponent implements OnInit {
   async createProspect() {
     this.errorMessageMission = "";
     console.log({ form: this.prospForm });
-    if (this.prospForm.status == "INVALID") {
-      this.errorMessageMission = "error lors de la creation veuillez verifier";
-      return false;
-    }
-    
-    if (this.currentStatus === 0) {
-      this.errorMessageMission = "Invalid Type";
-      return false;
-    }
-    this.errorMessageMission = "";
-    this.successMessageMission = "";
-    let status: any;
-    if (this.currentStatus==1){
-
-      status=='non prospecté';
-
-    }
-    else if (this.currentStatus==2){
-
-      status=='EN COURS DE PROSPECTION';
-
-      
-    }
-    else if (this.currentStatus==3){
-
-      status=='Prospécté avec succés';
-
-
-    }
-    else if (this.currentStatus==4){
-
-      status=='a recontacter';
-     
-    }
-    else if (this.currentStatus==5){
-      status=='prospécté avec refus';
-
-    }
-
-
     const d2 = new Date(this.prospForm.get("endDate").value);
 
     const d = new Date(this.prospForm.get("startDate").value);
@@ -146,6 +106,41 @@ export class CreateProspectComponent implements OnInit {
 
     const diff = d2.getTime() - d.getTime();
     const days = diff / (1000 * 3600 * 24);
+
+    if (this.prospForm.status == "INVALID") {
+      this.errorMessageMission = "error lors de la creation veuillez verifier";
+      return false;
+    }
+    
+    if (this.currentStatus == 0) {
+      this.errorMessageMission = "Invalid Type";
+      return false;
+    }
+    this.errorMessageMission = "";
+    this.successMessageMission = "";
+    let status: any;
+    if (this.currentStatus == 1){
+      status=='non prospecté';
+    }
+    else if (this.currentStatus == 2){
+      status=='En cours de prospection';
+    }
+    else if (this.currentStatus == 3){
+
+      status=='Prospécté avec succés';
+
+
+    }
+    else if (this.currentStatus == 4){
+
+      status=='a recontacter';
+     
+    }
+    else if (this.currentStatus == 5 ){
+      status=='prospécté avec refus';
+
+    }
+
     this.prosp = {
       id: 0,
       nom: this.prospForm.get("nom").value,
@@ -158,8 +153,6 @@ export class CreateProspectComponent implements OnInit {
       ville: this.prospForm.get("ville").value,
       email: this.prospForm.get("email").value,
       phonenumber: this.prospForm.get("phonenumber").value,
-
-    
       sujet: this.prospForm.get("sujet").value,
       status,
       yearsExperience:0,
@@ -201,6 +194,10 @@ export class CreateProspectComponent implements OnInit {
     return this.prospForm.get("type");
   }
 
+
+  get status() {
+    return this.prospForm.get("status");
+  }
   get sujet() {
     return this.prospForm.get("sujet");
   }
@@ -241,7 +238,5 @@ export class CreateProspectComponent implements OnInit {
 
  
 
-  get status() {
-    return this.prospForm.get("status");
-  }
+ 
 }

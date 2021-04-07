@@ -183,7 +183,7 @@ export class MissionDetailComponent implements OnInit {
 
   /////////////////////////////////
 
-  ////////////////////////////////////calcule des total ttc && total Hors taxe
+  ////////////////////////////////////calcule des total ttc && total Hors taxe/////////////
   tva: string;
   tvaf: string;
   tvafm: string;
@@ -344,9 +344,9 @@ export class MissionDetailComponent implements OnInit {
 
   async onCustomAction2(event) {
     const quiz: QuizModel = event.data;
-    if (event.action === "assign") {
+    if (event.action === "affecter") {
       this.onAssign2(quiz);
-    } else if (event.action === "view") {
+    } else if (event.action === "afficher") {
       this.goToQuiz2(quiz);
     }
   }
@@ -443,6 +443,26 @@ export class MissionDetailComponent implements OnInit {
       console.log({ error });
     }
   }
+
+  async onRefuseInvitationToMission(user: UserModel) {
+    this.errorLogin = "";
+    let data: any = [];
+    try {
+      data = await this.missionService
+        . refuseInvitation(this.mission.id, this.currentUser.id)
+        .toPromise();
+      await this.loadMission(this.mission.id);
+    } catch (error) {
+      if (error.error) {
+        this.errorLogin = error.error.message;
+      } else {
+        this.errorLogin = "Internal server";
+      }
+      console.log({ error });
+    }
+  }
+
+
   async onConfirm() {
     this.errorLogin = "";
     let data: any = [];

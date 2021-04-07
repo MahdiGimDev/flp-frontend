@@ -129,7 +129,8 @@ export class MissionListComponent implements OnInit {
     try {
       if (
         this.currentUser.role == "PROVIDER" ||
-        this.currentUser.role == "EMPLOYEE"
+        this.currentUser.role == "EMPLOYEE" 
+       
       ) {
       if(this.status.toLowerCase() === "all"){
         data = await this.missionService
@@ -158,6 +159,25 @@ export class MissionListComponent implements OnInit {
 
 
       }
+
+      else if (this.currentUser.role == "CLIENT" ) {
+        if (this.status.toLowerCase() === "all") {
+          data = await this.missionService
+        .getAllClientMissions(this.currentUser.id)
+        .toPromise();
+        }
+        else {
+          data = await this.missionService
+            .getAllClientMissions(this.currentUser.id)
+            .toPromise();
+            data = data.filter(e => e.status.toLocaleLowerCase() == this.status);
+            console.log(this.status.toLocaleLowerCase());
+  
+        } 
+
+
+      }
+
       else if (this.currentUser.role == "RH" || this.currentUser.role == "ADMIN" || this.currentUser.role == "OPERATIONAL") {
         if (this.status.toLowerCase() === "all") {
           data = await this.missionService.getAllMissions().toPromise();

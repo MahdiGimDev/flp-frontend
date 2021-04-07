@@ -1,7 +1,7 @@
 <ng-container *ngIf="!edit">
     <div class="card">
         <div class="card-header">
-            Quiz Creation
+            Creation Quiz 
         </div>
         <div class="card-body">
             <div class="row">
@@ -17,7 +17,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Niveau</label>
                     <div class="col-md-9">
                         <select [(ngModel)]="selectedLevel" id="select1" name="select1" class="form-control">
-                            <option [selected]="selectedLevel==0" value="0">Select level</option>
+                            <option [selected]="selectedLevel==0" value="0">choisir niveau</option>
                             <option [selected]="selectedLevel==1" value="1">JUNIOR</option>
                             <option [selected]="selectedLevel==2" value="2">SENIOR</option>
                             <option [selected]="selectedLevel==3" value="3">EXPERT</option>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button (click)="addQuiz()" class="btn btn-success float-right">Add Quiz</button>
+            <button (click)="addQuiz()" class="btn btn-success float-right">Ajout Quiz</button>
         </div>
     </div>
 </ng-container>
@@ -47,12 +47,12 @@
 <ng-container *ngIf="edit">
     <div class="card">
         <div class="card-header">
-            Quiz Details
+            Details Quiz
         </div>
         <div class="card-body">
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="text-input">
-                    <strong>Name</strong>
+                    <strong>Nom</strong>
                 </label>
                 <div class="col-md-9">
                     {{selectedQuiz.title}}
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="text-input">
-                    <strong>Level</strong>
+                    <strong>Niveau</strong>
                 </label>
                 <div class="col-md-9">
                     {{selectedQuiz.level}}
@@ -80,7 +80,7 @@
     </div>
     <div class="card mt-3">
         <div class="card-header">
-            Add Quiz Questions
+            Ajout Questions Quiz
         </div>
         <div class="card-body">
             <div class="card">
@@ -105,7 +105,7 @@
                         </span>
                         <input class="form-control" [(ngModel)]="newQuestion.text" type="text" placeholder="Question">
                     </div>
-                    <button class="btn btn-sm btn-info" (click)="addProposition()">Add Proposition</button>
+                    <button class="btn btn-sm btn-info" (click)="addProposition()">Ajout Proposition</button>
                     <ng-container *ngFor="let proposition of newQuestion.propositions let i = index">
                         <div class="d-flex my-2">
                             <span class="p-2">
@@ -119,14 +119,14 @@
                     </ng-container>
                 </div>
                 <div class="card-footer">
-                    <button (click)="addQuestion()" class="btn btn-success float-right">Add Question</button>
+                    <button (click)="addQuestion()" class="btn btn-success float-right">Ajout Question</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="card mt-3">
         <div class="card-header">
-            Quiz Questions
+            Questions Quiz
         </div>
         <div class="card-body">
             <ngx-quiz-question-component [quiz]="selectedQuiz"></ngx-quiz-question-component>

@@ -175,7 +175,7 @@
                 <div class="row">
                   <div class="col-6">
                     <dt>Photo</dt>
-                    <dd *ngIf="!user.certif">
+                    <dd *ngIf="!user.file">
                        Photo
                     </dd>
                     <input style="overflow: hidden;" type="file" (change)="onImageChanged($event)" [hidden]="!editable"/>
@@ -202,20 +202,7 @@
 
            
                 <div class="row">
-                <div class="col-6" *ngIf="user.role!='CLIENT'">
-
-                <dt>Certif</dt>
-                <dd *ngIf="user.certif">
-                  <a href="{{ user.certif }}" target="_blank">Afficher</a>
-                </dd>
-                <dd *ngIf="!user.certif">
-                  pas de certif
-                </dd>
-                <input style="overflow: hidden;" style="width: 300px;" type="file" class="form-control" name="file"
-                  (change)="onFileChangedC($event)" [hidden]="!editable"/>
-                <button (click)="onUploadCertif()" class="btn btn-sm btn-info my-2" [disabled]="!selectedFileC" [hidden]="!editable"> Upload
-                  Certif</button>
-                </div>
+                
 
                 <div class="col-6" *ngIf="user.role=='PROVIDER'">
                   <dt>TJM en presentiel</dt>

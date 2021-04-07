@@ -346,7 +346,7 @@ export class DocumentCreateComponent implements OnInit {
         if (data.id) {
           
          
-          this.router.navigate(["/pages/documents/detail"]);
+          this.router.navigate(["/pages/documents/all"]);
           this.successMessageMission = "Created successfully";
         } else {
           this.errorMessageMission = data?.message?.message;

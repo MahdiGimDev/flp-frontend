@@ -32,7 +32,7 @@
                     <select (change)="onChange($event.target.value)" id="select1" name="select1" class="form-control">
                         <option [selected]="currentStatus==0" value="0">Selected please</option>
                         <option [selected]="currentStatus==1" value="1">Non prospecté</option>
-                        <option [selected]="currentStatus==2" value="2">EN COURS DE PROSPECTION</option>
+                        <option [selected]="currentStatus==2" value="2">En cours de prospection</option>
                         <option [selected]="currentStatus==3" value="3">Prospécté avec succés</option>
                         <option [selected]="currentStatus==4" value="4">A recontacter</option>
                         <option [selected]="currentStatus==5" value="5">Prospécté avec refus</option>
@@ -44,12 +44,10 @@
                 <label class="col-md-3 col-form-label" for="text-input">
                     Recontacter le </label>
                 <div class="col-md-9">
-                    <input class="form-control" formControlName="endDate" nbInput placeholder="date pour recontacter "
+                    <input class="form-control" formControlName="endDate" nbInput placeholder="date pour recontacter"
                         [nbDatepicker]="formpicker1">
                     <nb-datepicker #formpicker1></nb-datepicker>
-                    <div style="color: red" *ngIf="endDate.hasError('required')">
-                        * End Date is required!
-                    </div>
+                  
                 </div>
             </div>
 
@@ -59,9 +57,7 @@
                 <div class="col-md-9">
                     <input formControlName="secteur" type="text" name="text-input" class="form-control"
                         placeholder="secteur d'activité">
-                    <div style="color: red" *ngIf="secteur.hasError('required')">
-                        * secteur is required!
-                    </div>
+                   
                 </div>
             </div>
             
@@ -86,11 +82,9 @@
                 <label class="col-md-3 col-form-label" for="text-input">
                     sujet</label>
                 <div class="col-md-9">
-                    <input formControlName="sujet" type="string" name="text-input" class="form-control"
+                    <input formControlName="sujet" type="text" name="text-input" class="form-control"
                         placeholder="sujet">
-                    <div style="color: red" *ngIf="sujet.hasError('required')">
-                        
-                    </div>
+                   
                 </div>
             </div>
             <div class="form-group row">
@@ -99,9 +93,7 @@
                 <div class="col-md-9">
                     <input formControlName="addresse" type="text" name="text-input" class="form-control"
                         placeholder="emplacement">
-                    <div style="color: red" *ngIf="addresse.hasError('required')">
-                        
-                    </div>
+                   
                 </div>
             </div>
             <div class="form-group row">
@@ -110,9 +102,7 @@
                 <div class="col-md-9">
                     <textarea rows="5" formControlName="description" class="form-control" type="text"
                         name="text" placeholder="Description of mission"></textarea>
-                    <div style="color: red" *ngIf="description.hasError('required')">
-                        * description is required!
-                    </div>
+                    
                 </div>
             </div>
                

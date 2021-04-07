@@ -129,7 +129,6 @@ export interface prospectCreateModel {
   nom: string;
   type: string;
   secteur: string;
-
   sujet: string;
   startDate: string;
   endDate: string;

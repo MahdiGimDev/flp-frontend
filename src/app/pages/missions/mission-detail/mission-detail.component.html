@@ -1,5 +1,14 @@
 <nb-card>
+    <nb-card-header>
+        détail de l'offre de mission
+        <!-- AddToAny BEGIN -->
+        <div>
+            <div><a class="btn btn-sm btn-primary text-white"  href="https://www.facebook.com/sharer.php?u={{link}}">Partager sur Facebook</a></div>
+            <div><a class="btn btn-sm btn-info text-white" href="https://twitter.com/intent/tweet?url={{link}}">Partager sur Twitter</a></div>
+            <div><a class="btn btn-sm btn-warning text-white" href="https://www.linkedin.com/shareArticle?mini=true&url=google.com">Partager sur LinkedIn</a></div>
 
+        </div>
+    </nb-card-header>
     <nb-card-header>
         <div class="row">
             <article class="col-md-5">
@@ -184,8 +193,10 @@
                 </div>
                 <div *ngIf="currentUser.role == 'EMPLOYEE' || currentUser.role == 'PROVIDER'">
                     <div class="d-flex flex-wrap justify-content-start" *ngIf="mission.status == 'LIBRE'">
-                        <button (click)=" onAcceptInvitation()" class="btn btn-success btn-sm">Accepter
+                        <button (click)="onAcceptInvitation()" class="btn btn-success btn-sm">Accepter
                             Invitation</button>
+                            <button (click)="onRefuseInvitationToMission(user)" class="btn btn-success btn-danger">Refuser
+                                Invitation</button>
                     </div>
                 </div>
             </article>
@@ -279,7 +290,7 @@
                 </div>
             </article>
         </div>
-        <nb-card>
+        <nb-card *ngIf="currentUser.role !='PROVIDER' && currentUser.role !='EMPLOYEE' ">
             <nb-card-header>
                 Creation facture et bon de commande
             </nb-card-header>
@@ -374,8 +385,7 @@
                     <button class="btn btn-success btn-sm " (click)="generatePdfboncommande()">Generer Bon de
                         commande fournisseur</button>
                 </div>
-                <button (click)="methodePurchaseInvoice()" class="btn btn-info btn-sm mt-2"> save
-                </button>
+                
             </nb-card-body>
         </nb-card>
     </nb-card-body>
@@ -422,8 +432,8 @@
                 <span>
                     <ng-container *ngIf="mission.quiz">
                         <strong>{{mission.quiz.title}} </strong>
-                        <button class="m-1 btn btn-sm btn-info" (click)="goToQuiz2(mission.quiz)">View</button>
-                        <button class="m-1 btn btn-sm btn-danger" (click)="onUnAssign2()">Remove </button>
+                        <button class="m-1 btn btn-sm btn-info" (click)="goToQuiz2(mission.quiz)">afficher</button>
+                        <button class="m-1 btn btn-sm btn-danger" (click)="onUnAssign2()">supprimer</button>
                     </ng-container>
                     <ng-container *ngIf="!mission.quiz"> N/A </ng-container>
                 </span>

@@ -38,10 +38,11 @@ export class MissionsService {
   getAllClientMissions(idClient) {
     return this.http.get(this.baseUrl + `/client/${idClient}`);
   }
-  getAllEmployeeMissions(idClient) {
-    return this.http.get(this.baseUrl + `/employee/${idClient}`);
+  getAllEmployeeMissions(id) {
+    return this.http.get(this.baseUrl + `/employee/${id}`);
   }
 
+ 
 
 
   getAllUserOwnerMissions() {
@@ -74,6 +75,12 @@ export class MissionsService {
   acceptInvitation(id: number, idUser: number) {
     return this.http.patch(`${this.baseUrl}/suggest/${id}/${idUser}`, {});
   }
+
+  refuseInvitation(id: number, idUser: number) {
+    return this.http.delete(`${this.baseUrl}/refuses/${id}/${idUser}`, {});
+  }
+
+
   inviteUserToMission(id: number, idUser: number) {
     return this.http.patch(`${this.baseUrl}/suggest/${id}/${idUser}`, {});
   }

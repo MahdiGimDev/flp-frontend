@@ -166,7 +166,7 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
   },
 
   {
-    title: 'Gestion commercial',
+    title: 'Gestion prospects',
     icon: 'layout-outline',
     children: [
       {
@@ -177,6 +177,29 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
         title: 'tous les prospects',
         link: '/pages/prospections/all',
       },
+
+
+      {
+        title: 'prospectés avec succés',
+        link: '/pages/prospections/all',
+      },
+
+      {
+        title: 'tous les prospects',
+        link: '/pages/prospections/all',
+      },
+
+      {
+        title: 'tous les prospects',
+        link: '/pages/prospections/all',
+      },
+
+      {
+        title: 'tous les prospects',
+        link: '/pages/prospections/all',
+      },
+
+
     ],
   },
 
@@ -564,7 +587,7 @@ export const MENU_ITEMS_EMPLOYEE: NbMenuItem[] = [
   },
 
   {
-    title: 'Mes Formations & Experiences',
+    title: 'Formations & Experiences',
     icon: 'layout-outline',
     children: [
       {
@@ -589,6 +612,63 @@ export const MENU_ITEMS_EMPLOYEE: NbMenuItem[] = [
       },
     ],
   },
+];
+
+
+export const MENU_ITEMS_CLIENT: NbMenuItem[] = [
+  {
+    title: 'Acceuil',
+    icon: 'home-outline',
+    link: '/pages/iot-dashboard',
+    home: true,
+  },
+
+  {
+    title: 'Employee Freelance Provider',
+    group: true,
+  },
+  {
+    title: 'Gestion mes missions',
+    icon: 'layout-outline',
+    children: [
+      {
+        title: 'Tous mes missions',
+        link: '/pages/missions/all',
+      },
+      {
+        title: 'missions Libres',
+        link: '/pages/missions/libre',
+      },
+      {
+        title: 'missions En option',
+        link: '/pages/missions/en option',
+      },
+      {
+        title: 'missions dates Bloquées',
+        link: '/pages/missions/blocker',
+      },
+
+      {
+        title: 'missions Confirmées',
+        link: '/pages/missions/confirmer',
+      },
+      {
+        title: 'missions En cours',
+        link: '/pages/missions/en cours',
+      },
+
+      {
+        title: 'missions Realisées',
+        link: '/pages/missions/realiser',
+      },
+
+      {
+        title: 'missions Annulées',
+        link: '/pages/missions/annuler',
+      },
+    ],
+  },
+  
 ];
 export const MENU_ITEMS_COMMERCIAL: NbMenuItem[] = [
   {
@@ -690,7 +770,7 @@ export const MENU_ITEMS_COMMERCIAL: NbMenuItem[] = [
   },
 
   {
-    title: 'Mes Formations & Experiences',
+    title: 'Formations & Experiences',
     icon: 'layout-outline',
     children: [
       {
@@ -808,11 +888,11 @@ export const MENU_ITEMS_OPERATIONAL: NbMenuItem[] = [
   },
 
   {
-    title: 'Mes Formations & Experiences',
+    title: 'Formations & Experiences',
     icon: 'layout-outline',
     children: [
       {
-        title: 'Ajout formation & experience',
+        title: 'Ajout',
         link: '/pages/formations/new',
       },
       {
@@ -889,11 +969,11 @@ export const MENU_ITEMS_PROVIDER: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Mes Formations & Experiences',
+    title: 'Formations & Experiences',
     icon: 'layout-outline',
     children: [
       {
-        title: 'Ajout formation & experience & projets',
+        title: 'Ajout',
         link: '/pages/formations/new',
       },
       {

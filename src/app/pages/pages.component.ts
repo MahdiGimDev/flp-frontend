@@ -7,6 +7,7 @@ import {
   MENU_ITEMS_COMMERCIAL,
   MENU_ITEMS_PROVIDER,
   MENU_ITEMS_RH,
+  MENU_ITEMS_CLIENT,
   MENU_ITEMS_OPERATIONAL,
 } from './pages-menu';
 
@@ -35,6 +36,8 @@ export class PagesComponent {
       this.menu = MENU_ITEMS_RH;
     } else if (user.role === 'PROVIDER') {
       this.menu = MENU_ITEMS_PROVIDER;
+    }else if (user.role === 'CLIENT') {
+      this.menu = MENU_ITEMS_CLIENT;
     }
   }
 }

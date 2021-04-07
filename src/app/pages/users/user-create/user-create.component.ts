@@ -322,7 +322,7 @@ export class UserCreateComponent implements OnInit {
       vacations: this.userForm.value.vacations,
       immatricule: this.userForm.get("immatricule").value,
       vacationmaladie: this.userForm.value.vacationmaladie,
-      cin: this.userForm.value.get("cin").value,
+      cin: this.userForm.get("cin").value,
       salaire: this.userForm.value.salaire,
       dateBirth: date,
       startDate: dated,
